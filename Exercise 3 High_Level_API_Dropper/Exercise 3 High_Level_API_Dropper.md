@@ -6,7 +6,9 @@ sysall itself, we start by creating a high-level API (HLA) shellcode dropper bas
 - CreateThread
 - WaitForSingleObject
 
-## Workshop tasks: 
+
+
+## Workshop tasks
 - Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA dropper
 - Create staged x64 meterpreter shellcode with msfvenom and copy it into the C++ HLA Dropper POC. 
 - Compile the HLA Dropper as release or debug x64 
