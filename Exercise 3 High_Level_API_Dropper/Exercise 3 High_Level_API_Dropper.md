@@ -195,9 +195,3 @@ Using x64dbg I check from which region of the PE structure of the High Level API
 - Dropper imports VirtualAlloc from kernel32.dll...
 - ...then imports NtAllocateVirtualMemory from ntdll.dll...
 - ...and finally executes the corresponding syscall or syscall stub
-
-
-
-
-
-
