@@ -90,10 +90,14 @@ In this workshop we will only focus on the **Direct System Call** technique, i.e
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
 ### Prerequisites
-- Windows 10 LAB machine
+- Windows 10 DEV/LAB machine with no installed AV/EPP/EDR
 - Visual Studio Free 2019 
 - SysWhispers3 
 - Kali Linux (Metasploit/Meterpreter) 
+
+## Happy Hacking!
+I hope you enjoy the direct syscall workshop. Have fun with it!
+Daniel Feichter @VirtualAllocEx
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
@@ -110,13 +114,6 @@ All the step-by-step instructions and code samples can be found in the respectiv
 - https://github.com/klezVirus/SysWhispers3
 - Windows internals. Part 1 Seventh edition; Yosifovich, Pavel; Ionescu, Alex; Solomon, David A.; Russinovich, Mark E.
 - Pavel Yosifovich (2019): Windows 10 System Programming, Part 1: CreateSpace Independent Publishing Platform
-
-## Happy Hacking!
-
-I hope you enjoy the direct syscall workshop. Have fun with it!
-
-Happy Hacking!
-Daniel Feichter @VirtualAllocEx
 
 
 
