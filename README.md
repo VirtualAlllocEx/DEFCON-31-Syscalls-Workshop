@@ -85,11 +85,15 @@ From Red Team's perspective, the usermode hooking technique results in EDR makin
 - Indirect syscalls 
 - Direct syscalls 
 
-In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should now be clear and the development of the Direct System Call Dropper can begin.
+In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin. All the step-by-step instructions and code samples can be found in the respective tutorial folder. 
 
-## Shellcode Dropper: High Level APIs
-The high level API shellcode dropper uses no direct system calls at all and will be our reference code or dropper for the later following modifications. This code is simple and uses an easy way to allocate memory, copy and execute the shellcode. But based on the simplicity, the code is perfect to develope it step by step to a direct syscall dropper and teach the concept. Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
-![image](https://user-images.githubusercontent.com/50073731/235348949-61ce6861-9f21-4f59-869a-e169528ddcc1.png)
+I hope you enjoy the direct syscall workshop. Have fun with it!
+
+Happy Hacking!
+Daniel Feichter @VirtualAllocEx
+
+
+
 
 
 
