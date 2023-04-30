@@ -1,11 +1,6 @@
 ## Introduction
 In this exercise, we want to take the first step towards creating our own direct system call dropper. But to understand the principle of a legitimate
-sysall itself, we will start by creating a high-level API (HLA) shellcode dropper based on the Windows APIs, which will serve as a reference for later modifications. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. In the HLA dropper we use the following Windows APIs: 
-- VirtualAlloc
-- WriteProcessMemory
-- CreateThread
-- WaitForSingleObject
-
+sysall itself, we will start by creating a high-level API (HLA) shellcode dropper based on the Windows APIs, which will serve as a reference for later modifications.
 
 
 ## Workshop tasks
@@ -33,7 +28,14 @@ The easiest way is to create a new console app project and then replace the defa
 <img width="645" alt="image" src="https://user-images.githubusercontent.com/50073731/235357228-940ec56c-7565-44b8-8b6a-01a74ab15e1d.png">
 </p>
 
-The following code can be used for the high_level_dropper.cpp. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. The code works as follows. 
+The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. In the HLA dropper we use the following Windows APIs: 
+- VirtualAlloc
+- WriteProcessMemory
+- CreateThread
+- WaitForSingleObject
+
+
+The code works as follows. 
 
 Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
 <p align="center">
