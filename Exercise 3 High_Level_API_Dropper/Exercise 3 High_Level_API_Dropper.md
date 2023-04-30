@@ -1,6 +1,6 @@
 ## Introduction
 In this exercise, we want to take the first step towards creating our own direct system call dropper. But to understand the principle of a legitimate
-sysall itself, we will start by creating a **high-level API shellcode dropper in short HLA-dropper** based on the Windows APIs which are loaded by the kernel32.dll, which will serve as a reference for later modifications.
+sysall itself, we will start by creating a **high-level API shellcode dropper in short HLA-dropper** based on the Windows APIs which are loaded by the kernel32.dll, which will serve as a reference for later modifications. Which means, in the first step, I deliberately do not use native APIs or direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the Kernel32.dll.
 
 ![high_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
@@ -19,7 +19,7 @@ sysall itself, we will start by creating a **high-level API shellcode dropper in
 
 
 ## Visual Studio 
-In the first step, I deliberately do not use direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the Kernel32.dll. The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
+The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
 <p align="center">
 <img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
