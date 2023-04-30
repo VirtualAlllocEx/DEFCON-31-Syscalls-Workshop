@@ -150,7 +150,7 @@ run
 Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
 
 <p align="center">
-<img width="658" alt="image" src="https://user-images.githubusercontent.com/50073731/235358750-df254ff2-0265-40b3-8e1f-edc7893ce2a1.png">
+<img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
 </p>
 
 
