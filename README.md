@@ -97,6 +97,8 @@ All the step-by-step instructions and code samples can be found in the respectiv
 
 ## Happy Hacking!
 I hope you enjoy the direct syscall workshop. Have fun with it!
+
+
 Daniel Feichter @VirtualAllocEx
 
 ## Previous work and references
