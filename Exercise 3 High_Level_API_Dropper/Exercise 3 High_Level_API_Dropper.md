@@ -17,3 +17,8 @@ sysall itself, we start by creating a high-level API (HLA) shellcode dropper bas
 - Use the Visual Studio dumpbin tool to verify that all used Windows APIs are correctly imported by kernel32.dll. 
 - Use the API Monitor tool to check the transition from the used Windows APIs to the corresponding native APIs. 
 - Use x64 dbg and check where the syscall execution of each used Native API comes from ? Module? Location? 
+
+
+### Visual Studio 
+The first step is to create a new C++ project in Visual Studio by following the steps below.
+<img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
