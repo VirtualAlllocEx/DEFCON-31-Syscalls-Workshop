@@ -24,3 +24,9 @@ The first step is to create a new C++ project in Visual Studio by following the 
 <p align="center">
 <img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
 </p>
+<p align="center">
+<img width="644" alt="image" src="https://user-images.githubusercontent.com/50073731/235356575-e797c4a4-d604-49f3-8252-e4d22873873e.png">
+</p>
+<p align="center">
+<img width="651" alt="image" src="https://user-images.githubusercontent.com/50073731/235356628-97937dd6-12b3-4c46-bff5-b3f31bb913fa.png">
+</p>
