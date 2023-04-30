@@ -85,7 +85,33 @@ From Red Team's perspective, the usermode hooking technique results in EDR makin
 - Indirect syscalls 
 - Direct syscalls 
 
-In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin. All the step-by-step instructions and code samples can be found in the respective tutorial folder. 
+In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin.
+
+## Getting Started
+All the step-by-step instructions and code samples can be found in the respective exercise folder. 
+### Prerequisites
+- Windows 10 LAB machine
+- Visual Studio Free 2019 
+- SysWhispers3 
+- Kali Linux (Metasploit/Meterpreter) 
+
+## Previous work and references
+- https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
+- https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/
+- https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/
+- https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html
+- https://winternl.com/detecting-manual-syscalls-from-user-mode/
+- https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/
+- https://alice.climent-pommeret.red/posts/direct-syscalls-hells-halos-syswhispers2/#with-freshycalls
+- https://redops.at/en/blog/direct-syscalls-a-journey-from-high-to-low
+- https://j00ru.vexillium.org/syscalls/nt/64/
+- https://github.com/jthuraisamy/SysWhispers
+- https://github.com/jthuraisamy/SysWhispers2
+- https://github.com/klezVirus/SysWhispers3
+- Windows internals. Part 1 Seventh edition; Yosifovich, Pavel; Ionescu, Alex; Solomon, David A.; Russinovich, Mark E.
+- Pavel Yosifovich (2019): Windows 10 System Programming, Part 1: CreateSpace Independent Publishing Platform
+
+## Happy Hacking!
 
 I hope you enjoy the direct syscall workshop. Have fun with it!
 
