@@ -37,7 +37,7 @@ The following code can be used for the high_level_dropper.cpp. The technical fun
 
 Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
 <p align="center">
-<img width="368" alt="image" src="https://user-images.githubusercontent.com/50073731/235367076-478af2d1-91ae-4f33-8163-765bf196be34.png">
+<img width="556" alt="image" src="https://user-images.githubusercontent.com/50073731/235367155-9a6f2501-6634-4203-9954-194bd0601f4d.png">
 </p>    
     
 
