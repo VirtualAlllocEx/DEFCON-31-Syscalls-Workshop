@@ -19,7 +19,22 @@ We create a **medium-level API shellcode dropper** in short **MLA-dropper** base
 ## Visual Studio
 Same procedure as in the high-level API dropper exercise, take a look to follow the necessary steps.
 We replace all Windows APIs with the corresponding native APIs and create our MLA dropper.
-- VirtualAlloc -> NtAllocateVirtualMemory
-- WriteProcessMemory -> NtWriteVirtualMemory
-- CreateThread -> CreateThreadEx
-- WaitForSingleObject -> NtWaitForSingleObject
+- NtAllocateVirtualMemory
+- NtWriteVirtualMemory
+- NtCreateThreadEx
+- NtWaitForSingleObject
+
+The code works as follows. Unlike the Windows APIs, most of the Native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the Native APIs in the Medium Level Dropper, we must manually define the function pointers for the Native API functions in the MLA dropper code.
+<p align="center">
+<img width="726" alt="image" src="https://user-images.githubusercontent.com/50073731/235373833-787137bf-e79b-41a3-b0cb-a83a29c541be.png">
+</p>
+
+Shellcode declaration same as before in the high-level API dropper.
+<p align="center">
+<img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
+</p>  
+
+For memory allocation, we replace the Windows API VirtualAlloc with the native API NtAllocateVirtualMemory.
+<p align="center">
+<img width="741" alt="image" src="https://user-images.githubusercontent.com/50073731/235373720-c004340c-4132-41b7-9494-1d7f0aaea053.png">
+</p>
