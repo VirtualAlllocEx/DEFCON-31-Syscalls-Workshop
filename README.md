@@ -5,8 +5,7 @@
 ## Disclaimer 
 The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!**. For the syscall POCs, [**Syswhispers3**](https://github.com/klezVirus/SysWhispers3) was used, also thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for providing this awesome code. 
 
-I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Please forgive me if I have forgotten anyone. 
-[**@OutflankNL**](https://twitter.com/OutflankNL) 
+I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Please forgive me if I have forgotten anyone. All members of [**@OutflankNL**](https://twitter.com/OutflankNL) especially [**@Cneelis**](https://twitter.com/Cneelis), 
 
 
 ## Abstract 
