@@ -98,6 +98,8 @@ All the step-by-step instructions and code samples can be found in the respectiv
 ### Prerequisites
 - Windows 10 DEV/LAB machine with no installed AV/EPP/EDR
 - Visual Studio Free 2019 
+- x64dbg
+- Process Monitor (Procmon)
 - SysWhispers3 
 - Kali Linux (Metasploit/Meterpreter) 
 
