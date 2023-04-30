@@ -19,7 +19,7 @@ sysall itself, we will start by creating a high-level API (HLA) shellcode droppe
 - Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
 
 
-### Visual Studio 
+## Visual Studio 
 In the first step, I deliberately do not use direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the Kernel32.dll. The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
 <p align="center">
@@ -109,7 +109,7 @@ int main() {
 
 
 
-### Meterpreter Shellcode
+## Meterpreter Shellcode
 In this step, we will create our shellcode for the high-level API dropper poc with msfvenom in Kali Linux. To do this, we use the following command and 
 create x64 staged meterpreter shellcode.
 ```
@@ -125,7 +125,7 @@ The shellcode can then be copied into the POC by replacing the placeholder at th
 </p>
 
 
-### MSF-Listener
+## MSF-Listener
 Before we test the functionality of our high-level API dropper, we need to create a listener within msfconsole.
 
 **kali>**
