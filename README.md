@@ -99,7 +99,7 @@ All the step-by-step instructions and code samples can be found in the respectiv
 I hope you enjoy the direct syscall workshop. Have fun with it!
 
 
-Daniel Feichter @VirtualAllocEx
+Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx)
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
