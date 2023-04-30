@@ -58,5 +58,20 @@ There are several ways to implement Direct System Calls in malware. In the provi
 Compared to the previous illustration in the System Calls chapter, the following illustration shows the principle of direct system calls under Windows in a simplified way. It can be seen that the user-mode process Malware.exe does not get the system call for the Native API NtCreateFile via Ntdll.dll, as would normally be the case, but instead has implemented the necessary instructions for the system call in itself.
 ![Prinicipal_direct_syscalls](https://user-images.githubusercontent.com/50073731/235348028-506c4e37-f0ae-4fbd-a73c-9ab29fae8f68.png)
 
+## Why Direct System Calls?
+Both anti-virus (AV) and endpoint detection and response (EDR) products rely on different defence mechanisms to protect against malware. To dynamically inspect potentially malicious code in the context of Windows APIs, most EDRs today implement the principle of user-mode API hooking. Put simply, this is a technique whereby code executed in the context of a Windows API, such as VirtualAlloc or its native API NtAllocateVirtualMemory, is deliberately redirected by the EDR into the EDR's own Hooking.dll. Under Windows, the following types of hooking can be distinguished, among others:
+- Inline API Hooking
+- Import Adress Table (IAT) Hooking
+- SSDT Hooking (Windows Kernel)
+
+Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was possible for antivirus products to implement their hooks in the Windows kernel, e.g. using SSDT hooking. With Patch Guard, this was prevented by Microsoft for reasons of operating system stability. Most of the EDRs I have analysed rely primarily on inline API hooking. Technically, an inline hook is a 5-byte assembly instruction (also called a jump or trampoline) that causes a redirection to the EDR's Hooking.dll before the system call is executed in the context of the respective native API. The redirection from the Hooking.dll back to the system call in the Ntdll.dll only occurs if the executed code analysed by the Hooking.dll was found to be harmless. Otherwise, the execution of the corresponding system call is prevented by the Endpoint Protection (EPP) component of an EPP/EDR combination. The following figure shows a simplified illustration of how user-mode API hooking works with EDR.
+![Prinicipal_usermode_hooking](https://user-images.githubusercontent.com/50073731/235348163-90ce327a-e146-4376-af85-db75d889f4d9.png)
+
+If you take a closer look at the technical structure of the Windows 10 architecture, you will notice that the Ntdll.dll in user mode represents the lowest common denominator before the transition to the Windows kernel. For this reason, some well-known EDRs place their inline hooks in specially selected native APIs in Ntdll.dll. Ok, if it's that simple, then an EDR could just hook into all the Native APIs and make life hell for us Red Teamers. Fortunately, from a Red Teamer's point of view, this is not possible for performance reasons. Simply put, hooking APIs costs resources, time, etc., and the more an EDR slows down an OS, the worse it is for the EDR.
+
+As a result, EDRs typically only hook select APIs that are often abused by attackers in conjunction with malware. These include native APIs such as NtAllocateVirtualMemory and NtWriteVirtualMemory.
+![image](https://user-images.githubusercontent.com/50073731/235348184-27c441ae-6466-406b-8343-0f7ab1f12843.png)
+
+
 
 
