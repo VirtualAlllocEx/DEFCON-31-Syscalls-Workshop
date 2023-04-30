@@ -18,8 +18,11 @@ I would also like to thank all those members of the infosec community who have r
 - [**@CaptMeelo**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) for his research and article [**When You sysWhisper Loud Enough for AV to Hear You**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html)
 - [**@0xBoku**](https://twitter.com/0xBoku) for his overall great research, his [**blog**](https://0xboku.com/) and contributions to infosec, helping new community members, and the continued advancement of infosec 
 
+
 ## Abstract 
 The goal of this workshop is to provide new community members or members who want to understand and learn about direct system calls on Windows OS. The workshop includes slides, exercises, and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of the red teaming technique of direct system calls.
+
+
 
 ## Introduction
 A system call is a technical instruction in the Windows operating system that allows a temporary transition from user mode to kernel mode. This is necessary, for example, when a user-mode application such as Notepad wants to save a document. Each system call has a specific syscall ID, which can vary from one version of Windows to another. Direct system calls are a technique for attackers (red team) to execute code in the context of Windows APIs via system calls without the targeted application (malware) obtaining Windows APIs from Kernel32.dll or native APIs from Ntdll.dll. The assembly instructions required to switch from user mode to kernel mode are built directly into the malware.
@@ -31,14 +34,15 @@ In this workshop we will focus on the **Direct System Call** technique and want 
 - Understand what a Direct System Call aka Direct Syscall is and why we as Red Teamers need it. 
 - Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
 
+
+
  ## What is a System call?
 Before we discuss what a direct system call is and how it is used by attackers (red team), it is important to clarify what a system call or syscall is. Technically, at the assembly level, a system call is a set of instructions, also called a syscall stub, that enables the temporary transition (CPU switch) from user mode to kernel mode after the execution of code in Windows user mode in the context of the respective Windows API. The syscall is thus the interface between a user-mode process and the task to be executed in the Windows kernel. What are some of the interesting features of a system call in the Windows operating system for us?
 - Each syscall is associated contains a specific syscall ID (syscall number or system service number (SSN)).
 - Each syscall or syscall number is associated with a specific native API (NTAPI)
-In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another.
-<p align="center">
-<src="https://user-images.githubusercontent.com/50073731/235344044-ff5682e2-0f38-4386-937c-5abc675c30a1.png">
-</p>
+In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. ![image](https://user-images.githubusercontent.com/50073731/235349836-fb482468-4cd6-4cdf-a44b-4c738dccf796.png)
+
+
 
 ## Why do we need system calls at all?
 Because a modern operating system like Windows 10 is divided into user mode and kernel mode, syscalls are necessary or responsible for initializing the transition from user mode to kernel mode. For example, system alls in Windows are necessary for:
@@ -55,6 +59,8 @@ It then calls the System Service Dispatcher aka KiSystemCall/KiSystemCall64 in t
 
 In simple terms, system calls are needed in Windows to perform the temporary transition (CPU switch) from user mode to kernel mode, or to execute tasks initiated in user mode that require temporary access to kernel mode - such as saving files - as a task in kernel mode.
 
+
+
 ## What is a Direct System Call?
 This is a technique that allows an attacker (red team) to execute malicious code, e.g. shell code, in the context of APIs on Windows in such a way that the system call is not obtained via Ntdll.dll, but is implemented directly as an assembly instruction, e.g. in the .text region of the malware. Hence the name Direct System Calls.
 
@@ -62,6 +68,8 @@ There are several ways to implement Direct System Calls in malware. In the provi
 
 Compared to the previous illustration in the System Calls chapter, the following illustration shows the principle of direct system calls under Windows in a simplified way. It can be seen that the user-mode process Malware.exe does not get the system call for the Native API NtCreateFile via Ntdll.dll, as would normally be the case, but instead has implemented the necessary instructions for the system call in itself.
 ![Prinicipal_direct_syscalls](https://user-images.githubusercontent.com/50073731/235348028-506c4e37-f0ae-4fbd-a73c-9ab29fae8f68.png)
+
+
 
 ## Why Direct System Calls?
 Both anti-virus (AV) and endpoint detection and response (EDR) products rely on different defence mechanisms to protect against malware. To dynamically inspect potentially malicious code in the context of Windows APIs, most EDRs today implement the principle of user-mode API hooking. Put simply, this is a technique whereby code executed in the context of a Windows API, such as VirtualAlloc or its native API NtAllocateVirtualMemory, is deliberately redirected by the EDR into the EDR's own Hooking.dll. Under Windows, the following types of hooking can be distinguished, among others:
@@ -83,6 +91,8 @@ If you want to check your own EDR to see if it or which APIs are redirected to t
 If you want to be sure that the jump instruction really causes a redirect to the EDR's Hooking.dll, you can check this with e.g. x64dbg. If you follow the address of the jump instruction of a hooked API, e.g. NtAllocateVirtualMemory in memory (Follow in Dissasembler), you will see the redirect to the EDR's Hooking.dll. The name of the "Hooking.dll" is intentionally pixelated so that the EDR cannot be identified.
 ![image](https://user-images.githubusercontent.com/50073731/235348295-93a8d575-f21a-4ce1-8f19-1107e39a435f.png)
 
+
+
 ## Consequences for the Red Team
 From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
 - Use no hooked APIs
@@ -92,6 +102,8 @@ From Red Team's perspective, the usermode hooking technique results in EDR makin
 
 In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin.
 
+
+
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
 ### Prerequisites
@@ -100,11 +112,15 @@ All the step-by-step instructions and code samples can be found in the respectiv
 - SysWhispers3 
 - Kali Linux (Metasploit/Meterpreter) 
 
+
+
 ## Happy Hacking!
 I hope you enjoy the direct syscall workshop. Have fun with it!
 
 
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx)
+
+
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
@@ -121,12 +137,3 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx)
 - https://github.com/klezVirus/SysWhispers3
 - Windows internals. Part 1 Seventh edition; Yosifovich, Pavel; Ionescu, Alex; Solomon, David A.; Russinovich, Mark E.
 - Pavel Yosifovich (2019): Windows 10 System Programming, Part 1: CreateSpace Independent Publishing Platform
-
-
-
-
-
-
-
-
-
