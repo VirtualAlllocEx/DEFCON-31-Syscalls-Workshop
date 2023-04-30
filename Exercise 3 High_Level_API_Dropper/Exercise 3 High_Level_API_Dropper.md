@@ -152,3 +152,17 @@ Once the listener has been successfully started, you can run your compiled high_
 <p align="center">
 <img width="658" alt="image" src="https://user-images.githubusercontent.com/50073731/235358750-df254ff2-0265-40b3-8e1f-edc7893ce2a1.png">
 </p>
+
+
+
+## HLA-Dropper analysis: Dumpbin tool
+The Visual Studio Dumpbin tool can be used to check which Windows APIs are imported via Kernel32.dll. The following command can be used to check the imports.
+**cmd>**
+```
+cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+dumpbin /imports high_level.exe
+```
+In the case of the high-level API Dropper based on Windows APIs, you should see that the APIs used in the Dropper POC are imported into the dropper.exe by the kernel32.dll.
+
+![image](https://user-images.githubusercontent.com/50073731/235368084-b0780c7e-3007-4efd-9b85-322f8ab854a2.png)
+
