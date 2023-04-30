@@ -8,7 +8,7 @@ The content and all code examples int this repository are for teaching and resea
 - For the syscall POCs, [**SysWhispers3**](https://github.com/klezVirus/SysWhispers3) was used, also thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for providing this awesome code. 
 
 I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Please forgive me if I have forgotten anyone. 
-- All members of [**@OutflankNL**](https://twitter.com/OutflankNL) especially [**@Cneelis**](https://twitter.com/Cneelis)
+- All members of [**@OutflankNL**](https://twitter.com/OutflankNL) especially [**@Cneelis**](https://twitter.com/Cneelis) and his article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)
 - [**@j00ru**](https://twitter.com/j00ru) for his research in [**syscall tables**](https://j00ru.vexillium.org/syscalls/nt/64/)
 - [**@Jackson_T**](https://twitter.com/Jackson_T) for creation of [**SysWhispers**](https://github.com/jthuraisamy/SysWhispers) and [**SysWhispers2**](https://github.com/jthuraisamy/SysWhispers2)
 - [**@AliceCliment**](https://twitter.com/AliceCliment) for her research [**A Syscall Journey in the Windows Kernel**](https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/) and her other blogs  
