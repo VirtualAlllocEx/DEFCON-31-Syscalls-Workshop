@@ -29,4 +29,5 @@ In this workshop we will focus on the **Direct System Call** technique and want 
 - Understand what a Direct System Call aka Direct Syscall is and why we as Red Teamers need it. 
 - Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
 
- ##What is a System call or Syscall?
+ ## What is a System call?
+Before we discuss what a direct system call is and how it is used by attackers (red team), it is important to clarify what a system call is. Technically, at the assembly level, a system call is a set of instructions, also called a syscall stub, that enables the temporary transition (transition CPU switch) from user mode to kernel mode after the execution of code in Windows user mode in the context of the respective Windows API. The system call thus forms the interface between a process in user mode and the task to be executed in the Windows kernel.
