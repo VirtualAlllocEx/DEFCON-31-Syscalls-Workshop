@@ -37,7 +37,7 @@ Before we discuss what a direct system call is and how it is used by attackers (
 - Each syscall or syscall number is associated with a specific native API (NTAPI)
 In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another.
 <p align="center">
-![syscall_stub_ID](https://user-images.githubusercontent.com/50073731/235344044-ff5682e2-0f38-4386-937c-5abc675c30a1.png)
+<src="https://user-images.githubusercontent.com/50073731/235344044-ff5682e2-0f38-4386-937c-5abc675c30a1.png">
 </p>
 
 ## Why do we need system calls at all?
