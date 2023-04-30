@@ -36,10 +36,10 @@ The easiest way is to create a new console app project and then replace the defa
 The following code can be used for the high_level_dropper.cpp. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. The code works as follows. 
 
 Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
-```
-// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83...";
-```
+<p align="center">
+<img width="368" alt="image" src="https://user-images.githubusercontent.com/50073731/235367076-478af2d1-91ae-4f33-8163-765bf196be34.png">
+</p>    
+    
 
 The next step is to define a "void*" type pointer with the "exec" variable, which points to the Windows API VirtualAlloc and returns the start address of the allocated memory block.
 ```
