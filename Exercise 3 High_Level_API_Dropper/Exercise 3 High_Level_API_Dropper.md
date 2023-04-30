@@ -163,9 +163,9 @@ cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
 In the case of the high-level API Dropper based on Windows APIs, you should see that the APIs used in the Dropper POC are imported into the dropper.exe by the kernel32.dll.
-
-![image](https://user-images.githubusercontent.com/50073731/235368084-b0780c7e-3007-4efd-9b85-322f8ab854a2.png)
-
+<p align="center">
+<img width="523" alt="image" src="https://user-images.githubusercontent.com/50073731/235368835-b2cf30a0-3ced-49ec-ad2e-cb85e75a3bff.png">
+</p>
 
 ## HLA-Dropper analysis: API-Monitor
 We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
