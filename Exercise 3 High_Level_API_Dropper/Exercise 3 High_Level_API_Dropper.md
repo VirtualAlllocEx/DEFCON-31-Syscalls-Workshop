@@ -180,8 +180,9 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 - NtWaitForSingleObject
 
 If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our high-level Dropper POC.
-![image](https://user-images.githubusercontent.com/50073731/235368426-41d5468a-d249-4f8f-bf61-76905e1c1c7e.png)
-
+<p align="center">
+<img width="498" alt="image" src="https://user-images.githubusercontent.com/50073731/235368737-9f87f5de-0a7e-4039-b454-2af23914b277.png">
+</p>
 
 ## HLA-Dropper analysis: x64dbg 
 Using x64dbg I check from which region of the PE structure of the High Level API dropper the system call for the Native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of Ntdll.dll. This investigation is very important because later in the article I expect a different result with the low level POC and want to match it.
