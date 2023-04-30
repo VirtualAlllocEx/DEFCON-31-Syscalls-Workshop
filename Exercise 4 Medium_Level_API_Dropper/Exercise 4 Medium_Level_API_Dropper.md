@@ -34,7 +34,30 @@ Shellcode declaration same as before in the high-level API dropper.
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>  
 
+We need to manually load the required native APIs from ntdll.dll.
+<p align="center">
+<img width="790" alt="image" src="https://user-images.githubusercontent.com/50073731/235374135-eeda7d5a-5a95-40bf-8a58-43e65c90d9c6.png">
+</p>
+
 For memory allocation, we replace the Windows API VirtualAlloc with the native API NtAllocateVirtualMemory.
 <p align="center">
 <img width="741" alt="image" src="https://user-images.githubusercontent.com/50073731/235373720-c004340c-4132-41b7-9494-1d7f0aaea053.png">
 </p>
+
+For shellcode copying, we replace the Windows API WriteProcessMemory with the native API NtWriteVirtualMemory.
+<p align="center">
+<img width="591" alt="image" src="https://user-images.githubusercontent.com/50073731/235374052-448e1e9d-caf5-4d80-972f-fd0ef70feb95.png">
+</p>
+
+For shellcode execution, we replace the Windows API CreateThread with the native API NtCreateThreadEx.
+<p align="center">
+<img width="568" alt="image" src="https://user-images.githubusercontent.com/50073731/235374248-fecf50c3-72b9-4f2b-95b3-d0aa86378a79.png">
+</p>
+
+And finally we have to replace the Windows API WaitForSingleObject with the native API NtWaitForSingleObject
+<p align="center">
+<img width="476" alt="image" src="https://user-images.githubusercontent.com/50073731/235374325-f03be7d6-996a-4e53-a413-3673dec832d0.png">  
+</p>
+
+  
+
