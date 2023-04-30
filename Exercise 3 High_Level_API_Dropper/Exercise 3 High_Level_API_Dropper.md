@@ -4,14 +4,14 @@ sysall itself, we will start by creating a high-level API (HLA) shellcode droppe
 
 
 ## Workshop tasks
-- Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA Dropper.
-- Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ HLA Dropper POC. 
-- Compile the HLA Dropper as release or debug x64 
-- Create and run a staged x64 meterpreter listener with msfconsole
-- Run your compiled .exe and verify that a stable command and control channel opens. 
-- Use the Visual Studio dumpbin tool to verify that all used Windows APIs are correctly imported by kernel32.dll. 
-- Use the API Monitor tool to check the transition from the used Windows APIs to the corresponding native APIs. 
-- Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
+1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA Dropper.
+2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ HLA Dropper POC. 
+3. Compile the HLA Dropper as release or debug x64 
+4. Create and run a staged x64 meterpreter listener with msfconsole
+5. Run your compiled .exe and verify that a stable command and control channel opens. 
+6. Use the Visual Studio dumpbin tool to verify that all used Windows APIs are correctly imported by kernel32.dll. 
+7. Use the API Monitor tool to check the transition from the used Windows APIs to the corresponding native APIs. 
+8. Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
 
 
 ## Visual Studio 
