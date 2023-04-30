@@ -96,6 +96,7 @@ The shellcode can then be copied into the POC by replacing the placeholder at th
 
 ### MSF-Listener
 Before we test the functionality of our high-level API dropper, we need to create a listener within msfconsole.
+
 **kali>**
 ```
 msfconsole
