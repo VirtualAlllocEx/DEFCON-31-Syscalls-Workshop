@@ -21,10 +21,13 @@ sysall itself, we start by creating a high-level API (HLA) shellcode dropper bas
 
 ### Visual Studio 
 The first step is to create a new C++ project in Visual Studio by following the steps below. 
+
 <p align="center">
 <img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
 </p>
+
 The easiest way is to create a new console app project and then delete the default hello world text in main.cpp. 
+
 <p align="center">
 <img width="640" alt="image" src="https://user-images.githubusercontent.com/50073731/235357092-5fd2e873-6732-4b37-a69d-38a281953b2e.png">
 </p>
