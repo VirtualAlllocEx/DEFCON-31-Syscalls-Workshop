@@ -183,4 +183,20 @@ If everything was done correctly, you should see clean transitions from the Wind
 ![image](https://user-images.githubusercontent.com/50073731/235368426-41d5468a-d249-4f8f-bf61-76905e1c1c7e.png)
 
 
+## HLA-Dropper analysis: x64dbg 
+Using x64dbg I check from which region of the PE structure of the High Level API dropper the system call for the Native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of Ntdll.dll. This investigation is very important because later in the article I expect a different result with the low level POC and want to match it.
+![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
+
+
+## Summary: High-level API Dropper
+- No direct system calls at all
+- Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
+- Dropper imports VirtualAlloc from kernel32.dll...
+- ...then imports NtAllocateVirtualMemory from ntdll.dll...
+- ...and finally executes the corresponding syscall or syscall stub
+
+
+
+
+
 
