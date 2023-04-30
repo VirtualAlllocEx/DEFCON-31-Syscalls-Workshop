@@ -72,6 +72,24 @@ If you take a closer look at the technical structure of the Windows 10 architect
 As a result, EDRs typically only hook select APIs that are often abused by attackers in conjunction with malware. These include native APIs such as NtAllocateVirtualMemory and NtWriteVirtualMemory.
 ![image](https://user-images.githubusercontent.com/50073731/235348184-27c441ae-6466-406b-8343-0f7ab1f12843.png)
 
+If you want to check your own EDR to see if it or which APIs are redirected to the EDR's own Hooking.dll by inline hooking, you can use a debugger such as Windbg. To do this, start a program on the endpoint with EDR installed, e.g. Notepad, and then connect to the running process via Windbg. Note that if you make the same mistake as I did at the beginning and load notepad.exe directly as an image into the debugger, you will not find any hooks in the APIs, because in this case the EDR has not yet been able to inject its Hooking.dll into the address space of notepad.exe.The following figure shows a comparison between an endpoint with no EDR installed and no hook, and an endpoint with EDR installed that uses user mode inline hooking for Native APIs in Ntdll.dll. On the endpoint with EDR installed, the 5-byte jump instruction (jmp) is clearly visible. As mentioned earlier, this instruction causes a redirection to the EDR's Hooking.dll before returning to the Ntdll.dll and executing the system call.
+![image](https://user-images.githubusercontent.com/50073731/235348270-8dfdf69e-5ac0-468f-832d-c50b57f3fc72.png)
+
+If you want to be sure that the jump instruction really causes a redirect to the EDR's Hooking.dll, you can check this with e.g. x64dbg. If you follow the address of the jump instruction of a hooked API, e.g. NtAllocateVirtualMemory in memory (Follow in Dissasembler), you will see the redirect to the EDR's Hooking.dll. The name of the "Hooking.dll" is intentionally pixelated so that the EDR cannot be identified.
+![image](https://user-images.githubusercontent.com/50073731/235348295-93a8d575-f21a-4ce1-8f19-1107e39a435f.png)
+
+## Consequences for the Red Team
+From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
+- Use no hooked APIs
+- User mode unhooking 
+- Indirect syscalls 
+- Direct syscalls 
+
+In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should now be clear and the development of the Direct System Call Dropper can begin.
+
+## Shellcode Dropper: High Level APIs
+
+
 
 
 
