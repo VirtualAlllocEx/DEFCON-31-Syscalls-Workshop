@@ -72,13 +72,6 @@ int main() {
     // This ensures the main thread doesn't exit before the shellcode has finished running
     WaitForSingleObject(hThread, INFINITE);
 
-    //// Clean up the resources after the shellcode execution
-    //// Close the handle to the shellcode execution thread
-    //CloseHandle(hThread);
-
-    //// Release the memory allocated for the shellcode
-    //VirtualFree(exec, 0, MEM_RELEASE);
-
     // Return 0 as the main function exit code
     return 0;
 }
