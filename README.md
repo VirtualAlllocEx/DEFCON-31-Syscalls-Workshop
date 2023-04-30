@@ -30,4 +30,7 @@ In this workshop we will focus on the **Direct System Call** technique and want 
 - Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
 
  ## What is a System call?
-Before we discuss what a direct system call is and how it is used by attackers (red team), it is important to clarify what a system call is. Technically, at the assembly level, a system call is a set of instructions, also called a syscall stub, that enables the temporary transition (transition CPU switch) from user mode to kernel mode after the execution of code in Windows user mode in the context of the respective Windows API. The system call thus forms the interface between a process in user mode and the task to be executed in the Windows kernel.
+Before we discuss what a direct system call is and how it is used by attackers (red team), it is important to clarify what a system call or syscall is. Technically, at the assembly level, a system call is a set of instructions, also called a syscall stub, that enables the temporary transition (CPU switch) from user mode to kernel mode after the execution of code in Windows user mode in the context of the respective Windows API. The syscall is thus the interface between a user-mode process and the task to be executed in the Windows kernel. Each syscall is associated with a specific native API (NTAPI) and contains a specific syscall ID (syscall number or system service number (SSN)). In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another.  
+
+![image](https://user-images.githubusercontent.com/50073731/235343697-f4a8a1c9-90ee-41a6-becb-0e2cb5132862.png)
+
