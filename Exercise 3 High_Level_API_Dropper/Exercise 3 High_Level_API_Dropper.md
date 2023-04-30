@@ -1,6 +1,6 @@
 ## Introduction
 In this exercise, we want to take the first step towards creating our own direct system call dropper. But to understand the principle of a legitimate
-sysall itself, we start by creating a high-level API (HLA) shellcode dropper based on Windows APIs, which will serve as our reference for later modifications. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. In the HLA dropper we use the following Windows APIs: 
+sysall itself, we will start by creating a high-level API (HLA) shellcode dropper based on the Windows APIs, which will serve as a reference for later modifications. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. In the HLA dropper we use the following Windows APIs: 
 - VirtualAlloc
 - WriteProcessMemory
 - CreateThread
@@ -9,31 +9,46 @@ sysall itself, we start by creating a high-level API (HLA) shellcode dropper bas
 
 
 ## Workshop tasks
-- Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA dropper
-- Create staged x64 meterpreter shellcode with msfvenom and copy it into the C++ HLA Dropper POC. 
+- Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA Dropper.
+- Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ HLA Dropper POC. 
 - Compile the HLA Dropper as release or debug x64 
 - Create and run a staged x64 meterpreter listener with msfconsole
-- Run your compiled .exe and check if a stable command and control channel opens 
+- Run your compiled .exe and verify that a stable command and control channel opens. 
 - Use the Visual Studio dumpbin tool to verify that all used Windows APIs are correctly imported by kernel32.dll. 
 - Use the API Monitor tool to check the transition from the used Windows APIs to the corresponding native APIs. 
-- Use x64 dbg and check where the syscall execution of each used Native API comes from ? Module? Location? 
+- Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
 
 
 ### Visual Studio 
-The first step is to create a new C++ project in Visual Studio by following the steps below. 
+In the first step, I deliberately do not use direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the Kernel32.dll. The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
 <p align="center">
 <img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
 </p>
 
-The easiest way is to create a new console app project and then delete the default hello world text in main.cpp. 
+The easiest way is to create a new console app project and then replace the default hello world text in main.cpp with your code. 
 
 <p align="center">
 <img width="640" alt="image" src="https://user-images.githubusercontent.com/50073731/235357092-5fd2e873-6732-4b37-a69d-38a281953b2e.png">
 <img width="645" alt="image" src="https://user-images.githubusercontent.com/50073731/235357228-940ec56c-7565-44b8-8b6a-01a74ab15e1d.png">
 </p>
 
-The following code can be used for the high_level_dropper.cpp
+The following code can be used for the high_level_dropper.cpp. The technical functionality of the high level API is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the high level API dropper into a direct system call dropper. The code works as follows. 
+
+Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
+```
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83...";
+```
+
+The next step is to define a "void*" type pointer with the "exec" variable, which points to the Windows API VirtualAlloc and returns the start address of the allocated memory block.
+```
+// Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+```
+
+
 ```
 #include <stdio.h>
 #include <windows.h>
@@ -76,6 +91,8 @@ int main() {
     return 0;
 }
 ```
+
+
 
 
 ### Meterpreter Shellcode
