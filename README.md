@@ -41,7 +41,8 @@ Because a modern operating system like Windows 10 is divided into user mode and 
 - Network connections to send and receive data packets
 - Reading and writing files
 
-A practical example in the context of writing a file to disk, the usermode process like notepad.exe wants to save content to disk in the form of a file, the process needs temporary "access" to kernelmode. Why is this necessary? Because the components that need to be accessed or that need to perform the task in kernel mode, such as the file system and the appropriate device drivers, are located in the Windows kernel. The following figure shows the principle and interaction between notepad.exe -> kernel32.dll -> ntdll.dll and syscalls to write a file to disk.![Prinicipal_syscalls_transition_notepad](https://user-images.githubusercontent.com/50073731/235347362-798b0c53-0071-43b4-a06b-74008f1311bf.png)
+A practical example in the context of writing a file to disk, the usermode process like notepad.exe wants to save content to disk in the form of a file, the process needs temporary "access" to kernelmode. Why is this necessary? Because the components that need to be accessed or that need to perform the task in kernel mode, such as the file system and the appropriate device drivers, are located in the Windows kernel. The following figure shows the principle and interaction between notepad.exe -> kernel32.dll -> ntdll.dll and syscalls to write a file to disk.
+![Prinicipal_syscalls_transition_notepad](https://user-images.githubusercontent.com/50073731/235347989-f8fdc692-3b26-49b4-81cc-6060aabddf7c.png)
 
 The figure above shows the technical principle of system calls using the above example with notepad. In order for the save operation to be performed in the context of the user mode process notepad.exe, in the first step it accesses Kernel32.dll and calls the Windows API WriteFile. In the second step, Kernel32.dll accesses Kernelbase.dll in the context of the same Windows API. In the third step, the Windows API WriteFile accesses the Native API NtCreateFile via the Ntdll.dll. The Native API contains the technical instruction to initiate the system call (system call ID) and enables the temporary transition (CPU switch) from user mode (ring 3) to kernel mode (ring 0) after execution.
 
@@ -50,6 +51,12 @@ It then calls the System Service Dispatcher aka KiSystemCall/KiSystemCall64 in t
 In simple terms, system calls are needed in Windows to perform the temporary transition (CPU switch) from user mode to kernel mode, or to execute tasks initiated in user mode that require temporary access to kernel mode - such as saving files - as a task in kernel mode.
 
 ## What is a Direct System Call?
+This is a technique that allows an attacker (red team) to execute malicious code, e.g. shell code, in the context of APIs on Windows in such a way that the system call is not obtained via Ntdll.dll, but is implemented directly as an assembly instruction, e.g. in the .text region of the malware. Hence the name Direct System Calls.
+
+There are several ways to implement Direct System Calls in malware. In the provided exercise to create your own direct syscall dropper I will show you how to use SysWhispers3 to generate the required syscall or syscall stubs and implement them in the C++ project under Visual Studio as Microsoft Macro Assembler (masm) code.
+
+Compared to the previous illustration in the System Calls chapter, the following illustration shows the principle of direct system calls under Windows in a simplified way. It can be seen that the user-mode process Malware.exe does not get the system call for the Native API NtCreateFile via Ntdll.dll, as would normally be the case, but instead has implemented the necessary instructions for the system call in itself.
+![Prinicipal_direct_syscalls](https://user-images.githubusercontent.com/50073731/235348028-506c4e37-f0ae-4fbd-a73c-9ab29fae8f68.png)
 
 
 
