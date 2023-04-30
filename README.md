@@ -3,9 +3,9 @@
 # Direct Syscalls: A Journey from High to Low
 
 ## Disclaimer 
-The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!**. For the syscall POCs, [**Syswhispers3**](https://github.com/klezVirus/SysWhispers3) was used, also thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for providing this awesome code. 
+The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!**. For the syscall POCs, [**SysWhispers3**](https://github.com/klezVirus/SysWhispers3) was used, also thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for providing this awesome code. 
 
-I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Please forgive me if I have forgotten anyone. All members of [**@OutflankNL**](https://twitter.com/OutflankNL) especially [**@Cneelis**](https://twitter.com/Cneelis), 
+I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Please forgive me if I have forgotten anyone. All members of [**@OutflankNL**](https://twitter.com/OutflankNL) especially [**@Cneelis**](https://twitter.com/Cneelis), [**@j00ru**](https://twitter.com/j00ru) for his research in syscall tables, [**@Jackson_T**](https://twitter.com/Jackson_T) for creation of [**SysWhispers**](https://github.com/jthuraisamy/SysWhispers), [**SysWhispers2**](https://github.com/jthuraisamy/SysWhispers2)
 
 
 ## Abstract 
