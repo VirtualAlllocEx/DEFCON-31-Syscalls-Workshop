@@ -89,8 +89,8 @@ In this workshop we will only focus on the **Direct System Call** technique, i.e
 
 ## Shellcode Dropper: High Level APIs
 The high level API shellcode dropper uses no direct system calls at all and will be our reference code or dropper for the later following modifications. This code is simple and uses an easy way to allocate memory, copy and execute the shellcode. But based on the simplicity, the code is perfect to develope it step by step to a direct syscall dropper and teach the concept. Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
-```// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83...";```
+![image](https://user-images.githubusercontent.com/50073731/235348949-61ce6861-9f21-4f59-869a-e169528ddcc1.png)
+
 
 
 
