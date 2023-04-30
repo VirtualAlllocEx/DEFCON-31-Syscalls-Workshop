@@ -166,3 +166,21 @@ In the case of the high-level API Dropper based on Windows APIs, you should see 
 
 ![image](https://user-images.githubusercontent.com/50073731/235368084-b0780c7e-3007-4efd-9b85-322f8ab854a2.png)
 
+
+## HLA-Dropper analysis: API-Monitor
+We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the High Level API Dropper, we filter on the following API calls:
+- VirtualAlloc
+- NtAllocateVirtualMemory
+- WriteProcessMemory
+- NtWriteVirtualMemory
+- CreateThread
+- NtCreateThreadEx
+- WaitForSingleObject
+- NtWaitForSingleObject
+
+If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our high-level Dropper POC.
+![image](https://user-images.githubusercontent.com/50073731/235368426-41d5468a-d249-4f8f-bf61-76905e1c1c7e.png)
+
+
+
