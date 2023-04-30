@@ -29,4 +29,4 @@ In this workshop we will focus on the **Direct System Call** technique and want 
 - Understand what a Direct System Call aka Direct Syscall is and why we as Red Teamers need it. 
 - Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
 
- 
+ ##What is a System call or Syscall?
