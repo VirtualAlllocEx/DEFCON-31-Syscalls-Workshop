@@ -1,11 +1,11 @@
-## Introduction: Exercise 3 High_Level_API_Dropper
+## Introduction: Exercise 4 Medium_Level_API_Dropper
 In this exercise, we will make the first modification to the reference dropper and replace the Windows APIs (Kernel32.dll) with native APIs (Ntdll.dll).
 We create a **medium-level API shellcode dropper** in short **MLA-dropper** based on native APIs. 
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
 
-## Workshop tasks: Exercise 3 High_Level_API_Dropper
+## Workshop tasks: Exercise 4 Medium_Level_API_Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA Dropper POC. 
 3. Compile the MLA Dropper as release or debug x64. 
