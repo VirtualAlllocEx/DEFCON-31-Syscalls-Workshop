@@ -17,6 +17,7 @@ sysall itself, we will start by creating a **high-level API shellcode dropper in
 8. Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
 
 
+
 ## Visual Studio 
 In the first step, I deliberately do not use direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the Kernel32.dll. The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
@@ -37,7 +38,6 @@ The technical functionality of the high level API is relatively simple and there
 - CreateThread
 - WaitForSingleObject
 
-
 The code works as follows. 
 
 Within the main function, the variable "code" is defined, which is responsible for storing the shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
@@ -45,7 +45,6 @@ Within the main function, the variable "code" is defined, which is responsible f
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>    
     
-
 The next step is to define a "void*" type pointer with the "exec" variable, which points to the Windows API VirtualAlloc and returns the start address of the allocated memory block.
 <p align="center">
 <img width="594" alt="image" src="https://user-images.githubusercontent.com/50073731/235367335-a08a4a78-8a5c-4e02-9523-7bf2d1032f1c.png">
@@ -110,8 +109,6 @@ int main() {
     return 0;
 }
 ```
-
-
 
 
 ## Meterpreter Shellcode
