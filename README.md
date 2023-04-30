@@ -24,7 +24,7 @@ A system call is a technical instruction in the Windows operating system that al
 
 In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. Usermode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
 
-In this workshop we will focus on the Direct System Call technique and want to
+In this workshop we will focus on the **Direct System Call** technique and want to:
 - Understand what a system call aka syscall is in Windows OS in general and why we need them.
 - Understand what a Direct System Call aka Direct Syscall is and why we as Red Teamers need it. 
 - Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
