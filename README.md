@@ -3,7 +3,7 @@
 # Direct Syscalls: A Journey from High to Low
 
 ## Disclaimer 
-The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. Most of the code comes, as so often, from **ired.team, thank you @spotheplanet for your brilliant work and sharing it with us all!**. For the syscall POCs, **Syswhispers3** was used, also thanks to **@KlezVirus** for providing this awesome code. 
+The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. Most of the code comes, as so often, from **ired.team, thank you @spotheplanet for your brilliant work and sharing it with us all!**. For the syscall POCs, **Syswhispers3** was used, also thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for providing this awesome code. 
 
 
 ## Abstract 
