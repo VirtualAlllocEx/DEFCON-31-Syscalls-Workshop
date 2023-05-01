@@ -81,4 +81,27 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 <img width="598" alt="image" src="https://user-images.githubusercontent.com/50073731/235457085-bf6775f0-c370-4bb0-b883-db99123b06ca.png">
 </details>
 
+5. To use the assembly code from the syscalls-asm.x64.asm file in Visual Studio, the Microsoft Macro Assembler (.masm) option must be enabled in Build Dependencies/Build Customisations.
+<details>
+ 
+<p align="center">
+<img width="1278" alt="image" src="https://user-images.githubusercontent.com/50073731/235457590-371f3519-b7cf-483d-9c1c-6bfd6368be42.png">
+<img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
+</details>
 
+6. Afterwards we have to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler 
+<details>
+ 
+<p align="center">
+<img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
+    
+</details>
+
+7. Also we have to include the header syscalls.h in our code 
+Customisations.
+<details>
+ 
+<p align="center">
+<img width="1285" alt="image" src="https://user-images.githubusercontent.com/50073731/235458107-e86178b5-f4f2-4110-a415-d93a08f61373.png">
+</details>
