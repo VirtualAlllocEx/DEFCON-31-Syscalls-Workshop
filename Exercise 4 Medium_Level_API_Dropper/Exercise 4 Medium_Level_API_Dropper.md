@@ -20,7 +20,7 @@ Is the result what you expected?
 
 
 ## Visual Studio
-To create the medium-level API dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
+To create the MLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
 We replace all Windows APIs with the corresponding native APIs and create our MLA-Dropper.
 - NtAllocateVirtualMemory
 - NtWriteVirtualMemory
@@ -109,7 +109,8 @@ And finally we have to replace the Windows API WaitForSingleObject with the nati
 ```
 </details>    
 
-Here is the complete code, and you can copy and paste this code into your MLA-Dropper project in Visual Studio.
+Here is the **complete code**, and you can copy and paste this code into your **MLA-Dropper** project in Visual Studio.
+You can also download the complete **MLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
 <details>
     
 ```
@@ -185,7 +186,7 @@ The shellcode can then be copied into the MLA-Dropper poc by replacing the place
 
 
 ## MSF-Listener
-Before we test the functionality of our HLA-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our MLA-Dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -207,7 +208,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
+Once the listener has been successfully started, you can run your compiled MLA-Dropper.exe. If all goes well, you should see an incoming command and control session 
 <details>
     
 <p align="center">
