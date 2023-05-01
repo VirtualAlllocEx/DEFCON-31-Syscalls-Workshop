@@ -4,15 +4,17 @@ And we need to make sure that the shellcode thread completes its execution befor
 
 
 ## Exercise 3 tasks:
+### Create HLA-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the HLA-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ HLA-Dropper POC. 
 3. Compile the HLA-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-6. Use the Visual Studio dumpbin tool to verify that all used Windows APIs are correctly imported by kernel32.dll. 
-7. Use the API Monitor tool to check the transition from the used Windows APIs to the corresponding native APIs. 
-8. Use x64dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
-
+### Analyse HLA-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled HLA-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled HLA-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled HLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+Is the result what you expected?
 
 
 ## Visual Studio 
