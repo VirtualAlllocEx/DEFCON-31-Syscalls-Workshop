@@ -17,7 +17,7 @@ And we need to make sure that the shellcode thread completes its execution befor
 Is the result what you expected?
 
 
-## Visual Studio 
+## 1. Visual Studio 
 The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
 <p align="center">
@@ -37,7 +37,23 @@ The technical functionality of the HLA-Dropper is relatively simple and therefor
 - CreateThread
 - WaitForSingleObject
 
-The code works as follows. Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
+The code works like this. First, we need to define the thread function for shellcode execution later in the code.
+```
+// Define the thread function for executing shellcode
+// This function will be executed in a separate thread created later in the main function
+DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
+    // Create a function pointer called 'shellcode' and initialize it with the address of the shellcode
+    void (*shellcode)() = (void (*)())lpParam;
+
+    // Call the shellcode function using the function pointer
+    shellcode();
+
+    // Return 0 as the thread exit code
+    return 0;
+}
+```
+
+Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
 <p align="center">
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>    
