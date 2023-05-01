@@ -48,8 +48,9 @@ The code works as follows, shellcode declaration is the same as before in both d
 
 
 In the case of the LLA-Dropper, we also need to access the syscalls or syscalls stub from the respective native APIs. Again, we use the same native APIs as in the MLA-Dropper. 
-But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the LLA-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our LLA-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the LLA dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically we have to implement the generated code with SysWhispers 3 as follow: 
-1. Copy all three files into the directory of your LLA-Dropper Visual Studio Project
+But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the LLA-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our LLA-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the LLA dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically, we need to implement the generated code with SysWhispers 3 as follows: 
+
+1. Copy all three files we created with SysWhispers 3 into the directory of your LLA-Dropper Visual Studio project.
 <details>
  
 <p align="center">
@@ -57,7 +58,7 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 </details>
 
     
-2. Add the syscalls.h file as header file into your LLA-Dropper project 
+2. Add the syscalls.h file to your LLA-Dropper project as a header file. 
 <details>
  
 <p align="center">
@@ -65,7 +66,15 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 <img width="599" alt="image" src="https://user-images.githubusercontent.com/50073731/235456549-4385fe3d-4a77-49d7-a153-19e0c5e54cf8.png">
 </details>
 
-3. Add the syscalls-asm.x64.asm file as ressource 
+3. We also need to include the header syscalls.h as a library in our code. 
+Customisations.
+<details>
+ 
+<p align="center">
+<img width="1285" alt="image" src="https://user-images.githubusercontent.com/50073731/235458107-e86178b5-f4f2-4110-a415-d93a08f61373.png">
+</details>
+
+4. Add the syscalls-asm.x64.asm file as a resource file. 
 <details>
  
 <p align="center">
@@ -73,7 +82,7 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235456831-138e449f-11ae-4cc6-9483-4073eed67c49.png">
 </details>
 
-4. Add the syscall.c file as source
+5. Add the file syscall.c as source file
 <details>
  
 <p align="center">
@@ -81,7 +90,7 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 <img width="598" alt="image" src="https://user-images.githubusercontent.com/50073731/235457085-bf6775f0-c370-4bb0-b883-db99123b06ca.png">
 </details>
 
-5. To use the assembly code from the syscalls-asm.x64.asm file in Visual Studio, the Microsoft Macro Assembler (.masm) option must be enabled in Build Dependencies/Build Customisations.
+6. To use the assembly code from the syscalls-asm.x64.asm file in Visual Studio, you must enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build. Customisations.
 <details>
  
 <p align="center">
@@ -89,7 +98,7 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
 </details>
 
-6. Afterwards we have to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler 
+7. Then we need to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in our LLA dropper. 
 <details>
  
 <p align="center">
@@ -98,10 +107,4 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
     
 </details>
 
-7. Also we have to include the header syscalls.h in our code 
-Customisations.
-<details>
- 
-<p align="center">
-<img width="1285" alt="image" src="https://user-images.githubusercontent.com/50073731/235458107-e86178b5-f4f2-4110-a415-d93a08f61373.png">
-</details>
+
