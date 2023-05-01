@@ -17,7 +17,7 @@ In this exercise, we will make the second modification to the reference dropper,
 Is the result what you expected? 
 
 ## SysWhispers 3
-Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our LLA dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our LLA-Dropper you can use the following command with SysWhispers.
+Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our LLA dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our LLA-Dropper you can use the following command with SysWhispers. Because we work with the MSVC compiler in Visual Studio we choose for the -c parameter msvc. 
 <details>
     
 **kali>**
@@ -25,6 +25,15 @@ Again, we need to implement the code for the four native APIs we use, but unlike
 python syswhispers.py -a x64 -c msvc -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx,NtWaitForSingleObject -o syscalls -v
 ```
 </details>
+
+SysWhispers creates for us the three files syscalls.h, syscalls.c and syscalls-asm.x64.asm, which we later implement in our LLA-Dropper and which represent the code for the direct syscall implementation. 
+<details>
+ 
+<p align="center">
+<img width="942" alt="image" src="https://user-images.githubusercontent.com/50073731/235453951-f99fe798-79b9-458e-93af-5d0b3c52a0de.png">
+</details>
+
+
 
 
 ## Visual Studio
