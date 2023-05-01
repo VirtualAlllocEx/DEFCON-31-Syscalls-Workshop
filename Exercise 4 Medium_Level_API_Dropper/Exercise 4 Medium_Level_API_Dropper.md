@@ -208,7 +208,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled MLA-Dropper.exe. If all goes well, you should see an incoming command and control session 
+Once the listener has been successfully started, you can run your compiled MLA-Dropper.exe. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -230,14 +230,14 @@ dumpbin /imports high_level.exe
 
 <details>
     <summary>Solution</summary>    
-As expected, when compared to the high-level dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+Compared to the high-level dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
 </details>    
 
 ## MLA-Dropper analysis: API-Monitor
-Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
