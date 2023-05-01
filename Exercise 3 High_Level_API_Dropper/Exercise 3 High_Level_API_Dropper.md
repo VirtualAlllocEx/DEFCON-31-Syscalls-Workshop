@@ -115,7 +115,7 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
 
     
 Here is the **complete code**, and you can copy and paste this code into your **HLA-Dropper** project in Visual Studio.
-You can also download the complete **HLA-Dropper Visual Studio projec**t in the **Code Example section** of this repository.
+You can also download the complete **HLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
 <details>
     
 ```
