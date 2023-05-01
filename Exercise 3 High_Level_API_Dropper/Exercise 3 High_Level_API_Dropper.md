@@ -213,7 +213,7 @@ Once the listener has been successfully started, you can run your compiled high_
 
 
 ## HLA-Dropper analysis: dumpbin tool
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. Which results do you expect? The following command can be used to check the imports.
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
@@ -230,7 +230,7 @@ In the case of the HLA-Dropper, you should see that the Windows APIs VirtualAllo
     
 ## HLA-Dropper analysis: API-Monitor
 We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the HLA-Dropper, we filter on the following API calls:
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the HLA-Dropper, we filter on the following API calls. Which results do you expect?
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -239,6 +239,8 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 - NtCreateThreadEx
 - WaitForSingleObject
 - NtWaitForSingleObject
+
+
 
 <details>
     <summary>Solution</summary> 
@@ -250,9 +252,13 @@ If everything was done correctly, you should see clean transitions from the Wind
 
     
 ## HLA-Dropper analysis: x64dbg 
-Using x64dbg I check from which region of the PE structure of the HLA-Dropper the system call for the native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of ntdll.dll. This investigation is very important because later in the article we expect a different result with the low level dropper and want to match it.
+Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
+Remember, so far we have not implemented any native APIs or system calls or system call stubs directly in the dropper. What results would you expect?
+<details>
+    <summary>Solution</summary>
+As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
 ![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
-
+</details>
 
 ## Summary: High-level API Dropper
 - No direct system calls at all
