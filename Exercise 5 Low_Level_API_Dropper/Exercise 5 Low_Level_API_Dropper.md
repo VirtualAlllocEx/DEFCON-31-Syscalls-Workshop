@@ -221,7 +221,7 @@ dumpbin /imports high_level.exe
 </details>   
     
     
-## MLA-Dropper analysis: API-Monitor
+## LLA-Dropper analysis: API-Monitor
 For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in the context of the used APIs in our MLA dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
@@ -234,32 +234,37 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 
 <details>
     <summary>Solution</summary>    
-If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported by kernel32.dll and ntdll.dll.
+If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported from kernel32.dll and ntdll.dll to the LLA-Dropper.exe.
 This result was expected and is correct because our LLA dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
 <p align="center">
-<img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
+<img width="595" alt="image" src="https://user-images.githubusercontent.com/50073731/235480936-df805736-aad8-44a7-8bec-f8563735d1d2.png">
 </p>
 </details>    
 
-## MLA-Dropper analysis: x64dbg 
+## LLA-Dropper analysis: x64dbg 
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
-Remember, so far we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
+Remember, now we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
     <summary>Solution</summary>
     
-1. Open or load your MLA-Dropper.exe into x64dbg
-2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
+1. Open or load your LLA-Dropper.exe into x64dbg
+2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight your **LLA-Dropper.exe**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. Compared to the HLA-Dropper and the MLA-Dropper we can see that the symbols for the used native APIs are implemented directly in the dropper itself and not imported from the ntdll.dll.
     
 <p align="center">    
-<img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
+<img width="979" alt="image" src="https://user-images.githubusercontent.com/50073731/235481553-012459f5-1284-44ed-b3ed-2b04bfcccd3b.png">
 </p>
     
-As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
+As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are no longer 
+imported from the .text section in the ntdll.dll module. Instead the syscalls or syscalls stubs are directly implemtented into the .text section of the LLA-Dropper itself.
     
 <p align="center">    
-<img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
-</p>    
+<img width="990" alt="image" src="https://user-images.githubusercontent.com/50073731/235482389-35cd8c12-593e-4089-b082-8eaf2ba6636a.png"></p>    
 </details>
 
 
-## Summary:    
+## Summary:
+- Made transition from medium to low level or from Native APIs to direct syscalls
+- Dropper imports no longer Windows APIs from kernel32.dll
+- Dropper imports no longer Native APIs from ntdll.dll
+- Syscalls or syscall stubs are "implemented" directly into .text section of .exe![image](https://user-images.githubusercontent.com/50073731/235482977-60492450-e08f-4260-81f8-4198706d4741.png)
+
