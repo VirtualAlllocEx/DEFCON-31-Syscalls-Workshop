@@ -119,7 +119,7 @@ You can also download the complete **LLA-Dropper Visual Studio project** in the 
 
 int main() {
     // Insert Meterpreter shellcode
-    unsigned char code[] = " ";
+    unsigned char code[] = "\xfc\x48\x83...";
 
     // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
     // 'exec' will hold the base address of the allocated memory region
@@ -212,7 +212,8 @@ dumpbin /imports high_level.exe
 </details>    
 
 <details>
-    <summary>Solution</summary>    
+    <summary>Solution</summary>  
+    
 **No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
 <img width="1023" alt="image" src="https://user-images.githubusercontent.com/50073731/235473764-c85ccc73-a1cb-403d-8162-172146375d96.png">
@@ -220,12 +221,8 @@ dumpbin /imports high_level.exe
 </details>   
     
     
-    
-    
-    
-
 ## MLA-Dropper analysis: API-Monitor
-Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in the context of the used APIs in our MLA dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -237,8 +234,8 @@ Compared to the high-level dropper, you can see that the Windows APIs VirtualAll
 
 <details>
     <summary>Solution</summary>    
-If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our MLA-Dropper poc.
-This result was expected and is correct because our MLA-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
+If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported by kernel32.dll and ntdll.dll.
+This result was expected and is correct because our LLA dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
 <p align="center">
 <img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
 </p>
