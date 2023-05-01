@@ -26,7 +26,7 @@ python syswhispers.py -a x64 -c msvc -f NtAllocateVirtualMemory,NtWriteVirtualMe
 ```
 </details>
 
-SysWhispers creates for us the three files syscalls.h, syscalls.c and syscalls-asm.x64.asm, which we later implement in our LLA-Dropper and which represent the code for the direct syscall implementation. 
+SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and **syscalls-asm.x64.asm**, which we later implement in our LLA-Dropper and which represent the code for the direct syscall implementation. 
 <details>
  
 <p align="center">
@@ -35,15 +35,50 @@ SysWhispers creates for us the three files syscalls.h, syscalls.c and syscalls-a
 
 
 
-
 ## Visual Studio
-To create the LLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps. In this case, we will not load the required syscalls or syscall stub from ntll.dll, but will implement them directly in the LLA-Dropper itself. Shellcode declaration same as before in both droppers.
+To create the LLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
+The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
 
 ```
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
+</details>
+
+
+In the case of the LLA-Dropper, we also need to access the syscalls or syscalls stub from the respective native APIs. Again, we use the same native APIs as in the MLA-Dropper. 
+But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the LLA-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our LLA-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the LLA dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically we have to implement the generated code with SysWhispers 3 as follow: 
+1. Copy all three files into the directory of your LLA-Dropper Visual Studio Project
+<details>
+ 
+<p align="center">
+<img width="697" alt="image" src="https://user-images.githubusercontent.com/50073731/235456064-2b124b99-6936-4a96-a878-2e8dd8cdb460.png">
+</details>
+
+    
+2. Add the syscalls.h file as header file into your LLA-Dropper project 
+<details>
+ 
+<p align="center">
+<img width="1269" alt="image" src="https://user-images.githubusercontent.com/50073731/235456468-ffd08548-6f71-4904-821c-6d88580fa3fb.png">
+<img width="599" alt="image" src="https://user-images.githubusercontent.com/50073731/235456549-4385fe3d-4a77-49d7-a153-19e0c5e54cf8.png">
+</details>
+
+3. Add the syscalls-asm.x64.asm file as ressource 
+<details>
+ 
+<p align="center">
+<img width="1268" alt="image" src="https://user-images.githubusercontent.com/50073731/235456751-b44a0786-5225-46d7-9ec3-032a6b8ab36c.png">
+<img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235456831-138e449f-11ae-4cc6-9483-4073eed67c49.png">
+</details>
+
+4. Add the syscall.c file as source
+<details>
+ 
+<p align="center">
+<img width="1263" alt="image" src="https://user-images.githubusercontent.com/50073731/235457023-473375d1-591d-4479-b47c-2918af056ff2.png">
+<img width="598" alt="image" src="https://user-images.githubusercontent.com/50073731/235457085-bf6775f0-c370-4bb0-b883-db99123b06ca.png">
 </details>
 
 
