@@ -214,7 +214,7 @@ Once the listener has been successfully started, you can run your compiled high_
 </details>
 
 
-## HLA-Dropper analysis: dumpbin tool
+## HLA-Dropper analysis: dumpbin
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>
     
