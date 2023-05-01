@@ -17,7 +17,7 @@ And we need to make sure that the shellcode thread completes its execution befor
 Is the result what you expected?
 
 
-## 1. Visual Studio 
+## Visual Studio 
 The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 
 <p align="center">
