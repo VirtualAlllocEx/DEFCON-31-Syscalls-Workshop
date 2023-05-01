@@ -220,9 +220,7 @@ cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
 <details>
-    
-    <summary>Solution</summary>
-    
+    <summary>Solution</summary>   
 In the case of the HLA-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the HLA-Dropper from the kernel32.dll.
 <p align="center">
 <img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
@@ -243,8 +241,7 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 - NtWaitForSingleObject
 
 <details>
-    <summary>Solution</summary>
-    
+    <summary>Solution</summary> 
 If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our HLA-Dropper POC.
 <p align="center">
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/50073731/235368737-9f87f5de-0a7e-4039-b454-2af23914b277.png">
