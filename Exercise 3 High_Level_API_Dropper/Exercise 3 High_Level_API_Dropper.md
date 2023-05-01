@@ -45,7 +45,7 @@ Within the main function, the variable "code" is defined, which is responsible f
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>    
     
-The next step is to define a "void*" type pointer with the "exec" variable, which points to the Windows API VirtualAlloc and returns the start address of the allocated memory block.
+The next step is to define the function pointer void*, which points to the variable exec and stores the return address of the allocated memory using the Windows API VirtualAlloc.
 <p align="center">
 <img width="594" alt="image" src="https://user-images.githubusercontent.com/50073731/235367335-a08a4a78-8a5c-4e02-9523-7bf2d1032f1c.png">
 </p>
