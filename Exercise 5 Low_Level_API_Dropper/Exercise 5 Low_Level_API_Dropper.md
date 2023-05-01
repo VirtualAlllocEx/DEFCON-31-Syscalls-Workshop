@@ -36,7 +36,7 @@ SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and *
 
 
 ## Visual Studio
-To create the Low-Level-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
+To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
 The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
 
@@ -207,7 +207,7 @@ The Visual Studio tool dumpbin can be used to check which Windows APIs are impor
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports high_level.exe
+dumpbin /imports low_level.exe
 ```
 </details>    
 
