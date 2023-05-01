@@ -19,7 +19,7 @@ Is the result what you expected?
 
 ## Visual Studio 
 The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
-
+<details>
 <p align="center">
 <img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
 </p>
@@ -30,6 +30,8 @@ The easiest way is to create a new console app project and then replace the defa
 <img width="640" alt="image" src="https://user-images.githubusercontent.com/50073731/235357092-5fd2e873-6732-4b37-a69d-38a281953b2e.png">
 <img width="645" alt="image" src="https://user-images.githubusercontent.com/50073731/235357228-940ec56c-7565-44b8-8b6a-01a74ab15e1d.png">
 </p>
+</details>
+
 
 The technical functionality of the HLA-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the HLA-Dropper into a low-level dropper using direct system calls. In the HLA-Dropper we use the following Windows APIs: 
 - VirtualAlloc
