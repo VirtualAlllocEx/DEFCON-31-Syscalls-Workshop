@@ -17,7 +17,7 @@ We create a **medium-level API shellcode dropper** in short **MLA-Dropper** base
 
 
 ## Visual Studio
-Same procedure as in the high-level API dropper exercise, take a look to follow the necessary steps.
+To create the medium-level API dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
 We replace all Windows APIs with the corresponding native APIs and create our MLA-Dropper.
 - NtAllocateVirtualMemory
 - NtWriteVirtualMemory
