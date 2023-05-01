@@ -266,5 +266,4 @@ imported from the .text section in the ntdll.dll module. Instead the syscalls or
 - Made transition from medium to low level or from Native APIs to direct syscalls
 - Dropper imports no longer Windows APIs from kernel32.dll
 - Dropper imports no longer Native APIs from ntdll.dll
-- Syscalls or syscall stubs are "implemented" directly into .text section of .exe![image](https://user-images.githubusercontent.com/50073731/235482977-60492450-e08f-4260-81f8-4198706d4741.png)
-
+- Syscalls or syscall stubs are "implemented" directly into .text section of .exe
