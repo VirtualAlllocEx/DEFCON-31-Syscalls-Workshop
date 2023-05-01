@@ -6,13 +6,13 @@ We create a **medium-level API shellcode dropper** in short **MLA-Dropper** base
 
 
 ## Exercice 4 tasks:
-### Create HLA-Dropper
+### Create MLA-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA-Dropper poc. 
 3. Compile the MLA-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse HLA-Dropper
+### Analyse MLA-Dropper
 6. Use the Visual Studio tool dumpbin to analyze the compiled MLA-Dropper. Is the result what you expected?  
 7. Use the API Monitor to analyze the compiled MLA-Dropper in the context of the four APIs used. Is the result what you expected? 
 8. Use the x64dbg debugger to analyze the compiled MLA dropper: from which module and location are the syscalls from the four APIs used being executed?
