@@ -185,8 +185,8 @@ The shellcode can then be copied into the MLA-Dropper poc by replacing the place
 
 
 ## MSF-Listener
-Before we test the functionality of our MLA-Dropper, we need to create a listener within msfconsole.
-</details>
+Before we test the functionality of our HLA-Dropper, we need to create a listener within msfconsole.
+<details>
     
 **kali>**
 ```
@@ -204,9 +204,12 @@ run
 <p align="center">
 <img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
 </p>
-
-Once the listener has been successfully started, you can run your compiled MLA-Dropper. If all goes well, you should see an incoming command and control session. 
-
+</details>
+ 
+    
+Once the listener has been successfully started, you can run your compiled high_level_dropper.exe. If all goes well, you should see an incoming command and control session 
+<details>
+    
 <p align="center">
 <img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
 </p>
