@@ -80,6 +80,7 @@ For memory allocation, we replace the Windows API VirtualAlloc with the native A
 
 For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
 <details>
+    
 ```
 // Copy the shellcode into the allocated memory region
     SIZE_T bytesWritten;
@@ -90,6 +91,7 @@ For shellcode copying, we replace the Windows API WriteProcessMemory with the na
 
 For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
 <details>
+    
 ```
 // Execute the shellcode in memory using a new thread
     // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
@@ -100,6 +102,7 @@ For shellcode execution, we replace the Windows API CreateThread with the native
 
 And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
 <details>
+    
 ```
 // Wait for the end of the thread to ensure the shellcode execution is complete
     NtWaitForSingleObject(hThread, FALSE, NULL);
