@@ -190,7 +190,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled LLA-Dropper.exe. If all goes well, you should see an incoming command and control session 
+Once the listener has been successfully started, you can run your compiled LLA-Dropper.exe. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -198,3 +198,71 @@ Once the listener has been successfully started, you can run your compiled LLA-D
 </p>
 </details>
         
+
+    
+## LLA-Dropper analysis: dumpbin 
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+<details>    
+    
+**cmd>**
+```
+cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+dumpbin /imports high_level.exe
+```
+</details>    
+
+<details>
+    <summary>Solution</summary>    
+**No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+<p align="center">
+<img width="1023" alt="image" src="https://user-images.githubusercontent.com/50073731/235473764-c85ccc73-a1cb-403d-8162-172146375d96.png">
+</p>
+</details>   
+    
+    
+    
+    
+    
+
+## MLA-Dropper analysis: API-Monitor
+Compared to the high-level dropper, you can see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject no longer pass to the four corresponding native APIs. For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
+- VirtualAlloc
+- NtAllocateVirtualMemory
+- WriteProcessMemory
+- NtWriteVirtualMemory
+- CreateThread
+- NtCreateThreadEx
+- WaitForSingleObject
+- NtWaitForSingleObject
+
+<details>
+    <summary>Solution</summary>    
+If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our MLA-Dropper poc.
+This result was expected and is correct because our MLA-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
+<p align="center">
+<img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
+</p>
+</details>    
+
+## MLA-Dropper analysis: x64dbg 
+Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
+Remember, so far we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
+<details>
+    <summary>Solution</summary>
+    
+1. Open or load your MLA-Dropper.exe into x64dbg
+2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
+    
+<p align="center">    
+<img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
+</p>
+    
+As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
+    
+<p align="center">    
+<img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
+</p>    
+</details>
+
+
+## Summary:    
