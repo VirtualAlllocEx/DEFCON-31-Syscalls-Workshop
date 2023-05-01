@@ -1,4 +1,4 @@
-## Introduction Exercise 3 High_Level_API_Dropper
+## Introduction: Exercise 3 High_Level_API_Dropper
 And we need to make sure that the shellcode thread completes its execution before the main thread exits.In this exercise, we want to take the first step toward creating our own direct system call dropper. But to understand the principle of a legitimate syscall itself, we will start by creating a **high-level API shellcode dropper**, or **HLA-Dropper** for short, based on the **Windows APIs** loaded by **kernel32.dll**, which will serve as our reference dropper for later modifications. This means that in the first step I deliberately do not use native APIs or direct system calls yet, but start with the classic implementation via Windows APIs, which are obtained via the kernel32.dll.
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
