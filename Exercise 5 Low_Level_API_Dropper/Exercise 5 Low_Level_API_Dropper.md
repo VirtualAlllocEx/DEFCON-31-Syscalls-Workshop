@@ -1,15 +1,42 @@
 ## Exercise 5: Low_Level_API_Dropper
-In this exercise, we will make the second modification compared to the reference dropper and replace the Windows APIs (kernel32.dll) with native APIs (ntdll.dll).
-We create a **low-level API shellcode dropper** in short **LLA-Dropper** based on native APIs. 
+In this exercise, we will make the second modification to the reference dropper, create the direct syscall dropper, and implement the required syscalls or syscall stub directly into the **Low-Level API shellcode dropper** for short **LLA dropper**. 
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
-## Exercice 4 tasks: 
+## Exercise 5 tasks:
+### Create LLA-Dropper 
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the LLA-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ LLA-Dropper poc. 
 3. Compile the LLA-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-6. Use the Visual Studio tool dumpbin to verify that the user Windows APIs in the LLA-Dropper not being imported by kernel32.dll. 
-7. Use API Monitor to verfiy that there are 
-8. Use the API Monitor tool to verify that there are no more transitions from Windows APIs to native APIs related to the MLA-Dropper. 
-9. Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
+### Analyse HLA-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled LLA-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled LLA-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled LLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+Is the result what you expected? 
+
+
+## Visual Studio
+To create the LLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps. In this case, we will not load the required syscalls or syscall stub from ntll.dll, but will implement them directly in the LLA-Dropper itself. Shellcode declaration same as before in both droppers.
+<details>
+
+```
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
+</details>
+
+Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our LLA dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our LLA-Dropper you can use the following command with SysWhispers.
+<details>
+
+```
+**kali>**
+python syswhispers.py -a x64 -c msvc -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx,NtWaitForSingleObject -o syscalls -v
+```
+</details>
+
+
+
+
+But more on this later. In the following code section we see the same usage for the native APIs as in the MLA-Dropper, but this time  
+
