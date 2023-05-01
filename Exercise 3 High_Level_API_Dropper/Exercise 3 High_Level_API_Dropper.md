@@ -88,7 +88,8 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
     WaitForSingleObject(hThread, INFINITE);    
 ```
 
-Here is the complete code, and you can copy and paste this code into your HLA-Dropper project in Visual Studio.
+Here is the **complete code**, and you can copy and paste this code into your **HLA-Dropper** project in Visual Studio.
+You can also download the complete **HLA-Dropper Visual Studio projec**t in the **Code Example section** of this repository.
 
 ```
 #include <stdio.h>
