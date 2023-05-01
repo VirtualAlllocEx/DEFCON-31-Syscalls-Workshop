@@ -45,7 +45,7 @@ Within the main function, the variable "code" is defined, which is responsible f
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
 </p>    
     
-The next step is to define the function pointer void*, which points to the variable exec and stores the return address of the allocated memory using the Windows API VirtualAlloc.
+The next code block defines the function pointer void*, which points to the variable exec and stores the return address of the allocated memory using the Windows API VirtualAlloc.
 <p align="center">
 <img width="594" alt="image" src="https://user-images.githubusercontent.com/50073731/235367335-a08a4a78-8a5c-4e02-9523-7bf2d1032f1c.png">
 </p>
@@ -55,12 +55,12 @@ Then, the Windows WriteProcessMemory API is used to copy the meterpreter shellco
 <img width="611" alt="image" src="https://user-images.githubusercontent.com/50073731/235367362-359adc26-500b-4b9d-8d3b-a8aa32dd2b64.png">
 </p>
 
-The next step is to execute the shellcode by creating a new thread 
+The next block of code defines the execution of the shellcode by creating a new thread. 
 <p align="center">
 <img width="615" alt="image" src="https://user-images.githubusercontent.com/50073731/235367381-48be952c-9d46-4859-8682-69ed717f4dd4.png">
 </p>
 
-We need to make sure that the shellcode thread completes its execution before the main thread exits.
+And we need to make sure that the shellcode thread completes its execution before the main thread exits.
 <p align="center">
 <img width="616" alt="image" src="https://user-images.githubusercontent.com/50073731/235367403-8bd2150f-eeb2-444c-b7ca-bf4c7ea39260.png">
 </p>
