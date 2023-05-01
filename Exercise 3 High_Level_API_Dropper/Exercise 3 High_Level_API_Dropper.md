@@ -264,10 +264,14 @@ Remember, so far we have not implemented any native APIs or system calls or syst
     <summary>Solution</summary>
 1. Open or load your HLA-Dropper.exe into x64dbg
 2. Go to the Symbols tab, in the left pane in the Modules column select or highlight ntdll.dll, in the right pane in the Symbols column filter for the first native API NtAllocateVirtualMemory, right click and follow in Dissassembler. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just repeat this procedure. 
+<p align="center">    
 <img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
-
+</p>
+    
 As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
+<p align="center">    
 <img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
+</p>    
 </details>
 
 ## Summary: High-level API Dropper
