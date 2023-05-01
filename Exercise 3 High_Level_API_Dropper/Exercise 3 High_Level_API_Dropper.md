@@ -214,11 +214,16 @@ Once the listener has been successfully started, you can run your compiled high_
 
 ## HLA-Dropper analysis: dumpbin tool
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+    
 **cmd>**
+<details>
+    
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
 dumpbin /imports high_level.exe
 ```
+</details>
+    
 <details>
     <summary>Solution</summary>   
 In the case of the HLA-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the HLA-Dropper from the kernel32.dll.
