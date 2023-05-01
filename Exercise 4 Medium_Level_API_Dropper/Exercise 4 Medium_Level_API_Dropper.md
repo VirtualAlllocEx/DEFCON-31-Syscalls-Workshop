@@ -5,15 +5,18 @@ We create a **medium-level API shellcode dropper** in short **MLA-Dropper** base
 
 
 
-## Exercice 4 tasks: 
+## Exercice 4 tasks:
+### Create HLA-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA-Dropper poc. 
 3. Compile the MLA-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-6. Use the Visual Studio tool dumpbin to verify that the user Windows APIs in the MLA-Dropper are no longer being imported by kernel32.dll. 
-7. Use the API Monitor tool to verify that there are no more transitions from Windows APIs to native APIs related to the MLA-Dropper. 
-8. Use x64 dbg and check where the syscall execution of each used native API comes from ? Module? Location? 
+### Analyse HLA-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled HLA-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled HLA-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled HLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+Is the result what you expected? 
 
 
 ## Visual Studio
@@ -25,10 +28,15 @@ We replace all Windows APIs with the corresponding native APIs and create our ML
 - NtWaitForSingleObject
 
 The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our MLA-Dropper, we must manually define the function pointers for the native API functions in the MLA-Dropper code.
+<details>
+    
 <p align="center">
 <img width="726" alt="image" src="https://user-images.githubusercontent.com/50073731/235373833-787137bf-e79b-41a3-b0cb-a83a29c541be.png">
 </p>
-
+</details>
+    
+    
+    
 Shellcode declaration same as before in the high-level API dropper.
 <p align="center">
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/50073731/235367184-71a8dbb0-036b-4cc1-93d2-28ef1abfd9ef.png">
