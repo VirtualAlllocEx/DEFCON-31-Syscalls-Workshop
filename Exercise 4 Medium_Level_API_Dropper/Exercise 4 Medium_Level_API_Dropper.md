@@ -277,7 +277,7 @@ As expected, we can observe that the corresponding system calls for the native A
 
 
 ## Summary: Medium-level API Dropper
-- We made the transition from high-level APIs to mid-level APIs, or from Windows APIs to native APIs.
+- We made the transition from high-level APIs to medium-level APIs, or from Windows APIs to native APIs.
 - But still no direct use of system calls
 - Syscall execution via medium_level_dropper.exe -> ntdll.dll -> syscall
 - Dropper no longer imports Windows APIs from kernel32.dll
