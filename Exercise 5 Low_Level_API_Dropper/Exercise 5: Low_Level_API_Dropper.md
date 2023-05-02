@@ -11,10 +11,9 @@ In this exercise, we will make the second modification to the reference dropper,
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
 ### Analyse Low-Level-Dropper
-6. Use the Visual Studio tool dumpbin to analyze the compiled Low-Level-Dropper. Is the result what you expected?  
-7. Use the API Monitor to analyze the compiled Low-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the x64dbg debugger to analyze the compiled Low-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed?
-Is the result what you expected? 
+6. Use the Visual Studio tool **dumpbin** to analyze the compiled Low-Level-Dropper. Is the result what you expected?  
+7. Use the tool **API Monitor** to analyze the compiled Low-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the debugger **x64dbg** to analyze the compiled Low-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected? 
 
 ## SysWhispers 3
 Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our Low-Level-Dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our Low-Level-Dropper you can use the following command with SysWhispers. Because we work with the MSVC compiler in Visual Studio we choose for the -c parameter msvc. 
