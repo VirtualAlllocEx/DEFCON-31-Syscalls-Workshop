@@ -96,15 +96,20 @@ In this workshop we will only focus on the **Direct System Call** technique, i.e
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
 ### Prerequisites LAB
-- VmWare Workstation or VirtualBox
-  - Windows 10 DEV/LAB machine
+- VmWare [Workstation](https://www.vmware.com/go/getworkstation-win) or [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+  - **Windows 10 DEV machine**
     - AV/EPP/EDR disabled
-    - Visual Studio Free 2019
-    - Process Monitor (Procmon)
-    - x64dbg
-  - Kali Linux 
+    - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
+    - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
+    - [x64dbg](https://x64dbg.com/)
+    
+  - **Windows 10 LAB machine** (Optional for Exercise 2)
+    - With Windows Defender or 3rd party AV/EPP/EDR installed  
+  
+  - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms) 
     - Metasploit/Meterpreter
-    - SysWhispers3
+    - [SysWhispers3](https://github.com/klezVirus/SysWhispers3)
 
 
 ## Happy Hacking!
