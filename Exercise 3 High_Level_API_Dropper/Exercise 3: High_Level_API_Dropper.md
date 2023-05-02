@@ -11,10 +11,9 @@ And we need to make sure that the shellcode thread completes its execution befor
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
 ### Analyse High-Level-Dropper
-6. Use the Visual Studio tool dumpbin to analyze the compiled High-Level-Dropper. Is the result what you expected?  
-7. Use the API Monitor to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the x64dbg debugger to analyze the compiled High-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed?
-Is the result what you expected?
+6. Use the Visual Studio tool **dumpbin** to analyze the compiled High-Level-Dropper. Is the result what you expected?  
+7. Use the tool **API Monitor** to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the debugger **x64dbg** to analyze the compiled High-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected?
 
 
 ## Visual Studio 
