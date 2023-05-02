@@ -104,11 +104,11 @@ All the step-by-step instructions and code samples can be found in the respectiv
     - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
     - [x64dbg](https://x64dbg.com/)
     
-  - **Windows 10 LAB machine** (Optional for Exercise 2)
-    - With Windows Defender or 3rd party AV/EPP/EDR installed  
+  - **Windows 10 LAB machine** (Required if you want to do exercise 2 )
+    - With Windows Defender or 3rd party AV/EPP/EDR installed
+    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
   
-  - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms) 
-    - Metasploit/Meterpreter
+  - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
     - [SysWhispers3](https://github.com/klezVirus/SysWhispers3)
 
 
