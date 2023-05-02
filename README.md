@@ -95,13 +95,15 @@ In this workshop we will only focus on the **Direct System Call** technique, i.e
 
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
-### Prerequisites
-- Windows 10 DEV/LAB machine with no installed AV/EPP/EDR
+### Prerequisites LAB
+- VmWare Workstation or VirtualBox
+ - Windows 10 DEV/LAB machine with no installed AV/EPP/EDR
+ - Kali Linux (Metasploit/Meterpreter)
 - Visual Studio Free 2019 
 - x64dbg
 - Process Monitor (Procmon)
 - SysWhispers3 
-- Kali Linux (Metasploit/Meterpreter) 
+ 
 
 
 
