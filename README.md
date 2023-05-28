@@ -2,7 +2,7 @@
 <img width="705" alt="Intro_ws_logo" src="https://user-images.githubusercontent.com/50073731/235339663-9c59e27f-57ea-4bbd-8188-e9e2849990f3.png">
 </p>
 
-# Direct Syscalls: A Journey from High to Low
+# (In)direct Syscalls: A Journey from High to Low
 
 ## Disclaimer 
 The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. 
