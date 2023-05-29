@@ -1,5 +1,5 @@
 ## Exercise 1: Win32 API Dropper (High_Level_APIs)
-In  **Exercise 1** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. If you take a look at the illustration below, you will see that we are not using any direct syscalls or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
+In **Exercise 1** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper High-Level-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
@@ -7,7 +7,7 @@ In  **Exercise 1** we will create our first shellcode dropper based on **high le
 ### Create High-Level-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the High-Level-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ High-Level-Dropper POC. 
-3. Compile theHigh-Level-Dropper as release or debug x64. 
+3. Compile the High-Level-Dropper as release or debug x64. 
 4. Create and run a staged x64 meterpreter listener with msfconsole.
 5. Run your compiled .exe and verify that a stable command and control channel opens. 
 ### Analyse High-Level-Dropper
