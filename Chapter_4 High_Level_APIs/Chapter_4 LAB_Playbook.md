@@ -1,5 +1,5 @@
-## Exercise: Windows API Dropper (High_Level_APIs)
-In the first lab exercise we create our first shellcode dropper based high level APIs or on Win32 APIs. This dropper builds more or less the reference for further development into directon of a direct syscall and indirect syscall dropper. By taking a look on the following illustration we see, that we do not use any direct syscalls or indirect syscalls at all. Instead we use the normal way from ```malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall```.  
+## Exercise: Win32 API Dropper (High_Level_APIs)
+In the **first lab** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. If you take a look at the illustration below, you will see that we are not using any direct syscalls or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
