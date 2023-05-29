@@ -15,3 +15,13 @@ Both anti-virus (AV) and endpoint detection and response (EDR) products rely on 
 
 Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was possible for antivirus products to implement their hooks in the Windows kernel, e.g. using SSDT hooking. With Patch Guard, this was prevented by Microsoft for reasons of operating system stability. Most of the EDRs I have analysed rely primarily on inline API hooking. Technically, an inline hook is a 5-byte assembly instruction (also called a jump or trampoline) that causes a redirection to the EDR's Hooking.dll before the system call is executed in the context of the respective native API. The redirection from the Hooking.dll back to the system call in the Ntdll.dll only occurs if the executed code analysed by the Hooking.dll was found to be harmless. Otherwise, the execution of the corresponding system call is prevented by the Endpoint Protection (EPP) component of an EPP/EDR combination. The following figure shows a simplified illustration of how user-mode API hooking works with EDR.
 ![Prinicipal_usermode_hooking](https://user-images.githubusercontent.com/50073731/235348163-90ce327a-e146-4376-af85-db75d889f4d9.png)
+
+
+## Consequences for the Red Team
+From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
+- Use no hooked APIs
+- User mode unhooking 
+- Indirect syscalls 
+- Direct syscalls 
+
+In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin.
