@@ -24,8 +24,11 @@ The decision to split Windows into user mode and kernel mode was primarily drive
 
 By maintaining a clear boundary between user mode and kernel mode, Windows ensures that both system stability and security are less likely to be compromised by faulty or malicious applications. It's a design principle common to many modern operating systems, not just Windows.
 
-## Windows User Mode
+### User Mode
 Key components in user mode include the Win32 subsystem, which provides the API used by most Windows applications, and the security subsystem, which handles logins and permissions. At the heart of the NT architecture, User Mode provides a controlled, secure environment in which most software operates. Applications running in this mode do not have direct access to system hardware or memory, but instead interact with the hardware through system calls and APIs, ensuring that system-level resources are protected from potentially damaging operations. User mode is the domain of third-party software, user interfaces, and many of the built-in Windows components such as the shell and Windows services. Key elements within this mode include the Win32 subsystem, which provides the API used by most Windows applications, and the security subsystem, which is responsible for critical security functions such as logins and permissions.
 
-## Kernel Mode
+### Kernel Mode
 In contrast, kernel mode is a privileged realm reserved for the core functions of the operating system. Here, code has unrestricted access to the system's hardware and memory, facilitating direct and efficient interaction with the system's resources. It's where the Windows kernel, the hardware abstraction layer (HAL), device drivers, and certain system services reside. Core components in this space include the executive, which manages vital system tasks such as I/O, object security and more; the Windows kernel itself; and the HAL, which abstracts hardware specifics and provides a consistent, platform-independent interface for the kernel.
+
+### References 
+- "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu.
