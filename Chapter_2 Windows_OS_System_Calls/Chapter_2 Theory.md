@@ -4,7 +4,9 @@ Before we discuss what a direct or indirect system call is and how it is used by
 - Each syscall or syscall number is associated with a specific native API (NTAPI)
 In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. 
 
+<p align="center">
 ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/a24e6fe8-7098-4e23-b5c5-e44ecdba1880)
+</p>
 
 ## Why do we need system calls at all?
 Because a modern operating system like Windows 10 is divided into user mode and kernel mode, syscalls are necessary or responsible for initializing the transition from user mode to kernel mode. For example, system alls in Windows are necessary for:
