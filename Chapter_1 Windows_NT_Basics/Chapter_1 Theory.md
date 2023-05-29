@@ -4,15 +4,14 @@ Introduced in 1993, the Microsoft Windows New Technology (NT) operating system m
 
 Understanding the nature of this transition requires a brief look back at the state of Windows before NT. The pre-NT versions of Windows were essentially 16-bit systems that functioned more as graphical shells on top of MS-DOS. They had limitations such as limited memory usage and a lack of memory protection between processes. Security and networking features were minimal and often rudimentary. This architectural design often led to system instability and inefficiencies that hindered the overall performance of the operating system.
 
-Windows NT brought a paradigm shift with its 32-bit architecture and a host of advanced features. Unlike its predecessors, NT was a completely new operating system designed from the ground up to run on multiple hardware platforms. It introduced cutting-edge features such as symmetric multiprocessing, improved memory management and comprehensive networking support.
+Windows NT, released in 1993 brought a paradigm shift with its 32-bit architecture and a host of advanced features. Unlike its predecessors, NT was a completely new operating system designed from the ground up to run on multiple hardware platforms. It introduced cutting-edge features such as symmetric multiprocessing, improved memory management and comprehensive networking support.
 
 ## User Mode and Kernel Mode
 One of the major changes to the Windows NT architecture was to split it into user mode and kernel mode. The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
+
 <p align="center">
 <img width="409" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
 </p>
-
-The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 
 1. **Stability**: By separating user mode from kernel mode, any bugs, crashes, or malfunctions that occur in user mode programs will not directly affect the kernel or other system components. In other words, a crashing user-mode application won't bring down the entire system because the kernel remains isolated and protected.
 
@@ -31,4 +30,6 @@ Key components in user mode include the Win32 subsystem, which provides the API 
 In contrast, kernel mode is a privileged realm reserved for the core functions of the operating system. Here, code has unrestricted access to the system's hardware and memory, facilitating direct and efficient interaction with the system's resources. It's where the Windows kernel, the hardware abstraction layer (HAL), device drivers, and certain system services reside. Core components in this space include the executive, which manages vital system tasks such as I/O, object security and more; the Windows kernel itself; and the HAL, which abstracts hardware specifics and provides a consistent, platform-independent interface for the kernel.
 
 ### References 
-- "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu.
+- "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- "Windows System Architecture" available on Microsoft Docs
