@@ -35,6 +35,9 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 8:** Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
 - **Chapter 9:** Workshop summary 
 
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/96e4bbd1-3753-464b-8975-83129190913c)
+
+
 
 ## What is a Direct System Call?
 This is a technique that allows an attacker (red team) to execute malicious code, e.g. shell code, in the context of APIs on Windows in such a way that the system call is not obtained via Ntdll.dll, but is implemented directly as an assembly instruction, e.g. in the .text region of the malware. Hence the name Direct System Calls.
