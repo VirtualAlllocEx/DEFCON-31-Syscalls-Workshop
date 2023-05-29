@@ -5,11 +5,7 @@ Before we discuss what a direct or indirect system call is and how it is used by
 - Important, the syscall instruction is separate instruction and not the syscall ID itself
 - The syscall ID or more precise the opcode ```mov``` in the codeline ```mov eax SSN``` can be hooked by an EDR, but the syscall instruction ```syscall``` itself can't be hooked by an EDR (Later on important at indirect syscalls)
 
-
-In the foolowing illustration we see, that the 
-- Each syscall is associated contains a specific syscall ID (syscall number or system service number (SSN)).
-- Each syscall or syscall number is associated with a specific native API (NTAPI)
-In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. 
+In the following screenshot we can see that the syscall ID 18 is related to the NTAPI NtAllocateVirtualMemory, but as already mentionted, the system service number (SSN) can change. 
 
 ![syscall_stub](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/982234b9-2b33-4b6f-aa34-9689067175d0)
 
