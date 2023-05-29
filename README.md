@@ -6,7 +6,7 @@
 The content and all code examples int this repository are for teaching and research purpose only and must not be used in an unethical context! The code samples are not new and I make no claim to it. 
 - Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!. 
 
-I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of direct system calls. Without all of you, this workshop would never have been possible! Please forgive me if I have forgotten anyone.
+I would also like to thank all those members of the infosec community who have researched, shaped, and continue to research the topic of syscalls, direct system calls and indirect syscalls. Without all of you, this workshop would never have been possible! Please forgive me if I have forgotten anyone.
 - [**@Cneelis**](https://twitter.com/Cneelis) from [**@OutflankNL**](https://twitter.com/OutflankNL) and his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)
 - [**@j00ru**](https://twitter.com/j00ru) for his research in [**syscall tables**](https://j00ru.vexillium.org/syscalls/nt/64/)
 - [**@Jackson_T**](https://twitter.com/Jackson_T) for his research and creation of [**SysWhispers**](https://github.com/jthuraisamy/SysWhispers) and [**SysWhispers2**](https://github.com/jthuraisamy/SysWhispers2)
@@ -18,7 +18,7 @@ I would also like to thank all those members of the infosec community who have r
 
 
 ## Abstract 
-This workshop is designed for new community members or members who want to understand and learn about system calls in general and the Red Teaming techniques of direct system calls and indirect system calls on Windows OS. The workshop includes slides, exercises and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of the red teaming technique of direct system calls.
+This workshop is designed for new community members or members who want to understand and learn about system calls in general and the Red Teaming techniques of direct system calls and indirect system calls on Windows OS. The workshop includes slides, exercises and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls.
 
 
 ## Introduction
