@@ -1,6 +1,4 @@
-<p align="center">
-![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/defec770-36c0-40d7-83f5-94a0fb45d534)
-</p>
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/7acf6efa-da5e-47fc-83fe-50f92d18a676)
 
 # (In)direct Syscalls: A Journey from High to Low
 
