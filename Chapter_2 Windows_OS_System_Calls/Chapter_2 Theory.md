@@ -2,7 +2,9 @@
 Before we discuss what a direct or indirect system call is and how it is used by attackers (red team), it is important to clarify what a system call or syscall is. Technically, the syscall instruction itself is part of a syscall stub within a native API or native function. The syscall stub of a native API is a set of assembly instructions and allows the temporary transition (CPU switch) from user mode to kernel mode after execution. If we take a look at the syscall stubs of different native APIs, we would see that only the syscall number or system service number (SSN), which is moved into the eax register, differs between them. The syscall is thus the interface between a user-mode process and the task to be executed in the Windows kernel. What are some of the interesting features of a system call in the Windows operating system for us?
 - Each syscall is associated contains a specific syscall ID (syscall number or system service number (SSN)).
 - Each syscall or syscall number is associated with a specific native API (NTAPI)
-In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. ![image](https://user-images.githubusercontent.com/50073731/235349836-fb482468-4cd6-4cdf-a44b-4c738dccf796.png)
+In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. 
+
+![image](https://user-images.githubusercontent.com/50073731/235349836-fb482468-4cd6-4cdf-a44b-4c738dccf796.png)
 
 ## Why do we need system calls at all?
 Because a modern operating system like Windows 10 is divided into user mode and kernel mode, syscalls are necessary or responsible for initializing the transition from user mode to kernel mode. For example, system alls in Windows are necessary for:
