@@ -23,4 +23,4 @@ From Red Team's perspective, the usermode hooking technique results in EDR makin
 - Indirect syscalls 
 - Direct syscalls 
 
-In this workshop we will only focus on the **Direct System Call** technique, i.e. we will implement Direct System Calls in the dropper later on, thus trying to avoid getting the corresponding system calls from Ntdll.dll, where some EDRs place their usermode hooks. The basics of Direct System Calls and Usermode Hookings should be clear now and the development of the Direct System Call Dropper can begin.
+In this workshop we will focus on the **direct syscall** and **indirect syscall** technique, i.e. we will create a direct syscall and an indirect syscall shellcode dropper step by step. The basics of direct syscalls and usermode hookings should now be clear, and the development of the direct syscall dropper can begin. 
