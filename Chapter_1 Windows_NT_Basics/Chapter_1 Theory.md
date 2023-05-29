@@ -32,4 +32,6 @@ In contrast, kernel mode is a privileged realm reserved for the core functions o
 ### References 
 - "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- "Programming Windows, 5th Edition" by Charles Petzold
 - "Windows System Architecture" available on Microsoft Docs
+- "Windows Kernel Programming" by Pavel Yosifovich
