@@ -74,5 +74,10 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founde
 - https://github.com/jthuraisamy/SysWhispers
 - https://github.com/jthuraisamy/SysWhispers2
 - https://github.com/klezVirus/SysWhispers3
-- Windows internals. Part 1 Seventh edition; Yosifovich, Pavel; Ionescu, Alex; Solomon, David A.; Russinovich, Mark E.
-- Pavel Yosifovich (2019): Windows 10 System Programming, Part 1: CreateSpace Independent Publishing Platform
+- "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- "Programming Windows, 5th Edition" by Charles Petzold
+- "Windows System Architecture" available on Microsoft Docs
+- "Windows Kernel Programming" by Pavel Yosifovich
+- https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
+- https://www.geoffchappell.com/studies/windows/km/index.htm
