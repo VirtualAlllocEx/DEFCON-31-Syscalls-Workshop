@@ -60,7 +60,7 @@ All the step-by-step instructions and code samples can be found in the respectiv
 ## Happy Hacking!
 I hope you enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
-Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founder [@RedOps](https://redops.at/en/) Information Security 
+Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founder **[@RedOps](https://redops.at/en/) Information Security** 
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
