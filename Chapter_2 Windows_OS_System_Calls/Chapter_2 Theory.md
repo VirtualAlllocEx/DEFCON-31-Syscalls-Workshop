@@ -4,7 +4,8 @@ Before we discuss what a direct or indirect system call is and how it is used by
 - Each syscall or syscall number is associated with a specific native API (NTAPI)
 In the following screenshot we can see that the syscall ID 18 is related to the NTAPI ZwAllocateVirtualMemory, but very important, syscall numbers can change from one Windows version to another. 
 
-![syscall_stub_ID](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/6ae41139-f365-4819-b1c1-17969e9bec28)
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/8a50ce4b-4123-4c08-81a7-db00c5fccc79)
+
 
 ## Why do we need system calls at all?
 Because a modern operating system like Windows 10 is divided into user mode and kernel mode, syscalls are necessary or responsible for initializing the transition from user mode to kernel mode. For example, system alls in Windows are necessary for:
@@ -13,7 +14,9 @@ Because a modern operating system like Windows 10 is divided into user mode and 
 - Reading and writing files
 
 A practical example in the context of writing a file to disk, the usermode process like notepad.exe wants to save content to disk in the form of a file, the process needs temporary "access" to kernelmode. Why is this necessary? Because the components that need to be accessed or that need to perform the task in kernel mode, such as the file system and the appropriate device drivers, are located in the Windows kernel. The following figure shows the principle and interaction between notepad.exe -> kernel32.dll -> ntdll.dll and syscalls to write a file to disk.
-![Prinicipal_syscalls_transition_notepad](https://user-images.githubusercontent.com/50073731/235347989-f8fdc692-3b26-49b4-81cc-6060aabddf7c.png)
+
+![Prinicipal_syscalls_transition_notepad](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/78da40aa-1ac5-4b59-b1ab-951ea9bbd481)
+
 
 The figure above shows the technical principle of system calls using the above example with notepad. In order for the save operation to be performed in the context of the user mode process notepad.exe, in the first step it accesses Kernel32.dll and calls the Windows API WriteFile. In the second step, Kernel32.dll accesses Kernelbase.dll in the context of the same Windows API. In the third step, the Windows API WriteFile accesses the Native API NtCreateFile via the Ntdll.dll. The Native API contains the technical instruction to initiate the system call (system call ID) and enables the temporary transition (CPU switch) from user mode (ring 3) to kernel mode (ring 0) after execution.
 
