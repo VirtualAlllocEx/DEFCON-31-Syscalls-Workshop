@@ -4,8 +4,7 @@ This is a technique that allows an attacker (red team) to execute malicious code
 But in this course we will deliberately not use any of them, because I want to keep all the C and assembler code used as simple as possible and focus on teaching you the concept of direct and indirect syscalls in a proper way. The code examples provided definitely do not use the most stealthy code and depend on the EDR, Windows version etc. but I found it the best way to teach the concept of direct and indirect sycalls in the best and most practical way. All the POCs needed for this course can be found in the relevant chapter as a Visual Studio project. 
 
 Compared to the previous illustration in the System Calls chapter, the following illustration shows the principle of direct system calls under Windows in a simplified way. It can be seen that the user-mode process Malware.exe does not get the system call for the Native API NtCreateFile via Ntdll.dll, as would normally be the case, but instead has implemented the necessary instructions for the system call in itself.
-![Prinicipal_direct_syscalls](https://user-images.githubusercontent.com/50073731/235348028-506c4e37-f0ae-4fbd-a73c-9ab29fae8f68.png)
-
+![Prinicipal_direct_syscalls](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/16e74b5c-f470-48d8-b674-3740e695c621)
 
 
 ## Why Direct System Calls?
