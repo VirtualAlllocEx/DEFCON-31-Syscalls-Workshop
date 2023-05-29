@@ -1,9 +1,10 @@
 ## What is a System call?
-Before we discuss what a direct or indirect system call is and how it is used by attackers (red team), it is important to clarify what a system call or syscall in general is. Technically, the syscall instruction itself is part of the syscall stub within a native API or native function. The syscall stub of a native API is a set of assembly instructions and allows the temporary transition (CPU switch) from user mode to kernel mode after execution. If we take a look at the syscall stubs of different native APIs, we would see that only the syscall number or system service number (SSN), which is moved into the eax register, differs between them. The syscall is thus the interface between a user-mode process and the task to be executed in the Windows kernel. Whar are some key facts about the syscall stub from native functions?
-- Each native function contains a specific syscall ID or system service number (SSN) 
-- Syscalls IDs can change from Windows to Windows and from version to version
-- Important, the syscall instruction is separate instruction and not the syscall ID itself
-- The syscall ID or more precise the opcode ```mov``` in the codeline ```mov eax SSN``` can be hooked by an EDR, but the syscall instruction ```syscall``` itself can't be hooked by an EDR (Later on important at indirect syscalls)
+Before we discuss what a direct or indirect system call is and how it is used by attackers (red team), it is important to clarify what a system call or syscall is in general. Technically, the syscall instruction itself is part of the syscall stub within a native API or native function. The syscall stub of a native API is a set of assembly instructions and allows the temporary transition (CPU switch) from user mode to kernel mode after execution. If we look at the syscall stubs of different native APIs, we would see that only the syscall number or system service number (SSN), which is moved into the eax register, differs between them. The syscall is thus the interface between a user-mode process and the task to be executed in the Windows kernel. What are some key facts about the syscall stub from native functions?
+
+- Each native function contains a specific syscall ID or System Service Number (SSN). 
+- Syscall IDs can change from Windows to Windows and from version to version.
+- Important, the syscall instruction is a separate instruction and not the syscall ID itself.
+- The syscall ID or more precisely the opcode ``mov`` in the codeline ``mov eax SSN`` can be hooked by an EDR, but the syscall instruction ```syscall`` itself can't be hooked by an EDR (important later for indirect syscalls).
 
 In the following screenshot we can see that the ```syscall ID 18``` is related to the native API (NTAPI) ```NtAllocateVirtualMemory```, but as already mentionted, the system service number (SSN) can change. 
 
