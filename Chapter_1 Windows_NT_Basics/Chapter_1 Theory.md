@@ -68,3 +68,5 @@ While the Native APIs provide powerful functionality, they should be used with c
 - "Programming Windows, 5th Edition" by Charles Petzold
 - "Windows System Architecture" available on Microsoft Docs
 - "Windows Kernel Programming" by Pavel Yosifovich
+- https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
+- https://www.geoffchappell.com/studies/windows/km/index.htm
