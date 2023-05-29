@@ -1,5 +1,5 @@
 <p align="center">
-<img width="705" alt="Intro_ws_logo" src="https://user-images.githubusercontent.com/50073731/235339663-9c59e27f-57ea-4bbd-8188-e9e2849990f3.png">
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/defec770-36c0-40d7-83f5-94a0fb45d534)
 </p>
 
 # (In)direct Syscalls: A Journey from High to Low
