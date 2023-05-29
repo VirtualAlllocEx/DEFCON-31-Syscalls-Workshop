@@ -1,8 +1,8 @@
-## Exercise 5: Low_Level_API_Dropper
+## Exercise 4: Low_Level_API_Dropper
 In this exercise, we will make the second modification to the reference dropper, create the direct syscall dropper, and implement the required syscalls or syscall stub directly into the **Low-Level API shellcode dropper** for short **Low-Level-Dropper**. 
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
-## Exercise 5 tasks:
+## Exercise 4 tasks:
 ### Create Low-Level-Dropper 
 1. Create necessary code for Low-Level-Dropper with SysWhispers3
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the Low-Level-Dropper.
