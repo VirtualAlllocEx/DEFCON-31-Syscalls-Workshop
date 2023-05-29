@@ -9,7 +9,7 @@ Windows NT brought a paradigm shift with its 32-bit architecture and a host of a
 ## User Mode and Kernel Mode
 One of the major changes to the Windows NT architecture was to split it into user mode and kernel mode. The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 <p align="center">
-https://learn.microsoft.com/de-de/windows-hardware/drivers/kernel/images/ntarch.png
+![ntarch](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/113ec933-e6d5-4cf8-930f-c3d701ca12ee)
 </p>
 
 
