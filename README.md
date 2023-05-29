@@ -25,15 +25,15 @@ This workshop is designed for new community members or members who want to under
 In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics
-- Chapter 1: Necessary basics about the Windows NT architecture
-- Chapter 2: What are system calls in the Windows operating system in general and why are they necessary?
-- Chapter 3: The concept of direct system calls and why we need them as red teamers.
-- Chapter 4: Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
-- Chapter 5: Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
-- Chapter 6: Building and analysing a shellcode dropper based on direct system calls (low level APIs)
-- Chapter 7: The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
-- Chapter 8: Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
-- Chapter 9: Workshop summary 
+- **Chapter 1:** Necessary basics about the Windows NT architecture
+- **Chapter 2:** What are system calls in the Windows operating system in general and why are they necessary?
+- **Chapter 3:** The concept of direct system calls and why we need them as red teamers.
+- **Chapter 4:** Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
+- **Chapter 5:** Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
+- **Chapter 6:** Building and analysing a shellcode dropper based on direct system calls (low level APIs)
+- **Chapter 7:** The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
+- **Chapter 8:** Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
+- **Chapter 9:** Workshop summary 
 
 
 ## What is a Direct System Call?
