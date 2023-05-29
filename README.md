@@ -18,24 +18,22 @@ I would also like to thank all those members of the infosec community who have r
 
 
 ## Abstract 
-The goal of this workshop is to provide new community members or members who want to understand and learn about direct system calls on Windows OS. The workshop includes slides, exercises, and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of the red teaming technique of direct system calls.
-
+This workshop is designed for new community members or members who want to understand and learn about system calls in general and the Red Teaming techniques of direct system calls and indirect system calls on Windows OS. The workshop includes slides, exercises and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of the red teaming technique of direct system calls.
 
 
 ## Introduction
-A system call is a technical instruction in the Windows operating system that allows a temporary transition from user mode to kernel mode. This is necessary, for example, when a user-mode application such as Notepad wants to save a document. Each system call has a specific syscall ID, which can vary from one version of Windows to another. Direct system calls are a technique for attackers (red team) to execute code in the context of Windows APIs via system calls without the targeted application (malware) obtaining Windows APIs from Kernel32.dll or native APIs from Ntdll.dll. The assembly instructions required to switch from user mode to kernel mode are built directly into the malware.
+In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
 
-In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. Usermode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
-
-In this workshop we will focus on the **Direct System Call** technique and want to:
-- Understand what a system call aka syscall is in Windows OS in general and why we need them.
-- Understand what a Direct System Call aka Direct Syscall is and why we as Red Teamers need it. 
-- Step-by-step create a direct syscall shellcode dropper, analyze and understand the dropper
-
-
-
- 
-
+In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics
+- Chapter 1: Necessary basics about the Windows NT architecture
+- Chapter 2: What are system calls in the Windows operating system in general and why are they necessary?
+- Chapter 3: The concept of direct system calls and why we need them as red teamers.
+- Chapter 4: Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
+- Chapter 5: Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
+- Chapter 6: Building and analysing a shellcode dropper based on direct system calls (low level APIs)
+- Chapter 7: The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
+- Chapter 8: Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
+- Chapter 9: Workshop summary 
 
 
 ## What is a Direct System Call?
