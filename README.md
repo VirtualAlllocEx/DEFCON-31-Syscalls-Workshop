@@ -16,13 +16,11 @@ I would also like to thank all those members of the infosec community who have r
 - [**@CaptMeelo**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) for his research and article [**When You sysWhisper Loud Enough for AV to Hear You**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html)
 - [**@0xBoku**](https://twitter.com/0xBoku) for his overall great research, his [**blog**](https://0xboku.com/) and contributions to infosec, helping new community members, and the continued advancement of infosec 
 
-
-## Abstract 
-This workshop is designed for new community members or members who want to understand and learn about system calls in general and the Red Teaming techniques of direct system calls and indirect system calls on Windows OS. The workshop includes slides, exercises and a step-by-step guide. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls.
-
-
 ## Introduction
 In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
+
+## Abstract 
+This workshop is designed for new community members or members who want to understand and learn about **system calls** in general and the Red Teaming techniques of **direct system calls** and **indirect system calls** on **Windows OS**. The workshop includes original slides from DEFCON 31, and different chapters containing theory, playbooks and code samples. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls.
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics:
 - **Chapter 1:** Necessary basics about the Windows NT architecture
