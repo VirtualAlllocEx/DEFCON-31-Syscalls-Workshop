@@ -60,6 +60,7 @@ All the step-by-step instructions and code samples can be found in the respectiv
 I hope you enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
 **Happy Hacking!**
+
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founder **[@RedOps](https://redops.at/en/) Information Security** 
 
 ## Previous work and references
