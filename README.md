@@ -41,28 +41,25 @@ All the step-by-step instructions and code samples can be found in the respectiv
 ### Prerequisites LAB
 - VmWare [Workstation](https://www.vmware.com/go/getworkstation-win) or [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-  - **Windows 10 DEV machine**
+  - **Windows 10 DEV/LAB machine**
     - AV/EPP/EDR disabled
     - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
+    - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
     - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
+    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
     - [x64dbg](https://x64dbg.com/)
     - [API-Monitor v2](http://www.rohitab.com/downloads) portable or install
     
-  - **Windows 10 LAB machine** (Required if you want to do exercise 2 )
-    - With Windows Defender or 3rd party AV/EPP/EDR installed
-    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
   
+   
   - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
-    - [SysWhispers3](https://github.com/klezVirus/SysWhispers3)
+    - Metasploit to create shellcode and an MSF-Listener
 
 
 ## Happy Hacking!
-I hope you enjoy the direct syscall workshop. Have fun with it!
+I hope you enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
-
-Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx)
-
-
+Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founder [@RedOps](https://redops.at/en/) Information Security 
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
