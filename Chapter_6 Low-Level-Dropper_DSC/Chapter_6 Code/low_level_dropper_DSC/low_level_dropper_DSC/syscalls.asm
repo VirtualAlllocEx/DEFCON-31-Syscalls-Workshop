@@ -9,30 +9,13 @@ NtAllocateVirtualMemory PROC
 NtAllocateVirtualMemory ENDP                     	; End of the procedure.
 
 
-; Similar procedures for NtWriteVirtualMemory syscalls
-NtWriteVirtualMemory PROC
-    mov r10, rcx
-    mov eax, 3AH
-    syscall
-    ret
-NtWriteVirtualMemory ENDP
+
+; something is missing here ;-)
+; something is missing here ;-)
+; something is missing here ;-)
 
 
-; Similar procedures for NtCreateThreadEx syscalls
-NtCreateThreadEx PROC
-    mov r10, rcx
-    mov eax, 0C2h
-    syscall
-    ret
-NtCreateThreadEx ENDP
 
 
-; Similar procedures for NtWaitForSingleObject syscalls
-NtWaitForSingleObject PROC
-    mov r10, rcx
-    mov eax, 4
-    syscall
-    ret
-NtWaitForSingleObject ENDP
 
 END  ; End of the module
