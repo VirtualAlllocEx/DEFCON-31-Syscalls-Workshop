@@ -37,6 +37,8 @@ u 00007ff8`c318d350
     
 <details>
     <summary>Solution</summary>  
+     <img width="560" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/8cd85234-4f6b-4581-851c-9c93691d8039">
+
      <p align="center">
      <img width="560" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/db453543-9c25-44d1-bbb8-ec63bb5bf7f8">
      <img width="563" alt="debug_NtWriteVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c4040925-a8de-4347-b93d-fff22d1c4d88">
