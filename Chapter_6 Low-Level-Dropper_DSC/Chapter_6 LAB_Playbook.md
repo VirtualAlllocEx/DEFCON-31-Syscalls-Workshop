@@ -22,6 +22,7 @@ In this exercise we will make the second modification to the reference dropper, 
 To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
 The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
+<summary>Details</summary>
 ```
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
@@ -29,7 +30,8 @@ The code works as follows, shellcode declaration is the same as before in both d
 </details>
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the POC. 
-<details>    
+<details>
+<summary>Code</summary>
 ```
 #include <iostream>
 #include <Windows.h>
@@ -72,7 +74,7 @@ Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the fun
 Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx``` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
 
 <details>
-<summary>Details</summary>
+<summary>Code</summary>
 
 ```asm
 .CODE  ; Start the code section
