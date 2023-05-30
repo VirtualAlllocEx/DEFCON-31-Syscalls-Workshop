@@ -29,7 +29,7 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 2: Windows OS system calls** 
      - What are system calls in the Windows operating system in general and why are they necessary?
 - **Chapter 3: Direct syscalls** 
-     - The concept of direct system calls and why we need them as red teamers.
+     - The concept of direct system calls and why we need them as red teamers?
 - **Chapter 4:** Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
 - **Chapter 5:** Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
 - **Chapter 6:** Building and analysing a shellcode dropper based on direct system calls (low level APIs)
