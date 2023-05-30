@@ -145,7 +145,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
 </details>
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx``` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
+Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
 
 <details>
 <summary>Code</summary>
@@ -164,6 +164,8 @@ END  ; End of the module
     
 </details>
 
+If you are unable to complete the assembly code, you can use the assembly code from the solution and paste it into the syscalls.asm file in the Direct Syscall POC.
+    
 <details>
     <summary>Solution</summary>
 
