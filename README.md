@@ -24,10 +24,12 @@ In recent years, more and more vendors have implemented the technique of user-mo
 This workshop is designed for new community members or members who want to understand and learn about **system calls** in general and the Red Teaming techniques of **direct system calls** and **indirect system calls** on **Windows OS**. The workshop includes original slides from DEFCON 31, and different chapters containing theory, playbooks and code samples. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls.
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics:
-- **Chapter 1:** Windows NT Basics
+- **Chapter 1: Windows NT Basics**
      - Necessary basics about the Windows NT architecture
-- **Chapter 2:** What are system calls in the Windows operating system in general and why are they necessary?
-- **Chapter 3:** The concept of direct system calls and why we need them as red teamers.
+- **Chapter 2: Windows OS system calls** 
+     - What are system calls in the Windows operating system in general and why are they necessary?
+- **Chapter 3: Direct syscalls** 
+     - The concept of direct system calls and why we need them as red teamers.
 - **Chapter 4:** Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
 - **Chapter 5:** Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
 - **Chapter 6:** Building and analysing a shellcode dropper based on direct system calls (low level APIs)
