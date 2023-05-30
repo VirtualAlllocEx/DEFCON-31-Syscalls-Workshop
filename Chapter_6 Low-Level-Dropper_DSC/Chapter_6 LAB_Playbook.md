@@ -55,7 +55,7 @@ If you stuck, here you can find the solution for the full code which should be c
 
 <details>
     <summary>Code</summary>    
-```
+```asm
 .CODE  ; Start the code section
 
 ; Procedure for the NtAllocateVirtualMemory syscall
