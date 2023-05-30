@@ -37,7 +37,7 @@ u 00007ff8`c318d350
     
 <details>
     <summary>Solution</summary>   
-     ![debug_ntwritevirtualmemory](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/837d0d4f-43fd-4eb1-b0b1-c4e331783d2f)
+     ![debug_ntwritevirtualmemory](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/41c852cd-f5e2-4c11-8a84-97ddbed3b953)
 
 </details>
 
