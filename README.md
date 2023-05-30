@@ -48,9 +48,8 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
 ### Prerequisites LAB
-- VmWare [Workstation](https://www.vmware.com/go/getworkstation-win) or [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-  - **Windows 10 x64 DEV/LAB machine**
+- **Windows 10 x64 DEV/LAB machine**
     - AV/EPP/EDR disabled
     - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
     - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
@@ -59,9 +58,7 @@ All the step-by-step instructions and code samples can be found in the respectiv
     - [x64dbg](https://x64dbg.com/)
     - [API-Monitor v2](http://www.rohitab.com/downloads) portable or install
     
-  
-   
-  - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
+- [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
     - Metasploit to create shellcode and an MSF-Listener
 
 
