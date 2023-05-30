@@ -37,9 +37,7 @@ u 00007ff8`c318d350
     
 <details>
     <summary>Solution</summary>   
-In the case of the High-Level-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the High-Level-Dropper from the kernel32.dll.
-<p align="center">
-<img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
+<img width="696" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c56a082a-1c07-45fa-a2e1-ee3b84a6f3f8">
 </p>
 </details>
 
