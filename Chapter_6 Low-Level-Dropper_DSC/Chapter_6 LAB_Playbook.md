@@ -22,7 +22,6 @@ In this exercise we will make the second modification to the reference dropper, 
 To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
 The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
-
 ```
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
@@ -30,7 +29,7 @@ The code works as follows, shellcode declaration is the same as before in both d
 </details>
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the POC. 
-</details>    
+<details>    
 ```
 #include <iostream>
 #include <Windows.h>
