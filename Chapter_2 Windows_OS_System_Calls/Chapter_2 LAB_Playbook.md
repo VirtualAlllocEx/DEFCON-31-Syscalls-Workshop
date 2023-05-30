@@ -37,9 +37,9 @@ u 00007ff8`c318d350
     
 <details>
     <summary>Solution</summary>   
-     <center>
+     <p align="center">
 <img width="696" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c56a082a-1c07-45fa-a2e1-ee3b84a6f3f8">
-</center>
+     </p>
 </details>
 
 
