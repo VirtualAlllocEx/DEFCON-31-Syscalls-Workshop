@@ -1,10 +1,10 @@
-## Exercise 1: High Level Dropper
+## LAB Exercise 1: Warm-Up
 In **Exercise 1** we will get a feel for native functions, syscalls, syscall stub etc. Therefore we have the following tasks to set up. 
 
 ## Exercise 1 tasks:
-### Debug Syscall ID's
+### Debug Syscall IDss
 1. Use WindDbg on your DEV/LAB machine and open or attach to a process like x64 **notepad.exe**.
-2. Debug the syscall ID's for the following four native API's that we will need later in the Direct Syscalls chapter.
+2. Debug the syscall IDss for the following four native API's that we will need later in the Direct Syscalls chapter.
      - NtAllocateVirtualMemory
      - NtWriteVirtualMemory
      - NtCreateThreadEx
