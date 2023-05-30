@@ -25,7 +25,7 @@ This workshop is designed for new community members or members who want to under
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics:
 - **Chapter 1:** Windows NT Basics
- - Necessary basics about the Windows NT architecture
+     - Necessary basics about the Windows NT architecture
 - **Chapter 2:** What are system calls in the Windows operating system in general and why are they necessary?
 - **Chapter 3:** The concept of direct system calls and why we need them as red teamers.
 - **Chapter 4:** Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
