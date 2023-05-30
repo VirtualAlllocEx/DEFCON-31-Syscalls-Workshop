@@ -36,7 +36,7 @@ Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the fun
 Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx``` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
 
 <details>
-    <summary>Code</summary>
+<summary>Code</summary>
 
 ```asm
 .CODE  ; Start the code section
@@ -46,34 +46,10 @@ NtAllocateVirtualMemory PROC
     mov eax, 18h                                    ; Move the syscall number into the eax register.
     syscall                                         ; Execute syscall.
     ret                                             ; Return from the procedure.
-NtAllocateVirtualMemory ENDP                     	; End of the procedure.
-
-; Similar procedures for NtWriteVirtualMemory syscalls
-NtWriteVirtualMemory PROC
-    mov r10, rcx
-    mov eax, 3AH
-    syscall
-    ret
-NtWriteVirtualMemory ENDP
-
-; Similar procedures for NtCreateThreadEx syscalls
-NtCreateThreadEx PROC
-    mov r10, rcx
-    mov eax, 0C2h
-    syscall
-    ret
-NtCreateThreadEx ENDP
-
-; Similar procedures for NtWaitForSingleObject syscalls
-NtWaitForSingleObject PROC
-    mov r10, rcx
-    mov eax, 4
-    syscall
-    ret
-NtWaitForSingleObject ENDP
-
-END  ; End of the module
+NtAllocateVirtualMemory ENDP     
+END  ; End of the module    
 </details>
+```
 
 
 
