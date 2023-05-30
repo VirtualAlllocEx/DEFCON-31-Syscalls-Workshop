@@ -11,13 +11,16 @@ In **Exercise 1** we will get a feel for native functions, syscalls, syscall stu
      - NtWaitForSingleObject
 3. Write down the syscalls ID's, we will need them later 
 
-### Analyse High-Level-Dropper
-6. Use the Visual Studio tool **dumpbin** to analyze the compiled High-Level-Dropper. Is the result what you expected?  
-7. Use the tool **API Monitor** to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the debugger **x64dbg** to analyze the compiled High-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected?
+### Analyse privilege mode switching
+4. Open Procmon and open a new instance of notepad.exe
+5. Type some text into notepad.exe and save the file to disk.
+6. Using Procmon, search for the operation WriteFile and analyse the call stack for
+     - Win32-API CreateFile in user mode
+     - Privilege mode switching by going from user mode to kernel via syscall 
+     - Native API NtCreateFile in kernel mode   
 
 
-## Visual Studio 
+## WinDbg
 The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
 <details>
 <p align="center">
