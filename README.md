@@ -51,7 +51,7 @@ All the step-by-step instructions and code samples can be found in the respectiv
 ### Prerequisites LAB
 - VmWare [Workstation](https://www.vmware.com/go/getworkstation-win) or [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-  - **Windows 10 DEV/LAB machine**
+  - **Windows 10 x64 DEV/LAB machine**
     - AV/EPP/EDR disabled
     - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
     - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
