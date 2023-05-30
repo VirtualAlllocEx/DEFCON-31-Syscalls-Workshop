@@ -55,9 +55,8 @@ In the secon step we use procmon to analyse the privilege mode switching. Therfo
      - process is notepad.exe
      - operation is WriteFile
  <p align="center"
- <img width="700" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/49e38733-2612-4b2f-9d35-6763680a810a"> !
-
-
+ <img width="700" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/49e38733-2612-4b2f-9d35-6763680a810a">
+ <img width="700" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6c9bfaa0-1df8-4f69-abb2-cce3d4a753fd">     
  </p>
 </details>
 
