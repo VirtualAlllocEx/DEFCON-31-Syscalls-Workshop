@@ -6,10 +6,11 @@ In **Exercise 2** we will create our first shellcode dropper based on **high lev
 ## Exercise 2 tasks:
 ### Create High-Level-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the High-Level-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ High-Level-Dropper POC. 
-3. Compile the High-Level-Dropper as release or debug x64. 
-4. Create and run a staged x64 meterpreter listener with msfconsole.
-5. Run your compiled .exe and verify that a stable command and control channel opens. 
+2. Create x64 calc shellcode with msfvenom, copy it into the POC, compile it and do a first run.
+3. If execution of the calculator did work, create staged x64 meterpreter shellcode with msfvenom and copy it to POC. 
+4. Compile the High-Level-Dropper as release x64. 
+5. Create and run a staged x64 meterpreter listener with msfconsole.
+6. Run your compiled .exe and verify that a stable command and control channel opens. 
 ### Analyse High-Level-Dropper
 6. Use the Visual Studio tool **dumpbin** to analyze the compiled High-Level-Dropper. Is the result what you expected?  
 7. Use the tool **API Monitor** to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
