@@ -46,10 +46,24 @@ u 00007ff8`c318d350
 </details>
 
 
+## Procmom
+In the secon step we use procmon to analyse the privilege mode switching. Therfore we open notepad.exe, write the file to disk by saving the file and then use Procmon to search for the WriteFile operation in context of notepad.exe
+    
+<details>
+    <summary>Solution</summary>  
+     We can use two filters in procmon to make it easier
+     - process is notepad.exe
+     - operation is WriteFile
+     <p align="center">
+          <img width="563" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d520c956-6bf6-429f-bd6a-40cf785fe61a">
+     </p>
+</details>
+
+
 
 
     
-## Summary: High-level API Dropper
+## Summary: Windows OS System Calls
 - No direct system calls at all
 - Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
 - Dropper imports VirtualAlloc from kernel32.dll...
