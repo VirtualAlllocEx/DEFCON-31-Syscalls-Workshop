@@ -1,36 +1,40 @@
-## Exercise 4: Low_Level_API_Dropper
-In this exercise, we will make the second modification to the reference dropper, create the direct syscall dropper, and implement the required syscalls or syscall stub directly into the **Low-Level API shellcode dropper** for short **Low-Level-Dropper**. 
+## LAB Exercise 4:Direct Syscall Dropper
+In this exercise we will make the second modification to the reference dropper, create the direct syscall dropper and implement the required syscalls or syscall stubs directly into the dropper, calling it the Low Level Direct Syscall Dropper or LLDSC for short. 
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
-## Exercise 4 tasks:
-### Create Low-Level-Dropper 
-1. Create necessary code for Low-Level-Dropper with SysWhispers3
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the Low-Level-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ Low-Level-Dropper poc. 
-3. Compile the Low-Level-Dropper as release or debug x64. 
-4. Create and run a staged x64 meterpreter listener with msfconsole.
-5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse Low-Level-Dropper
-6. Use the Visual Studio tool **dumpbin** to analyze the compiled Low-Level-Dropper. Is the result what you expected?  
-7. Use the tool **API Monitor** to analyze the compiled Low-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the debugger **x64dbg** to analyze the compiled Low-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected? 
+## Exercise 4 Tasks:
+### Creating a Low-Level Dropper 
+1. Download the LLDSC Visual Studio POC.
+2. Look at the .asm file and add the missing code for the remaining native APIs according to the scheme of the already implemented code for NtAllocateVirutalAMemory. 
+3. Create cmd=calc.exe shellcode with msfvenom, copy it to the POC, compile it and do a first run. 
+4. If calc.exe ran successfully, create staged x64 meterpreter shellcode with msfvenom and copy it to the POC. 
+5. Compile the low level dropper as release or debug x64. 
+6. Create and run a staged x64 meterpreter listener using msfconsole.
+7. Run your compiled .exe and check that a stable command and control channel opens. 
+### Analysing the Low-Level Dropper
+6. Use the Visual Studio **dumpbin** tool to analyse the compiled low-level dropper. Is the result what you expected?  
+7. Use the **API Monitor** tool to analyse the compiled low level dropper in the context of the four APIs used. Is the result what you expected? 
+8. Use the debugger **x64dbg** to analyse the compiled low level dropper: from which module and location are the syscalls of the four APIs used executed? Is the result what you expected? 
 
-## SysWhispers 3
-Again, we need to implement the code for the four native APIs we use, but unlike the Medium_Level dropper, we do not load the corresponding syscalls from ntdll.dll. Instead, we want to implement the necessary code directly in our Low-Level-Dropper. Therefore we have to create the corresponding code or files with the tool SysWhispers3 from [**@KlezVirus**](https://twitter.com/KlezVirus). To create the necessary code in context of our Low-Level-Dropper you can use the following command with SysWhispers. Because we work with the MSVC compiler in Visual Studio we choose for the -c parameter msvc. 
+## Assembly Instructions
+As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
-    
-**kali>**
 ```
-python syswhispers.py -a x64 -c msvc -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx,NtWaitForSingleObject -o syscalls -v
+.CODE  ; Start the code section
+
+; Procedure for the NtAllocateVirtualMemory syscall
+NtAllocateVirtualMemory PROC
+    mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
+    mov eax, 18h                                    ; Move the syscall number into the eax register.
+    syscall                                         ; Execute syscall.
+    ret                                             ; Return from the procedure.
+NtAllocateVirtualMemory ENDP     
+
+END  ; End of the module    
 ```
 </details>
 
-SysWhispers3 creates for us the three files **syscalls.h**, **syscalls.c** and **syscalls-asm.x64.asm**, which we later implement in our Low-Level-Dropper and which represent the code for the direct syscall implementation. 
-<details>
- 
-<p align="center">
-<img width="942" alt="image" src="https://user-images.githubusercontent.com/50073731/235453951-f99fe798-79b9-458e-93af-5d0b3c52a0de.png">
-</details>
+
 
 
 
