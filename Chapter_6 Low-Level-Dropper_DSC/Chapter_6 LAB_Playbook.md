@@ -36,25 +36,8 @@ Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the fun
 Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx``` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
 
 <details>
-<summary>Code</summary>
+    <summary>Code</summary>
 
-```asm
-.CODE  ; Start the code section
-; Procedure for the NtAllocateVirtualMemory syscall
-NtAllocateVirtualMemory PROC
-    mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
-    mov eax, 18h                                    ; Move the syscall number into the eax register.
-    syscall                                         ; Execute syscall.
-    ret                                             ; Return from the procedure.
-NtAllocateVirtualMemory ENDP     
-END  ; End of the module    
-```
-</details>
-
-If you stuck, here you can find the solution for the full code which should be copied into the syscalls.asm file
-
-<details>
-    <summary>Code</summary>    
 ```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
@@ -65,7 +48,6 @@ NtAllocateVirtualMemory PROC
     ret                                             ; Return from the procedure.
 NtAllocateVirtualMemory ENDP                     	; End of the procedure.
 
-
 ; Similar procedures for NtWriteVirtualMemory syscalls
 NtWriteVirtualMemory PROC
     mov r10, rcx
@@ -74,7 +56,6 @@ NtWriteVirtualMemory PROC
     ret
 NtWriteVirtualMemory ENDP
 
-
 ; Similar procedures for NtCreateThreadEx syscalls
 NtCreateThreadEx PROC
     mov r10, rcx
@@ -82,7 +63,6 @@ NtCreateThreadEx PROC
     syscall
     ret
 NtCreateThreadEx ENDP
-
 
 ; Similar procedures for NtWaitForSingleObject syscalls
 NtWaitForSingleObject PROC
@@ -93,7 +73,6 @@ NtWaitForSingleObject PROC
 NtWaitForSingleObject ENDP
 
 END  ; End of the module
-```
 </details>
 
 
