@@ -20,7 +20,9 @@ In this exercise we will make the second modification to the reference dropper, 
 As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ```NtWriteVirtualMemory```, ```NtCreateThreadEx``` and ```NtWaitForSingleObject```.
 
 <details>
-```
+<summary>Code</summary>
+
+```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
