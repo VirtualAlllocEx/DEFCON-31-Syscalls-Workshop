@@ -48,8 +48,8 @@ NtAllocateVirtualMemory PROC
     ret                                             ; Return from the procedure.
 NtAllocateVirtualMemory ENDP     
 END  ; End of the module    
-</details>
 ```
+</details>
 
 
 
