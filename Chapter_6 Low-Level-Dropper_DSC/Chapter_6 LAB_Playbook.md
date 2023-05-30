@@ -15,8 +15,6 @@ In this exercise we will make the second modification to the reference dropper, 
 8. Use the Visual Studio **dumpbin** tool to analyse the dropper. Is the result what you expected?  
 9. Use the **API Monitor** tool to analyse the compiled low level dropper in the context of the four APIs used. Is the result what you expected? 
 10. Use the **x64dbg** debugger to analyse the compiled low level dropper: from which module and location are the syscalls of the four APIs used executed? Is the result what you expected? 
-11. Use Process Hacker to analyse the call stack of the direct syscall dropper.
-
 
 ## Visual Studio
 To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
