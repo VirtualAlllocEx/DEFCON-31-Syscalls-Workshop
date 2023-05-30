@@ -16,8 +16,20 @@ In this exercise we will make the second modification to the reference dropper, 
 7. Use the **API Monitor** tool to analyse the compiled low level dropper in the context of the four APIs used. Is the result what you expected? 
 8. Use the debugger **x64dbg** to analyse the compiled low level dropper: from which module and location are the syscalls of the four APIs used executed? Is the result what you expected? 
 
-## Assembly Instructions
-As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ```NtWriteVirtualMemory```, ```NtCreateThreadEx``` and ```NtWaitForSingleObject```.
+
+## Visual Studio
+To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
+The code works as follows, shellcode declaration is the same as before in both droppers.
+<details>
+
+```
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
+</details>
+
+### Assembly Instructions
+In the case of the direct syscall dropper, we also need to implement the necessary code for the syscall stub of all four native functions into the syscalls.asm file in our assembly. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ```NtWriteVirtualMemory```, ```NtCreateThreadEx``` and ``NtWaitForSingleObject```.
 
 <details>
 <summary>Code</summary>
@@ -38,21 +50,6 @@ END  ; End of the module
 
 
 
-
-
-## Visual Studio
-To create the Low-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
-The code works as follows, shellcode declaration is the same as before in both droppers.
-<details>
-
-```
-// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83";
-```
-</details>
-
-
-In the case of the Low-Level-Dropper, we also need to access the syscalls or syscalls stub from the respective native APIs. Again, we use the same native APIs as in the Medium-Level-Dropper. 
 But this time we do not want to run/import the syscalls from ntdll.dll and instead want to implement the functionality directly in the Low-Level-Dropper itself, we have to import the generated files/code from SysWhispers 3 into our Low-Level-Dropper. The syscalls.h provides the structure of the used native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject and the syscalls-asm.x64.asm contains the corresponding syscalls or syscall stubs. This allows the Low-Level-Dropper to execute syscalls directly without the transition from dropper.exe -> kernel32.dll -> ntdll.dll. Practically, we need to implement the generated code with SysWhispers 3 as follows: 
 
 1. Copy all three files we created with SysWhispers 3 into the directory of your Low-Level-Dropper Visual Studio project.
