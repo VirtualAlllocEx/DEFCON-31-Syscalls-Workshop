@@ -75,6 +75,75 @@ int main() {
 ### Header File
 Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the function definition of the native APIs we are using. But we still want to use the native functions, so we need to define or implement the structure for all four native functions in a header file. In this case the header file is called syscalls.h and must also be included in the main code. All the structures are already implemented in the direct syscall dropper POC. If you want to check them manually, you should be able to find them in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
 
+<details>
+<summary>Code</summary>
+
+```
+#ifndef _SYSCALLS_H  // If _SYSCALLS_H is not defined then define it and the contents below. This is to prevent double inclusion.
+#define _SYSCALLS_H  // Define _SYSCALLS_H
+
+#include <windows.h>  // Include the Windows API header
+
+#ifdef __cplusplus   // If this header file is included in a C++ file, then this section will be true
+extern "C" {         // This is to ensure that the names of the functions are not mangled by the C++ compiler and are in C linkage format
+#endif
+
+    // The type NTSTATUS is typically defined in the Windows headers as a long.
+    typedef long NTSTATUS;  // Define NTSTATUS as a long
+    typedef NTSTATUS* PNTSTATUS;  // Define a pointer to NTSTATUS
+
+    // Declare the function prototype for NtAllocateVirtualMemory
+    extern NTSTATUS NtAllocateVirtualMemory(
+        HANDLE ProcessHandle,    // Handle to the process in which to allocate the memory
+        PVOID* BaseAddress,      // Pointer to the base address
+        ULONG_PTR ZeroBits,      // Number of high-order address bits that must be zero in the base address of the section view
+        PSIZE_T RegionSize,      // Pointer to the size of the region
+        ULONG AllocationType,    // Type of allocation
+        ULONG Protect            // Memory protection for the region of pages
+    );
+
+    // Declare the function prototype for NtWriteVirtualMemory
+    extern NTSTATUS NtWriteVirtualMemory(
+        HANDLE ProcessHandle,     // Handle to the process in which to write the memory
+        PVOID BaseAddress,        // Pointer to the base address
+        PVOID Buffer,             // Buffer containing data to be written
+        SIZE_T NumberOfBytesToWrite, // Number of bytes to be written
+        PULONG NumberOfBytesWritten // Pointer to the variable that receives the number of bytes written
+    );
+
+    // Declare the function prototype for NtCreateThreadEx
+    extern NTSTATUS NtCreateThreadEx(
+        PHANDLE ThreadHandle,        // Pointer to a variable that receives a handle to the new thread
+        ACCESS_MASK DesiredAccess,   // Desired access to the thread
+        PVOID ObjectAttributes,      // Pointer to an OBJECT_ATTRIBUTES structure that specifies the object's attributes
+        HANDLE ProcessHandle,        // Handle to the process in which the thread is to be created
+        PVOID lpStartAddress,        // Pointer to the application-defined function of type LPTHREAD_START_ROUTINE to be executed by the thread
+        PVOID lpParameter,           // Pointer to a variable to be passed to the thread
+        ULONG Flags,                 // Flags that control the creation of the thread
+        SIZE_T StackZeroBits,        // A pointer to a variable that specifies the number of high-order address bits that must be zero in the stack pointer
+        SIZE_T SizeOfStackCommit,    // The size of the stack that must be committed at thread creation
+        SIZE_T SizeOfStackReserve,   // The size of the stack that must be reserved at thread creation
+        PVOID lpBytesBuffer          // Pointer to a variable that receives any output data from the system
+    );
+
+    // Declare the function prototype for NtWaitForSingleObject
+    extern NTSTATUS NtWaitForSingleObject(
+        HANDLE Handle,          // Handle to the object to be waited on
+        BOOLEAN Alertable,      // If set to TRUE, the function returns when the system queues an I/O completion routine or APC for the thread
+        PLARGE_INTEGER Timeout  // Pointer to a LARGE_INTEGER that specifies the absolute```c
+        // or relative time at which the function should return, regardless of the state of the object
+    );
+
+#ifdef __cplusplus  // End of the 'extern "C"' block if __cplusplus was defined
+}
+#endif
+
+#endif // _SYSCALLS_H  // End of the _SYSCALLS_H definition
+  
+```
+    
+</details>
+
 ### Assembly Instructions
 Furthermore, we do not want to ask ntdll.dll for the syscall stub of the native functions we use, instead we want to manually implement the necessary assembly code into the assembly itself. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code in our direct syscall POC for the best learning experience. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper POC which contains part of the assembly code. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx``` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembly code.
 
