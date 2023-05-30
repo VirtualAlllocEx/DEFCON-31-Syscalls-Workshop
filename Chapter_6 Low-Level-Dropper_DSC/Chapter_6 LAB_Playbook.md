@@ -17,7 +17,7 @@ In this exercise we will make the second modification to the reference dropper, 
 8. Use the debugger **x64dbg** to analyse the compiled low level dropper: from which module and location are the syscalls of the four APIs used executed? Is the result what you expected? 
 
 ## Assembly Instructions
-As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ```NtWriteVirtualMemory```, ```NtCreateThreadEx``` and ```NtWaitForSingleObject```.
 <details>
 ```
 .CODE  ; Start the code section
