@@ -64,10 +64,8 @@ In the secon step we use procmon to analyse the privilege mode switching. Therfo
 
     
 ## Summary: Windows OS System Calls
-- No direct system calls at all
-- Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
-- Dropper imports VirtualAlloc from kernel32.dll...
-- ...then imports NtAllocateVirtualMemory from ntdll.dll...
-- ...and finally executes the corresponding syscall or syscall stub
-
-
+- System call is part of the syscall stub from a native function
+- Every system call has a specific syscall ID and is related to a specific NTAPI
+- Syscall and syscall stub are retrieved and executed from ntdll.dll 
+- Responsible to initialize transition from user mode to kernel mode
+- Enable temporary access to components in kernel, like file system, drivers etc.  
