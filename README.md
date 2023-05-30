@@ -30,12 +30,18 @@ In this workshop we will focus on the **direct system call** and **indirect syst
      - What are system calls in the Windows operating system in general and why are they necessary?
 - **Chapter 3: Direct syscalls** 
      - The concept of direct system calls and why we need them as red teamers?
-- **Chapter 4:** Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
-- **Chapter 5:** Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
-- **Chapter 6:** Building and analysing a shellcode dropper based on direct system calls (low level APIs)
-- **Chapter 7:** The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
-- **Chapter 8:** Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
-- **Chapter 9:** Workshop summary 
+- **Chapter 4: High Level Dropper** 
+     - Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
+- **Chapter 5: Medium Level Dropper** 
+     - Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
+- **Chapter 6: Low Level Dropper DSC** 
+     - Building and analysing a shellcode dropper based on direct system calls (low level APIs)
+- **Chapter 7: Low Level Dropper IDSC** 
+     - The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
+- **Chapter 8: Direct Syscalls vs Indirect Syscalls** 
+     - Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
+- **Chapter 9: Summary** 
+     - Workshop summary and closing 
 
 ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/96e4bbd1-3753-464b-8975-83129190913c)
 
