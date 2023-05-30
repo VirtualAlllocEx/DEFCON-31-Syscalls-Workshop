@@ -37,8 +37,7 @@ u 00007ff8`c318d350
     
 <details>
     <summary>Solution</summary>  
-     ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/57f5af7e-8a08-4c0e-87aa-d3030d8b9cbd)
-
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/239788f1-b172-493c-a0e9-7807975ddc54)
 </details>
 
 
