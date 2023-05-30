@@ -21,7 +21,7 @@ In **Exercise 1** we will get a feel for native functions, syscalls, syscall stu
 
 
 ## WinDbg
-In the first step we will use WinDbg and want to debug the syscall ID's for ``NtAllocateVirtualMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. So we have to use the ``x`` command to extract the memory address from the native API and then use the ``u`` command to unassemble or dissassemble the address to get the contents of the syscall stub from the native function.
+In the first step we will use WinDbg and want to debug the syscall ID's for ``NtAllocateVirtualMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. So we have to use the ``x`` command to extract the memory address from the native API and then use the ``u`` command to unassemble or dissassemble the address to get the contents of the syscall stub from the native function. In this case, **Windows 10 Enterprise 22H2** was used.
 <details>
     
 **WinDbg**  
