@@ -29,6 +29,9 @@ The code works as follows, shellcode declaration is the same as before in both d
 ```
 </details>
 
+### Header File
+Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the function definition of the native APIs we are using. But we still want to use the native functions, so we need to define or implement the structure for all four native functions in a header file. In this case the header file is called syscalls.h and must also be included in the main code. All the structures are already implemented in the direct syscall dropper POC. If you want to check them manually, you should be able to find them in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory)
+
 ### Assembly Instructions
 In the case of the direct syscall dropper, we also need to implement the necessary code for the syscall stub of all four native functions into the syscalls.asm file in our assembly. As mentioned above, instead of using a tool to create the assembly instructions, we will manually implement the necessary code into the syscalls.asm file from our direct syscall POC for the best learning experience. The code needed to implement the syscall stub in the syscalls.asm file looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ```NtWriteVirtualMemory```, ```NtCreateThreadEx``` and ``NtWaitForSingleObject```.
 
