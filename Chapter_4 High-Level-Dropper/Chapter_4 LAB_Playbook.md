@@ -1,9 +1,9 @@
-## Exercise 1: Win32 API Dropper
+## Exercise 2: High Level Dropper
 In **Exercise 1** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper High-Level-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
-## Exercise 1 tasks:
+## Exercise 2 tasks:
 ### Create High-Level-Dropper
 1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the High-Level-Dropper.
 2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ High-Level-Dropper POC. 
