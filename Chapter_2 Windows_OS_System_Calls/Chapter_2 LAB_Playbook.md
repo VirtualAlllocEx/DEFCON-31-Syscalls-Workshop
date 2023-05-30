@@ -54,9 +54,10 @@ In the secon step we use procmon to analyse the privilege mode switching. Therfo
      We can use two filters in procmon to make it easier
      - process is notepad.exe
      - operation is WriteFile
- <p align="center"
- <img width="700" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7c2218cd-1150-46f9-b6c4-31585617a313">
-</p>
+ 
+![procmon_filter](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/20a4d040-13f0-41c9-a0ab-4b6065717061)
+![procmon_privilege_mode_switch](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3ca550ed-8b7f-43c0-8c3b-4d3b3dec2bd2)
+
 </details>
 
     
