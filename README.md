@@ -43,8 +43,7 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 9: Summary** 
      - Workshop summary and closing 
 
-![image](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/96e4bbd1-3753-464b-8975-83129190913c)
-
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cb154bf0-47bb-4de2-8fe1-ea5eee81a2e0)
 
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
@@ -85,10 +84,10 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx) Founde
 - https://github.com/jthuraisamy/SysWhispers
 - https://github.com/jthuraisamy/SysWhispers2
 - https://github.com/klezVirus/SysWhispers3
+- https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
+- https://www.geoffchappell.com/studies/windows/km/index.htm
 - "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - "Programming Windows, 5th Edition" by Charles Petzold
 - "Windows System Architecture" available on Microsoft Docs
 - "Windows Kernel Programming" by Pavel Yosifovich
-- https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
-- https://www.geoffchappell.com/studies/windows/km/index.htm
