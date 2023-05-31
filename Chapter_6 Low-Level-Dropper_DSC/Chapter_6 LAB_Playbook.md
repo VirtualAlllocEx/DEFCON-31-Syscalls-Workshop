@@ -141,14 +141,14 @@ extern "C" {         // This is to ensure that the names of the functions are no
 </details>
     
 <details>
-<summary>Solution</summary>    
-    ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f)
+<summary>Solution</summary>   
+    <p align="center">
+<img width="300" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f">    
+    </p>
+</details>     
+    
 
     
-    
- </details>
-    
-
 ### Assembly Instructions
 Furthermore, we do not want to ask ntdll.dll for the syscall stub or the contents of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we want to manually implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool like SysWhispers3 to create the necessary assembly instructions, for the best learning experience, we will manually implement the assembly code in our syscall POC. To do this, you will find a file called ``syscalls.asm`` in the syscall dropper POC, which contains some of the required assembler code. The code needed to implement the syscall stub in syscalls.asm looks like this and can be used as a template to add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembler code.
 
@@ -226,10 +226,11 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 
 Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. Furthermore we set Excluded from Build to no and Content to yes. 
 <details>
-<p align="center">
+    <p align="center">
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
 <img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
+    </p>
 </details>     
 
     
