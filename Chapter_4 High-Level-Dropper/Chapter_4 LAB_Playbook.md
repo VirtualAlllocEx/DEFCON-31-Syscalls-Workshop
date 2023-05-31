@@ -251,7 +251,11 @@ In the next step we use the function Follow in Dissassembler to follow the memor
 </p> 
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
-</p>     
+</p>
+We use the Follow in dissassembler function again and follow the address which calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/025b6490-f52a-4d40-bc60-f7fde560506d">
+</p>        
 </details>     
 
      
