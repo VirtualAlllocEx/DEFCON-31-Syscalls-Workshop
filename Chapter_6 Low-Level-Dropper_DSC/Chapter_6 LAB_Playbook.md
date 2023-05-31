@@ -1,4 +1,4 @@
-## LAB Exercise 4: Low Level Direct Syscall Dropper
+## LAB Exercise 4: Low Level Dropper-Direct Syscall
 In this exercise we will make the second modification to the reference dropper, create the direct syscall dropper and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). We call this the Low Level Direct Syscall Dropper, or syscall dropper for short. 
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
