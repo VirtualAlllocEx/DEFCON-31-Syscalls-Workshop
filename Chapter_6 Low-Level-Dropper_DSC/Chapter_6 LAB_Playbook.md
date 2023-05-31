@@ -352,7 +352,6 @@ We also want to check from which module or memory location the syscall stub of t
 <p align="center">
 <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/f78a51a0-fdc8-4c19-8d4b-924024c9dc5b">
 </p>       
-</details>     
 <p align="center">
 <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/669760a1-f02e-4369-834a-53db95801625">
 </p>       
