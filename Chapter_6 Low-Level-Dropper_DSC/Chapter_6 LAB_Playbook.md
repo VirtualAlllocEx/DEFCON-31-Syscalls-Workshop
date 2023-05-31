@@ -28,7 +28,7 @@ You can download the POC from the code section of this chapter. The code works a
 </details>
 
 
-The main code of the direct syscall dropper looks like the following and is already implemented in the POC. 
+The main code of the direct syscall dropper looks like the following and is already implemented in the POC. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
 <details>
 <summary>Code</summary>
     
@@ -68,9 +68,8 @@ int main() {
 </details>
 
     
-    
 ### Header File
-Unlike the medium level dropper (NTAPIs), we no longer ask ntdll.dll for the function definition of the native APIs we are using. But we still want to use the native functions, so we need to define or implement the structure for all four native functions in a header file. In this case the header file is called syscalls.h and must also be included in the main code. All the structures are already implemented in the direct syscall dropper POC. If you want to check them manually, you should be able to find them in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
+Unlike the medium level dropper (NTAPIs), we **no longer ask ntdll.dll** for the function definition of the native APIs we are using. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case the header file is called syscalls.h and must also be included in the main code. All the structures are already implemented in the syscall dropper POC. If you want to check them manually, you should be able to find them in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
 
 <details>
 <summary>Code</summary>
