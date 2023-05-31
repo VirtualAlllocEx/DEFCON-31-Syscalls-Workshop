@@ -344,8 +344,9 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
 </p>       
 </details>
 
-We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
 <details>
+    <summary>Solution</summary>
+We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
     <summary>Solution</summary>
      In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the syscall dropper assembly.    
 <p align="center">
@@ -357,7 +358,10 @@ We also want to check from which module or memory location the syscall stub of t
 </p>       
 </details>
      
-     Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
+
+
+
+Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, now we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
     <summary>Solution</summary>
