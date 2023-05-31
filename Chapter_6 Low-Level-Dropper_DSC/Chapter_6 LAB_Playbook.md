@@ -320,9 +320,11 @@ As a first step, we want to validate which APIs (Win32 or Native) are being impo
 <details>
     <summary>Solution</summary>
      By checking the imported symbols in our syscall dropper, we should be able to see that again the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by kernel32.dll, or are no longer imported in general. 
-     <p align="center">
+     
+<p align="center">
 <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
-     </p>  
+</p>  
+     
 </details>     
      
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
