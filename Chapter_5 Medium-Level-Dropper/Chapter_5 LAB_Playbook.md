@@ -223,10 +223,22 @@ Remember that no direct syscalls are used in the Native dropper. What results do
 Checking the imported symbols in our Native dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
-</p>        
-Instead we can see, that the symbols for ntdll.dll are implemented into the assembly and loaded from ntdll.dll.
+</p>  
+     
+     
+     
+     
+     
+     
+     
+     
+In case of the native dropper, we see, that the symbols for ntdll.dll are implemented into the assembly and loaded from ntdll.dll. This is done by getting a handle to ntdll.dll 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2cc27b52-54c6-4815-8bb2-e70def2c823f">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b2b5c4cd-73d4-4b29-88e7-bf764d5c93a2">
+</p>
+     
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b2b5c4cd-73d4-4b29-88e7-bf764d5c93a2">
 </p>
 
      
