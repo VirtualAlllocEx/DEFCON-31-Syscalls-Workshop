@@ -181,7 +181,7 @@ Once the listener has been successfully started, you can run your compiled Mediu
 </details>
 
 
-## Medium-Level-Dropper analysis: dumpbin 
+## Native Dropper analysis: dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -202,15 +202,15 @@ Compared to the High-Level-Dropper, you can see that the medium-level dropper **
 
      
      
-## Win32 Dropper analysis: x64dbg
-The first step is to run your win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the win32 dropper directly in x64dbg you need to run the assembly first.
+## Native Dropper analysis: x64dbg
+The first step is to run your native dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the native dropper directly in x64dbg you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1d7959d0-9a35-451d-be18-826f4a832737">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/be7fcea9-cac7-4aa6-8e59-d7170e63a1d5">     
 </p>            
 </details>    
 
