@@ -218,7 +218,7 @@ In the case of the High-Level-Dropper, you should see that the Windows APIs Virt
 </details>
 
     
-## High-Level-Dropper analysis: x64dbg
+## Win32 Dropper analysis: x64dbg
 The first step is to run your win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the win32 dropper directly in x64dbg you need to run the assembly first.
 <details>
@@ -273,7 +273,7 @@ We also want to check from which module or memory location the syscall stub of t
 
 
    
-## Summary: High-level API Dropper
+## Summary:Win32 Dropper
 - No direct system calls at all
 - Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
 - Dropper imports VirtualAlloc from kernel32.dll...
