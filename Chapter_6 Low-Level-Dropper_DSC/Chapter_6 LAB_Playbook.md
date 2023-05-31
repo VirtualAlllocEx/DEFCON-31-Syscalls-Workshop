@@ -324,22 +324,25 @@ Then we open x64dbg and attach to the running process, note that if you open the
 </p>
 <p align="center">
 <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/492c09bc-e9db-428b-90f4-311b1a8a5d4b">
-</p>       
-     
-
+</p>            
 </details>
      
     
 First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
     <summary>Solution</summary>
-     Checking the imported symbols in our syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
-     
+     Checking the imported symbols in our syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
-</p>  
-     
-</details>     
+<img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
+</p>       
+</details>
+<details>
+    <summary>Solution</summary>
+     We can also see that instead of asking ntdll.dll for the four native functions used, they are implemented directly in the assembly in the .text region. 
+<p align="center">
+<img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
+</p>       
+</details> 
      
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, now we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
