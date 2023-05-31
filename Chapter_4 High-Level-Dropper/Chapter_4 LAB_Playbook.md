@@ -219,8 +219,8 @@ In the case of the High-Level-Dropper, you should see that the Windows APIs Virt
 
     
 ## High-Level-Dropper analysis: x64dbg
-The first step is to run your Win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the Win32 dropper directly in x64dbg, you need to run the assembly first.
+The first step is to run your win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the win32 dropper directly in x64dbg you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -232,33 +232,34 @@ Then we open x64dbg and attach to the running process, note that if you open the
 
 
 First we want to check which APIs (Win32 or Native) or if the correct APIs are being imported and from which module or memory location. 
-Remeber, that in the Win32 dropper no direct syscalls or similar used. Instead we walk the normal way trough ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``. What results do you expect?
+Remember that no direct syscalls or similar are used in the Win32 dropper. What results do you expect?
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported by kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
 <img width="800" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
 </p>        
-We use the the "Follow imported address" function in the symbols register by right clicking on one of the four used Win32 APIs e.g. Virtual Alloc and we can see, that we jump to the memory location of kernel32.dll.
+We use the "Follow imported address" function in the Symbols tab by right-clicking on one of the four Win32 APIs used, e.g. Virtual Alloc, and we can see that we jump to the location of kernel32.dll.
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
 </p>
-In the next step we use the function Follow in Dissassembler to follow the memory address which jump to the memory of the kernelbase.dll  
+In the next step we use the function Follow in Dissassembler to follow the memory address that jumps to the memory of the kernelbase.dll.  
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
 </p> 
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
 </p>
-We use the Follow in dissassembler function again and follow the address which calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
+Then we use the Follow in dissassembler function again and follow the address that calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/667441cb-d9ae-43d3-969e-35be8dbab5da">
 </p>        
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/456e8c76-32bc-4115-8154-61630a8e87c5">
 </p>
+As expected, we go the normal way via ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``.     
 </details>     
 
      
@@ -268,7 +269,7 @@ We use the Follow in dissassembler function again and follow the address which c
      
      
 
-     In case of e.g. VirutalAlloc we use the follow in dump function in x64dbg and we can see, we can see that as expected we have the transition from kernel32.dll (Virtual Alloc) -> to kernelbase.dll 
+In case of e.g. VirutalAlloc we use the follow in dump function in x64dbg and we can see, we can see that as expected we have the transition from kernel32.dll (Virtual Alloc) -> to kernelbase.dll 
      We can also see that instead of asking ntdll.dll for the four native functions used, they are implemented directly in the assembly in the .text region. 
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
