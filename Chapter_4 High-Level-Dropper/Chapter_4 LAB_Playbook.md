@@ -244,13 +244,24 @@ Checking the imported symbols in our Win32 dropper, we should see that the Win32
 We use the the "Follow imported address" function in the symbols register by right clicking on one of the four used Win32 APIs e.g. Virtual Alloc and we can see, that we jump to the memory location of kernel32.dll.
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
-</p>       
+</p>
+In the next step we use the function Follow in Dissassembler to follow the memory address which jump to the memory of the kernelbase.dll  
 </details>     
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
+</p> 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
+</p>     
+
+     
+
      
      
      
      
-     In case of e.g. VirutalAlloc we use the follow in dump function in x64dbg and we can see, we can see that as expected we have the transition from ``kernel32.dll (Virtual Alloc) -> to kernelbase.dll 
+
+     In case of e.g. VirutalAlloc we use the follow in dump function in x64dbg and we can see, we can see that as expected we have the transition from kernel32.dll (Virtual Alloc) -> to kernelbase.dll 
      We can also see that instead of asking ntdll.dll for the four native functions used, they are implemented directly in the assembly in the .text region. 
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
