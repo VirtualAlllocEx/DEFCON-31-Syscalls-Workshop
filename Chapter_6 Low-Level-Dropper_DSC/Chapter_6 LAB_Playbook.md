@@ -317,11 +317,16 @@ dumpbin /imports low_level.exe
     
 ## Low-Level-Dropper analysis: x64dbg 
 The first step is to run your syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg you have to run the assembly first.
+Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg, you need to run the assembly first.
 <details>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
-</p>  
+<img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
+</p>
+<p align="center">
+<img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/492c09bc-e9db-428b-90f4-311b1a8a5d4b">
+</p>       
+     
+
 </details>
      
     
