@@ -56,7 +56,6 @@ All the step-by-step instructions and code samples can be found in the respectiv
     - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
     - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
     - [x64dbg](https://x64dbg.com/)
-    - [API-Monitor v2](http://www.rohitab.com/downloads) portable or install
     
 - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
     - Metasploit to create shellcode and an MSF-Listener
