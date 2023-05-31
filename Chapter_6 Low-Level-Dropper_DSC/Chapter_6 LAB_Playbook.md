@@ -12,9 +12,11 @@ In this exercise we will make the second modification to the reference dropper, 
 6. Create and run a staged x64 meterpreter listener using msfconsole.
 7. Run your compiled .exe and check that a stable command and control channel opens. 
 ### Analysing the Direct Syscall Dropper
-8. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Is the result what you expected?  
-9. Use the **API Monitor** tool to analyse the syscall dropper in the context of the four APIs used. Is the result what you expected? 
-10. Use the **x64dbg** debugger to analyse syscall droppers: from which module and location are the syscalls of the four APIs used executed? Is the result what you expected? 
+8. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are there any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+9. Use **x64dbg** to debug or analyse the dropper. 
+     - Check which Win32 APIs and native APIs are being imported. If they are imported, from which module or memory location are they imported? Is the result what you expected?
+     - Check from which module or memory location the syscalls for the four APIs used are executed. Is the result what you expected?
+
 
 ## Visual Studio
 You can download the POC from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
