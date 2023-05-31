@@ -343,10 +343,8 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
 <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
 </p>       
 </details>
-
-<details>
-    <summary>Solution</summary>
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+<details>
     <summary>Solution</summary>
      In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the syscall dropper assembly.    
 <p align="center">
