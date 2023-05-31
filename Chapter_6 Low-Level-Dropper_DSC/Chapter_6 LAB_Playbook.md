@@ -286,7 +286,7 @@ Once the listener has been successfully started, you can run your compiled Low-L
 <details>
     
 <p align="center">
-<img width="700" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
 </p>
 </details>
         
@@ -329,7 +329,7 @@ For a correct check, it is necessary to filter to the correct APIs. Only by prov
 If everything was done correctly, you could see that the four used Windows APIs and their native APIs are no longer imported from kernel32.dll and ntdll.dll to the Low-Level-Dropper.exe.
 This result was expected and is correct because our Low-Level-Dropper has directly implemented the necessary syscalls or syscall stubs for the respective native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject.
 <p align="center">
-<img width="595" alt="image" src="https://user-images.githubusercontent.com/50073731/235480936-df805736-aad8-44a7-8bec-f8563735d1d2.png">
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/50073731/235480936-df805736-aad8-44a7-8bec-f8563735d1d2.png">
 </p>
 </details>    
 
