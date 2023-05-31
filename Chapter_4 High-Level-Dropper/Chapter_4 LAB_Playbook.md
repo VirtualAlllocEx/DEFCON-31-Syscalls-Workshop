@@ -220,7 +220,7 @@ In the case of the High-Level-Dropper, you should see that the Windows APIs Virt
     
 ## High-Level-Dropper analysis: x64dbg
 The first step is to run your Win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg, you need to run the assembly first.
+Then we open x64dbg and attach to the running process, note that if you open the Win32 dropper directly in x64dbg, you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -229,10 +229,6 @@ Then we open x64dbg and attach to the running process, note that if you open the
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1d7959d0-9a35-451d-be18-826f4a832737">
 </p>            
 </details>    
-    
-    
-    
-    
     
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, so far we have not implemented any native APIs or system calls or system call stubs directly in the dropper. What results would you expect?
