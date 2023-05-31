@@ -270,40 +270,9 @@ We also want to check from which module or memory location the syscall stub of t
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
 </p>            
 </details>     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
-Remember, so far we have not implemented any native APIs or system calls or system call stubs directly in the dropper. What results would you expect?
-<details>
-    <summary>Solution</summary>
-    
-1. Open or load your High-Level-Dropper.exe into x64dbg
-2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
-    
-<p align="center">    
-<img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
-</p>
-    
-As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
-    
-<p align="center">    
-<img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
-</p>    
-</details>
 
-    
+
+   
 ## Summary: High-level API Dropper
 - No direct system calls at all
 - Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
