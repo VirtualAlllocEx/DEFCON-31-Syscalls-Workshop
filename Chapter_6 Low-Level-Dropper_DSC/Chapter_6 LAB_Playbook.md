@@ -9,12 +9,12 @@ In this exercise we will make the second modification to the reference dropper, 
      - Create a new syscalls.h header file and use the supplied code that follows in this playbook.
      - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory.   
 3. Create a staged x64 meterpreter shellcode with msfvenom and copy it to the POC.  
-6. Compile the POC as a x64 release. 
-7. Create and run a staged x64 meterpreter listener using msfconsole.
-8. Run your compiled .exe and check that a stable command and control channel opens. 
+4. Compile the POC as a x64 release. 
+5. Create and run a staged x64 meterpreter listener using msfconsole.
+6. Run your compiled .exe and check that a stable command and control channel opens. 
 ### Analysing the Direct Syscall Dropper
-8. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-9. Use **x64dbg** to debug or analyse the dropper. 
+7. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+8. Use **x64dbg** to debug or analyse the dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
