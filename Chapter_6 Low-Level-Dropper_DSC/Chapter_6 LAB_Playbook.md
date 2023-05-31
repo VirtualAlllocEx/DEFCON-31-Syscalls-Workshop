@@ -316,7 +316,16 @@ dumpbin /imports low_level.exe
     
     
 ## Low-Level-Dropper analysis: x64dbg 
-As a first step, we want to validate which APIs (Win32 or Native) are being imported and from which module or memory location they are being imported. Remember that in the syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
+The first step is to run your syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg you have to run the assembly first.
+<details>
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
+</p>  
+</details>
+     
+    
+First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
     <summary>Solution</summary>
      Checking the imported symbols in our syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
