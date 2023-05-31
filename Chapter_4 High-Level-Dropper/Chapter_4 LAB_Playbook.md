@@ -1,39 +1,24 @@
-## Exercise 2: High Level Dropper
+## Exercise 2: Win32 Dropper
 In **Exercise 2** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper High-Level-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
 ## Exercise 2 tasks:
-### Create High-Level-Dropper
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the High-Level-Dropper.
-2. Create x64 calc shellcode with msfvenom, copy it into the POC, compile it and do a first run.
-3. If execution of the calculator did work, create staged x64 meterpreter shellcode with msfvenom and copy it to POC. 
-4. Compile the High-Level-Dropper as release x64. 
-5. Create and run a staged x64 meterpreter listener with msfconsole.
-6. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse High-Level-Dropper
-6. Use the Visual Studio tool **dumpbin** to analyze the compiled High-Level-Dropper. Is the result what you expected?  
-7. Use the tool **API Monitor** to analyze the compiled High-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the debugger **x64dbg** to analyze the compiled High-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected?
+### Creating the Win32 Dropper
+1. Download the Win32 dropper POC from the Code section of this chapter.
+2. In this case the code is already implemented in the POC. Your first task is to create x64 meterpreter shellcode and copy it into the POC.  
+3. Compile the POC as a x64 release. 
+4. Create and run a staged x64 meterpreter listener using msfconsole.
+5. Run your compiled .exe and check that a stable command and control channel opens. 
+### Analysing the Direct Syscall Dropper
+6. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+7. Use **x64dbg** to debug or analyse the dropper. 
+     - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
+     - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
 
-## Visual Studio 
-The POC can be created as a new C++ project (Console Application) in Visual Studio by following the steps below. 
-<details>
-<p align="center">
-<img width="652" alt="image" src="https://user-images.githubusercontent.com/50073731/235356344-c14f9123-751c-462c-a610-50c7156f93f9.png">
-</p>
-
-The easiest way is to create a new console app project and then replace the default hello world text in main.cpp with your code. 
-
-<p align="center">
-<img width="640" alt="image" src="https://user-images.githubusercontent.com/50073731/235357092-5fd2e873-6732-4b37-a69d-38a281953b2e.png">
-<img width="645" alt="image" src="https://user-images.githubusercontent.com/50073731/235357228-940ec56c-7565-44b8-8b6a-01a74ab15e1d.png">
-</p>
-</details>
-
-
-The technical functionality of the High-Level-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the High-Level-Dropper into a low-level dropper using direct system calls. In the High-Level-Dropper we use the following Windows APIs: 
+## Visual Studio
+You can download the POC from the code section of this chapter. The technical functionality of the High-Level-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the High-Level-Dropper or Win32-Dropper into a Low-Level-Dropper using direct system calls. In the Win32 dropper we use the following Win32 APIs 
 - VirtualAlloc
 - WriteProcessMemory
 - CreateThread
@@ -58,7 +43,7 @@ DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
 ```
  </details> 
  
- 
+
 Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
 <details>
     
@@ -114,8 +99,7 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
 </details>    
 
     
-Here is the **complete code**, and you can copy and paste this code into your **High-Level-Dropper** project in Visual Studio.
-You can also download the complete **High-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
+Here is the **complete code**, but you can also find it already implemented in the code POC of this chapter.
 <details>
     
 ```
@@ -234,30 +218,22 @@ In the case of the High-Level-Dropper, you should see that the Windows APIs Virt
 </details>
 
     
-## High-Level-Dropper analysis: API-Monitor
-We use API Monitor to check the transition from the four used Windows APIs to the four corresponding native APIs.
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and corresponding native APIs, which can prove the transition from Windows APIs (kernel32.dll) to native APIs (ntdll.dll), in the context of the High-Level-Dropper, we filter on the following API calls. Which results do you expect?
-- VirtualAlloc
-- NtAllocateVirtualMemory
-- WriteProcessMemory
-- NtWriteVirtualMemory
-- CreateThread
-- NtCreateThreadEx
-- WaitForSingleObject
-- NtWaitForSingleObject
-
-
-
+## High-Level-Dropper analysis: x64dbg
+The first step is to run your Win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg, you need to run the assembly first.
 <details>
-    <summary>Solution</summary> 
-If everything was done correctly, you should see clean transitions from the Windows APIs used to the native APIs we used in our High-Level-Dropper POC.
 <p align="center">
-<img width="498" alt="image" src="https://user-images.githubusercontent.com/50073731/235368737-9f87f5de-0a7e-4039-b454-2af23914b277.png">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
-</details>
-
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1d7959d0-9a35-451d-be18-826f4a832737">
+</p>            
+</details>    
     
-## High-Level-Dropper analysis: x64dbg 
+    
+    
+    
+    
 Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
 Remember, so far we have not implemented any native APIs or system calls or system call stubs directly in the dropper. What results would you expect?
 <details>
