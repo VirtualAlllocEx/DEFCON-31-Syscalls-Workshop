@@ -223,7 +223,7 @@ END  ; End of the module
 ### Microsoft Macro Assembler (MASM)
 We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the syscall POC, we need to do a few things. These steps are not done in the downloadable POC and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
 <details>
- 
+<summary>Solution</summary> 
 <p align="center">
 <img width="1278" alt="image" src="https://user-images.githubusercontent.com/50073731/235457590-371f3519-b7cf-483d-9c1c-6bfd6368be42.png">
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
@@ -231,6 +231,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 
 Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. Furthermore we set Excluded from Build to no and Content to yes. 
 <details>
+<summary>Solution</summary> 
     <p align="center">
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
