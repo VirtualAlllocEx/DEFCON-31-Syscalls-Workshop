@@ -69,7 +69,7 @@ int main() {
 
     
 ### Header File
-Unlike the mid-level dropper (NTAPIs), we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called syscalls.h and must also be included in the main code. The syscalls.h does not currently exist in the syscall POC folder, but must be added as a new header file to the syscall dropper POC. You will also need to include ``syscalls.h`` in the main C code. The code for the ``syscalls.h`` file can be found in the Code section below. Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory] (https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
+Unlike the mid-level dropper (NTAPIs), we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall POC folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include ``syscalls.h`` in the main C code. Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory] (https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
 
 <details>
 <summary>Code</summary>
@@ -143,7 +143,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
 <details>
 <summary>Solution</summary>   
     <p align="center">
-<img width="300" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f">    
+<img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f">    
     </p>
 </details>     
     
