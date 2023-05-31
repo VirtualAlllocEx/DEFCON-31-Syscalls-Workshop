@@ -21,10 +21,10 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 
 ## Visual Studio
 You can download the POC from the code section of this chapter. In this POC, we replace all the Win32 APIs we used before with the corresponding native function or API.
-- NtAllocateVirtualMemory
-- NtWriteVirtualMemory
-- NtCreateThreadEx
-- NtWaitForSingleObject
+- For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
+- For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
+- For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
+- And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
 
 The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. This part is already fully implemented in the Native Dropper POC.
 <details>
@@ -35,8 +35,6 @@ typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PS
 typedef NTSTATUS(NTAPI* PNTWRITEVIRTUALMEMORY)(HANDLE, PVOID, PVOID, SIZE_T, PSIZE_T);
 typedef NTSTATUS(NTAPI* PNTCREATETHREADEX)(PHANDLE, ACCESS_MASK, PVOID, HANDLE, PVOID, PVOID, ULONG, SIZE_T, SIZE_T, SIZE_T, PVOID);
 typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER);
-typedef NTSTATUS(NTAPI* PNTCLOSE)(HANDLE);
-typedef NTSTATUS(NTAPI* PNTFREEVIRTUALMEMORY)(HANDLE, PVOID*, PSIZE_T, ULONG);
  ```
 </details>
     
@@ -71,60 +69,12 @@ If it was at this time not possible for you to complete the code for the three m
     PNTWRITEVIRTUALMEMORY NtWriteVirtualMemory = (PNTWRITEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory");
     PNTCREATETHREADEX NtCreateThreadEx = (PNTCREATETHREADEX)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtCreateThreadEx");
     PNTWAITFORSINGLEOBJECT NtWaitForSingleObject = (PNTWAITFORSINGLEOBJECT)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWaitForSingleObject");
-    PNTCLOSE NtClose = (PNTCLOSE)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtClose");
-    PNTFREEVIRTUALMEMORY NtFreeVirtualMemory = (PNTFREEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtFreeVirtualMemory");
 ```        
 
 </details>     
      
      
-     
-
-For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
-<details>
-    
-```    
-// Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
-    // 'exec' will hold the base address of the allocated memory region
-    void* exec = NULL;
-    SIZE_T size = sizeof(code);
-    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-```    
-</details>    
-
-For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
-<details>
-    
-```
-// Copy the shellcode into the allocated memory region
-    SIZE_T bytesWritten;
-    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);    
-```
-</details>    
-    
-
-For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
-<details>
-    
-```
-// Execute the shellcode in memory using a new thread
-    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
-    HANDLE hThread;
-    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
-```
-</details>
-
-And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
-<details>
-    
-```
-// Wait for the end of the thread to ensure the shellcode execution is complete
-    NtWaitForSingleObject(hThread, FALSE, NULL);
-```
-</details>    
-
-Here is the **complete code**, and you can copy and paste this code into your **Medium-Level-Dropper** project in Visual Studio.
-You can also download the complete **Medium-Level-Dropper Visual Studio project** in the **Code Example section** of this repository.
+Here is the **complete code**, but you can also find it already implemented in the code POC of this chapter.
 <details>
     
 ```
@@ -250,45 +200,64 @@ Compared to the High-Level-Dropper, you can see that the medium-level dropper **
 </p>
 </details>    
 
-## Medium-Level-Dropper analysis: API-Monitor
-For a correct check, it is necessary to filter to the correct APIs. Only by providing the correct Windows APIs and the corresponding native APIs, we can be sure that there are no more transitions in context of the used APIs in our Medium-Level-Dropper. We filter on the following API calls:
-- VirtualAlloc
-- NtAllocateVirtualMemory
-- WriteProcessMemory
-- NtWriteVirtualMemory
-- CreateThread
-- NtCreateThreadEx
-- WaitForSingleObject
-- NtWaitForSingleObject
-
+     
+     
+## Win32 Dropper analysis: x64dbg
+The first step is to run your win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the win32 dropper directly in x64dbg you need to run the assembly first.
 <details>
-    <summary>Solution</summary>    
-If everything was done correctly, you could observe that there are more transitions from the Windows APIs to the native APIs we used in our Medium-Level-Dropper poc.
-This result was expected and is correct because our Medium-Level-Dropper accesses or imports the needed native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject directly from ntdll.dll.
 <p align="center">
-<img width="522" alt="image" src="https://user-images.githubusercontent.com/50073731/235374864-c7e90dd6-82c6-49d1-a90c-b80a531416b3.png">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1d7959d0-9a35-451d-be18-826f4a832737">
+</p>            
 </details>    
 
-## Medium-Level-Dropper analysis: x64dbg 
-Using x64dbg we want to validate from which module and location the respective system calls are executed in the context of the used Windows APIs -> native APIs?
-Remember, so far we have not implemented system calls or system call stubs directly in the dropper. What results would you expect?
+
+First we want to check which APIs (Win32 or Native) or if the correct APIs are being imported and from which module or memory location. 
+Remember that no direct syscalls or similar are used in the Win32 dropper. What results do you expect?
+     
 <details>
     <summary>Solution</summary>
-    
-1. Open or load your Medium-Level-Dropper.exe into x64dbg
-2. Go to the Symbols tab, in the **left pane** in the **Modules column** select or highlight **ntdll.dll**, in the **right pane** in the **Symbols column** filter for the first native API **NtAllocateVirtualMemory**, right click and **"Follow in Dissassembler"**. To validate the other three native APIs, NtWriteVirtualMemory, NtCreateThreadEx and NtWaitForSingleObject, just **repeat this procedure**. 
-    
-<p align="center">    
-<img width="867" alt="image" src="https://user-images.githubusercontent.com/50073731/235445644-240e5c3b-a3cf-4a7a-99be-27412e2dcb82.png">
+Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
+<img width="800" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
+</p>        
+We use the "Follow imported address" function in the Symbols tab by right-clicking on one of the four Win32 APIs used, e.g. Virtual Alloc, and we can see that we jump to the location of kernel32.dll.
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
 </p>
-    
-As expected, we can observe that the corresponding system calls for the native APIs NtAllocateVirtualMemory, NtWriteVirtualMemory, NtCreateThreadEx, NtWaitForSingleObject are correctly executed/imported from the .text section in the ntdll.dll module. This investigation is very important because later in the direct syscall exercise we expect a different result with the low level dropper and want to match it.
-    
-<p align="center">    
-<img width="686" alt="image" src="https://user-images.githubusercontent.com/50073731/235445865-c3fe83fa-1539-4ff3-b850-96cc91a0a01d.png">
-</p>    
-</details>
+In the next step we use the function Follow in Dissassembler to follow the memory address that jumps to the memory of the kernelbase.dll.  
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
+</p> 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
+</p>
+Then we use the Follow in dissassembler function again and follow the address that calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/667441cb-d9ae-43d3-969e-35be8dbab5da">
+</p>        
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/456e8c76-32bc-4115-8154-61630a8e87c5">
+</p>
+As expected, we go the normal way via ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``.     
+</details>     
+
+We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+<details>
+    <summary>Solution</summary>
+     The following illustration shows, that the syscall instruction and the return instruction are executed from a memory region in ntdll.dll as expected.          
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
+</p>            
+</details>     
+
+     
+     
+
 
 
 ## Summary: Medium-level API Dropper
