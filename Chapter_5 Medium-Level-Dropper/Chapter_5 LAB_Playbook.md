@@ -1,32 +1,32 @@
 ## Exercise 3: Medium_Level_API_Dropper
-In this exercise, we will make the first modification to the reference dropper and replace the Windows APIs (kernel32.dll) with native APIs (ntdll.dll).
-We create a **medium-level API shellcode dropper** in short **Medium-Level-Dropper** based on native APIs. 
+In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with native APIs (ntdll.dll). We will create a **medium-level API shellcode dropper** and call it a native dropper.
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
 
 ## Exercice 3 tasks:
-### Create Medium-Level-Dropper
-1. Create a new C++ POC in Visual Studio 2019 and use the provided code for the Medium-Level-Dropper.
-2. Create staged x64 meterpreter shellcode with msfvenom and copy it to the C++ Medium-Level-Dropper poc. 
-3. Compile the Medium-Level-Dropper as release or debug x64. 
-4. Create and run a staged x64 meterpreter listener with msfconsole.
-5. Run your compiled .exe and verify that a stable command and control channel opens. 
-### Analyse Medium-Level-Dropper
-6. Use the Visual Studio tool **dumpbin** to analyze the compiled Medium-Level-Dropper. Is the result what you expected?  
-7. Use the tool **API Monitor** to analyze the compiled Medium-Level-Dropper in the context of the four APIs used. Is the result what you expected? 
-8. Use the debugger **x64dbg** to analyze the compiled Medium-Level-Dropper: from which module and location are the syscalls from the four APIs used being executed? Is the result what you expected? 
+### Creating the Win32 Dropper
+1. Download the native dropper POC from the Code section of this chapter.
+2. The code in the POC is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll. 
+3. Then create x64 meterpreter shellcode and copy it into the POC.  
+4. Compile the POC as a x64 release. 
+5. Create and run a staged x64 meterpreter listener using msfconsole.
+6. Run your compiled .exe and check that a stable command and control channel opens. 
+### Analysing the Direct Syscall Dropper
+6. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+7. Use **x64dbg** to debug or analyse the dropper. 
+     - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
+     - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected? 
 
 
 ## Visual Studio
-To create the Medium-Level-Dropper project, follow the procedure of the High-Level-Dropper exercise, take a look to follow the necessary steps.
-We replace all Windows APIs with the corresponding native APIs and create our Medium-Level-Dropper.
+You can download the POC from the code section of this chapter. In this POC, we replace all the Win32 APIs we used before with the corresponding native function or API.
 - NtAllocateVirtualMemory
 - NtWriteVirtualMemory
 - NtCreateThreadEx
 - NtWaitForSingleObject
 
-The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Medium-Level-Dropper, we must manually define the function pointers for the native API functions in the Medium-Level-Dropper code.
+The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. This part is already fully implemented in the Native Dropper POC.
 <details>
     
  ```
@@ -41,7 +41,7 @@ typedef NTSTATUS(NTAPI* PNTFREEVIRTUALMEMORY)(HANDLE, PVOID*, PSIZE_T, ULONG);
 </details>
     
     
-Shellcode declaration same as before in the High-Level-Dropper.
+Shellcode declaration same as before in the Win32 Dropper.
 <details>
 
 ```
@@ -51,7 +51,7 @@ Shellcode declaration same as before in the High-Level-Dropper.
 </details>
 
 
-To directly access the code of the native APIs used, we need to manually load the required native APIs from ntdll.dll.
+To load the native functions directly from ntdll.dll, we need to load them manually from ntdll.dll. This code part is not finished and must be completed by the workshop attendee. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
     
 ```
