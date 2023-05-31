@@ -4,18 +4,19 @@ In this exercise we will make the second modification to the reference dropper, 
 
 ## Exercise 4 Tasks:
 ### Creating the Direct Syscall Dropper 
-1. Download the Syscall Dropper POC from the Code section of this chapter.
-2. Most of the code is already implemented in the POC. But take a look at the .asm file and add the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for the NTallocateVirtualMemory native API. 
-3. Create x64 calc shellcode with msfvenom, copy it to the POC, compile it and run it for the first time. Check if the calc.exe spawns correctly. 
-4. Create a staged x64 meterpreter shellcode with msfvenom and copy it to the POC or replace the calc shellcode with it.  
-5. Compile the POC as a x64 release. 
-6. Create and run a staged x64 meterpreter listener using msfconsole.
-7. Run your compiled .exe and check that a stable command and control channel opens. 
+1. Download the syscall dropper POC from the Code section of this chapter.
+2. Most of the code is already implemented in the POC. However, you can complete the direct syscall dropper by performing the following tasks:
+     - Create a new syscalls.h header file and use the supplied code that follows in this playbook.
+     - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory.   
+3. Create a staged x64 meterpreter shellcode with msfvenom and copy it to the POC.  
+6. Compile the POC as a x64 release. 
+7. Create and run a staged x64 meterpreter listener using msfconsole.
+8. Run your compiled .exe and check that a stable command and control channel opens. 
 ### Analysing the Direct Syscall Dropper
-8. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are there any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+8. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
 9. Use **x64dbg** to debug or analyse the dropper. 
-     - Check which Win32 APIs and native APIs are being imported. If they are imported, from which module or memory location are they imported? Is the result what you expected?
-     - Check from which module or memory location the syscalls for the four APIs used are executed. Is the result what you expected?
+     - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
+     - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
 
 ## Visual Studio
