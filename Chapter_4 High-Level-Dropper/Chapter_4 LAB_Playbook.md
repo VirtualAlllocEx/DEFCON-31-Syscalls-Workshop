@@ -233,9 +233,10 @@ Then we open x64dbg and attach to the running process, note that if you open the
 
 First we want to check which APIs (Win32 or Native) or if the correct APIs are being imported and from which module or memory location. 
 Remeber, that in the Win32 dropper no direct syscalls or similar used. Instead we walk the normal way trough ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``. What results do you expect?
+     
 <details>
     <summary>Solution</summary>
-     Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported by kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported by kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
 <img width="800" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
