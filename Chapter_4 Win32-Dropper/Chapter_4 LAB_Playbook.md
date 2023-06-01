@@ -5,12 +5,11 @@ In **Exercise 2** we will create our first shellcode dropper based on **high lev
 
 ## Exercise 2 tasks:
 1. Download the Win32-Dropper POC from the Code section of this chapter.
-2. In this case the code is already implemented in the POC. Your first task is to create x64 meterpreter shellcode and copy it into the POC.  
-3. Compile the POC as a x64 release. 
-4. Create and run a staged x64 meterpreter listener using msfconsole.
-5. Run your compiled .exe and check that a stable command and control channel opens. 
-6. Use the Visual Studio **dumpbin** tool to analyse the Win32-Dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-7. Use **x64dbg** to debug or analyse the Win32-Dropper. 
+2. In this case the code is already implemented in the POC. Your task is to create x64 meterpreter shellcode, copy it into the POC and compile it.
+3. Create and run a staged x64 meterpreter listener using msfconsole.
+4. Run your compiled .exe and check that a stable command and control channel opens. 
+5. Use the Visual Studio **dumpbin** tool to analyse the Win32-Dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+6. Use **x64dbg** to debug or analyse the Win32-Dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
 
