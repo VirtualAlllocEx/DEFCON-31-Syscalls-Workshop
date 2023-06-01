@@ -238,7 +238,7 @@ Furthermore, if we use the symbols register in x64dbg, we can identify the manua
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d0845cdf-90d7-4200-8823-27929b1ee3bb">
 </p>
-         
+</details>         
      
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
 <details>
@@ -249,14 +249,9 @@ We also want to check from which module or memory location the syscall stub of t
 </p>            
 </details>     
 
-     
-     
-
-
-
-## Summary: Medium-level API Dropper
+## Summary: Native-Dropper
 - We made the transition from high-level APIs to medium-level APIs, or from Windows APIs to native APIs.
 - But still no direct use of system calls
-- Syscall execution via medium_level_dropper.exe -> ntdll.dll -> syscall
+- Syscall execution via native_dropper.exe -> ntdll.dll -> syscall
 - Dropper no longer imports Windows APIs from kernel32.dll
-- In case of EDR would only hook kernel32.dll -> EDR bypassed 
+- In case of EDR would only hook kernel32.dll -> EDR could be bypassed in context of user mode hooks in kernel32.dll
