@@ -22,9 +22,9 @@ You can download the POC from the code section of this chapter. In this POC, we 
 - Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
 - And ``WaitForSingleObject`` is replaced by **``NtWaitForSingleObject``**.
 
-The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. For instance, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` that represents a specific type of function pointer. ``extern`` is used to declare a variable or function that is defined in another source file or module. This allows different parts of a program to access the same shared variables or functions.
+A few words about the functionality of the native dropper code. Unlike the Windows APIs, most native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. In the case of the Win32 dropper from the previous chapter, we don't need to worry about manually implementing function structures, or how to handle transitions from Win32 APIs to native APIs, etc. This is because the Windows headers like ``Windows.h`` have already implemented all the functionality and provide us with the functionality by using the Win32 APIs. If we use the native APIs directly, without the help of the Win32 APIs, it is a bit more complicated and additional code has to be used in the native dropper. The reason for this is that the Windows headers or libraries do not support the direct use of native functions, so we have to implement the required code manually. Which means to be able to use native funtions in the native dropper we have to get the memory address of each native function from ntdll.dll at runtime. 
 
-This part is already fully implemented in the Native Dropper POC.
+First we need to define the function pointers for all the native functions we need. For example, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` which is a function pointer of type ``NTSTATUS``. This part is already fully implemented in the Native Dropper POC.
 <details>
     
  ```
@@ -35,19 +35,8 @@ typedef NTSTATUS(NTAPI* PNTCREATETHREADEX)(PHANDLE, ACCESS_MASK, PVOID, HANDLE, 
 typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER);
  ```
 </details>
-    
-    
-Shellcode declaration same as before in the Win32 Dropper.
-<details>
-
-```
-// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83";
-```
-</details>
-
-
-In case of the native-dropper we want to directly access the native functions in ntdll.dll. Because the functions from ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be loaded dynamically at runtime. 
+ 
+The second step is to get the memory address of each native function from ntdll.dll at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory``. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``.
 
 This code part is not finished and must be completed by the workshop attendee. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
@@ -71,8 +60,18 @@ If it was at this time not possible for you to complete the code for the three m
     PNTWAITFORSINGLEOBJECT NtWaitForSingleObject = (PNTWAITFORSINGLEOBJECT)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWaitForSingleObject");
 ```        
 
-</details>     
-     
+</details>
+    
+Shellcode declaration same as before in the Win32 Dropper.
+<details>
+
+```
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
+</details>
+
+    
      
 Here is the **complete code**, but you can also find it already implemented in the code POC of this chapter.
 <details>
