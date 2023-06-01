@@ -6,18 +6,17 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 ## Exercice 3 tasks:
 1. Download the native dropper POC from the Code section of this chapter.
 2. The code in the POC is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll by using ``GetProcAddress``
-3. Then create x64 meterpreter shellcode and copy it into the POC.  
-4. Compile the POC as a x64 release. 
-5. Create and run a staged x64 meterpreter listener using msfconsole.
-6. Run your compiled .exe and check that a stable command and control channel opens. 
-7. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-8. Use **x64dbg** to debug or analyse the dropper. 
+3. Then create x64 meterpreter shellcode, copy it into the POC and compile it.  
+4. Create and run a staged x64 meterpreter listener using msfconsole.
+5. Run your compiled .exe and check that a stable command and control channel opens. 
+6. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+7. Use **x64dbg** to debug or analyse the dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected? 
 
 
 ## Visual Studio
-You can download the POC from the code section of this chapter. In this POC, we replace all the Win32 APIs we used before with the corresponding native function or API.
+You can download the POC from the code section of this chapter. In this POC, we replace the four Win32 APIs from the Win32 dropper with the corresponding native function or API.
 - For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
 - For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
 - For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
