@@ -4,8 +4,8 @@ In **Exercise 2** we will create our first shellcode dropper based on **high lev
 
 
 ## Exercise 2 tasks:
-1. Download the Win32-Dropper POC from the Code section of this chapter.
-2. In this case the code is already implemented in the POC. Your task is to create x64 meterpreter shellcode, copy it into the POC and compile it.
+1. Download the Win32-Dropper poc from the Code section of this chapter.
+2. In this case the code is already implemented in the poc. Your task is to create x64 meterpreter shellcode, copy it into the poc and compile it.
 3. Create and run a staged x64 meterpreter listener using msfconsole.
 4. Run your compiled .exe and check that a stable command and control channel opens. 
 5. Use the Visual Studio **dumpbin** tool to analyse the Win32-Dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
@@ -15,7 +15,7 @@ In **Exercise 2** we will create our first shellcode dropper based on **high lev
 
 
 ## Visual Studio
-You can download the POC from the code section of this chapter. The technical functionality of the Win32-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the Win32-Dropper into a Low-Level-Dropper using direct system calls. In the Win32-Dropper we use the following Win32 APIs 
+You can download the poc from the code section of this chapter. The technical functionality of the Win32-Dropper is relatively simple and therefore, in my opinion, perfectly suited to gradually develop the Win32-Dropper into a Low-Level-Dropper using direct system calls. In the Win32-Dropper we use the following Win32 APIs 
 - VirtualAlloc
 - WriteProcessMemory
 - CreateThread
@@ -96,7 +96,7 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
 </details>    
 
     
-Here is the **complete code**, but you can also find it already implemented in the code POC of this chapter.
+Here is the **complete code**, but you can also find it already implemented in the code poc of this chapter.
 <details>
     
 ```
