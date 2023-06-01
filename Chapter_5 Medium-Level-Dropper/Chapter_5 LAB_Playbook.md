@@ -18,9 +18,9 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 ## Visual Studio
 You can download the POC from the code section of this chapter. In this POC, we replace the four Win32 APIs from the Win32 dropper with the corresponding native function or API.
 - Memory allocation, ``VirtualAlloc`` is replaced by **``NtAllocateVirtualMemory``**.
-- Write shellcode to memory, WriteProcessMemory is replaced by **NtWriteVirtualMemory**.
-- For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
-- And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
+- Write shellcode to memory, ``WriteProcessMemory`` is replaced by **``NtWriteVirtualMemory``**.
+- Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
+- And ``WaitForSingleObject`` is replaced by **``NtWaitForSingleObject``**.
 
 The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. For instance, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` that represents a specific type of function pointer. ``extern`` is used to declare a variable or function that is defined in another source file or module. This allows different parts of a program to access the same shared variables or functions.
 
