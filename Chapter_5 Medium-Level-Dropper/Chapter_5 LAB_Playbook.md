@@ -1,5 +1,5 @@
 ## Exercise 3: Native Dropper
-In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with native APIs (ntdll.dll). We will create a dropper based on native APIs on call it native-dropper.
+In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with **native APIs** also called **native functions** (ntdll.dll). We will create a dropper based on native APIs and call it **native-dropper**.
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
