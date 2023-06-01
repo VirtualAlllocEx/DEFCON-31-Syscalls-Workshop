@@ -207,10 +207,10 @@ Then we open x64dbg and attach to the running process, note that if you open the
      
 <details>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/be7fcea9-cac7-4aa6-8e59-d7170e63a1d5">     
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/be7fcea9-cac7-4aa6-8e59-d7170e63a1d5">     
 </p>            
 </details>    
 
@@ -222,16 +222,16 @@ Remember that no direct syscalls are used in the Native dropper. What results do
     <summary>Solution</summary>
 Checking the imported symbols in our Native dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
      
 In the case of the native dropper, we want to directly access the native functions in ntdll.dll. This is because the functions in ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime.
 If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA'' is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress'', get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
 </p>     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34f24524-476b-4659-b190-3d6b252262d7">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34f24524-476b-4659-b190-3d6b252262d7">
 </p>
 
      
