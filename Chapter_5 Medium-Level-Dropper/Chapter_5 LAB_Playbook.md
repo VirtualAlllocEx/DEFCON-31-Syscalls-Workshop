@@ -240,12 +240,10 @@ Furthermore, if we use the symbols register in x64dbg, we can identify the manua
 </p>
 </details>         
      
-We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+We also want to check, for example, for NtAllocateVirtualMemory, from which module or memory location the syscall statement, return statement or native function code is executed.
 <details>
     <summary>Solution</summary>
-     The following illustration shows, that the syscall instruction and the return instruction are executed from a memory region in ntdll.dll as expected.          
-<p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
+     Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the syscall statement, return statement, etc. must be executed from a memory location in ntdll.dll.         
 </p>            
 </details>     
 
