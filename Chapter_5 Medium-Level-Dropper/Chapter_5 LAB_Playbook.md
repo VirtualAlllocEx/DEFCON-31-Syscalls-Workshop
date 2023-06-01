@@ -17,8 +17,8 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 
 ## Visual Studio
 You can download the POC from the code section of this chapter. In this POC, we replace the four Win32 APIs from the Win32 dropper with the corresponding native function or API.
-- For memory allocation, we replace the Windows API VirtualAlloc with the native API **NtAllocateVirtualMemory**.
-- For shellcode copying, we replace the Windows API WriteProcessMemory with the native API **NtWriteVirtualMemory**.
+- Memory allocation, ``VirtualAlloc`` is replaced by ``**NtAllocateVirtualMemory**``.
+- Write shellcode to memory, WriteProcessMemory is replaced by **NtWriteVirtualMemory**.
 - For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
 - And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
 
