@@ -26,7 +26,9 @@ You can download the POC from the code section of this chapter. In this POC, we 
 - For shellcode execution, we replace the Windows API CreateThread with the native API **NtCreateThreadEx**.
 - And finally we have to replace the Windows API WaitForSingleObject with the native API **NtWaitForSingleObject**.
 
-The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. This part is already fully implemented in the Native Dropper POC.
+The code works as follows. Unlike the Windows APIs, most of the native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. To use the native APIs in our Native Dropper, we need to manually define the function pointers for the native APIs. For instance, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` that represents a specific type of function pointer. ``extern`` is used to declare a variable or function that is defined in another source file or module. This allows different parts of a program to access the same shared variables or functions.
+
+This part is already fully implemented in the Native Dropper POC.
 <details>
     
  ```
@@ -49,7 +51,9 @@ Shellcode declaration same as before in the Win32 Dropper.
 </details>
 
 
-To load the native functions directly from ntdll.dll, we need to load them manually from ntdll.dll. This code part is not finished and must be completed by the workshop attendee. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+In case of the native-dropper we want to directly access the native functions in ntdll.dll. Because the functions from ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be loaded dynamically at runtime. 
+
+This code part is not finished and must be completed by the workshop attendee. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
     
 ```
@@ -225,7 +229,7 @@ Checking the imported symbols in our Native dropper, we should see that the Win3
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
      
-     
+In case of the native-dropper we want to directly access the native functions in ntdll.dll. Because the functions from ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be loaded dynamically at runtime.
      
      
      
