@@ -234,6 +234,13 @@ If we analyse the disassembled code of the native dropper (Follow in dissassembl
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34f24524-476b-4659-b190-3d6b252262d7">
 </p>
 
+Furthermore, if we use the symbols register in x64dbg, we can identify the manually declared function pointers that are needed to use the native functions without the help of Win32 APIs from kernel32.dll.
+<p align="center">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d0845cdf-90d7-4200-8823-27929b1ee3bb">
+</p>
+     
+     
+
      
      
      
