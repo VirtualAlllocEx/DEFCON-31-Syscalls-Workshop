@@ -273,7 +273,7 @@ We also want to check from which module or memory location the syscall stub of t
 
 
    
-## Summary:Win32 Dropper
+## Summary: Win32 Dropper
 - No direct system calls at all
 - Syscall execution over normal transition from high_level_dropper.exe -> kernel32.dll -> ntdll.dll -> syscall
 - Dropper imports VirtualAlloc from kernel32.dll...
