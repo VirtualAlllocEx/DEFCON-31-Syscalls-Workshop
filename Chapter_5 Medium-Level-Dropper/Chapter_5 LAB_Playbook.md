@@ -3,18 +3,15 @@ In this exercise we will make the first modification to the Win32 dropper, repla
 ![medium_level_dropper_principal](https://user-images.githubusercontent.com/50073731/235372969-4d24ddec-7ee5-443e-966a-24b3d70dc3a8.png)
 
 
-
 ## Exercice 3 tasks:
-### Creating the Native Dropper
 1. Download the native dropper POC from the Code section of this chapter.
-2. The code in the POC is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll. 
+2. The code in the POC is partially complete. Following the instructions in this playbook, you need to finish the part where the four native functions are loaded from ntdll.dll by using ``GetProcAddress``
 3. Then create x64 meterpreter shellcode and copy it into the POC.  
 4. Compile the POC as a x64 release. 
 5. Create and run a staged x64 meterpreter listener using msfconsole.
 6. Run your compiled .exe and check that a stable command and control channel opens. 
-### Analysing the Native Dropper
-6. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
-7. Use **x64dbg** to debug or analyse the dropper. 
+7. Use the Visual Studio **dumpbin** tool to analyse the native dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+8. Use **x64dbg** to debug or analyse the dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected? 
 
