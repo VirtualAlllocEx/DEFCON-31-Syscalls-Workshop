@@ -203,6 +203,8 @@ Compared to the High-Level-Dropper, you can see that the medium-level dropper **
 ## Native Dropper analysis: x64dbg
 The first step is to run your native dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the native dropper directly in x64dbg you need to run the assembly first.
+     
+     
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -223,20 +225,13 @@ Checking the imported symbols in our Native dropper, we should see that the Win3
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
      
-In case of the native-dropper we want to directly access the native functions in ntdll.dll. Because the functions from ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be loaded dynamically at runtime.
-     
-     
-     
-     
-     
-     
-In case of the native dropper, we see, that the symbols for ntdll.dll are implemented into the assembly and loaded from ntdll.dll. This is done by getting a handle to ntdll.dll 
+In the case of the native dropper, we want to directly access the native functions in ntdll.dll. This is because the functions in ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime.
+If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA'' is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress'', get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b2b5c4cd-73d4-4b29-88e7-bf764d5c93a2">
-</p>
-     
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
+</p>     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b2b5c4cd-73d4-4b29-88e7-bf764d5c93a2">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34f24524-476b-4659-b190-3d6b252262d7">
 </p>
 
      
