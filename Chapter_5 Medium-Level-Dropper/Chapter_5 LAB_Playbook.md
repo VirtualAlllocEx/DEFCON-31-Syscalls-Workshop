@@ -36,7 +36,7 @@ typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER)
  ```
 </details>
  
-The second step is to get the memory address of each native function from ntdll.dll at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory``. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``.
+The second step is to get the memory address of each native function from ``ntdll.dll`` at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory`` in ``ntdll.dll``. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``.
 
 This code part is not finished and must be completed by the workshop attendee. In the native dropper POC you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
