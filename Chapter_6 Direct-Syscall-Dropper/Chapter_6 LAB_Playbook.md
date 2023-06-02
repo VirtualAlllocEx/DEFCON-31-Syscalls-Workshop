@@ -346,6 +346,9 @@ We can also use the "Follow in Disassembler" function to analyse the direct sysc
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6de307d9-c9b4-4120-bb53-a6619c5033fb">
 </p>  
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b7b95a63-e0d5-4afc-93d1-b3e027360536">
+</p>          
 </details>
 
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
