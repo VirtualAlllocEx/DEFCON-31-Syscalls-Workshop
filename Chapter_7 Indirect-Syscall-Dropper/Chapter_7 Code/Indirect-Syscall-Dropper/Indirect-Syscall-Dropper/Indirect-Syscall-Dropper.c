@@ -1,11 +1,11 @@
 #include <windows.h>  
 #include <stdio.h>    
+// something is missing here ;-) 
 
-// Declare global variables to hold syscall numbers and syscall instruction addresses
+// Declare global variables to hold the syscall instruction addresses
 UINT_PTR sysAddrNtAllocateVirtualMemory;
 
-//Something is missing here ;-)
-
+// something is missing here ;-)
 
 
 int main() {
@@ -15,27 +15,16 @@ int main() {
     // Get a handle to the ntdll.dll library
     HANDLE hNtdll = GetModuleHandleA("ntdll.dll");
 
-
-
-
     // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
     UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
+   // something is missing here ;-)
+
 
     // The syscall stub (actual system call instruction) is some bytes further into the function. 
     // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
     // So we add 0x12 to the function's address to get the address of the system call instruction.
     sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
-
-    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
-    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
-
-    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
-    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
-
-    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");
-    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;
-
-
+    // something is missing here ;-)
 
 
 
@@ -55,4 +44,7 @@ int main() {
 
     // Use the NtWaitForSingleObject function to wait for the new thread to finish executing
     NtWaitForSingleObject(hThread, FALSE, NULL);
+
+    // Return 0 to indicate successful execution of the program.
+    return 0;
 }
