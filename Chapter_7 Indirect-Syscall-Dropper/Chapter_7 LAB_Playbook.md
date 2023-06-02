@@ -37,7 +37,7 @@ You can download the poc from the code section of this chapter. The code works a
 </details>
 
 ### Syscall Instruction Addresses
-As mentioned at the beginning of this chapter, we want to execute the ``syscall'' and ``return' statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr'' in the indirect syscall dropper after ``mov r10, rcx'' and ``mov eax, SSN'' have been executed. To do this, we need to
+As mentioned at the beginning of this chapter, we want to execute the ``syscall`` and ``return`` statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr`` in the indirect syscall dropper after ``mov r10, rcx`` and ``mov eax, SSN`` have been executed. To do this, we need to
 - Open a handle to ntdll.dll at runtime using ``GetModuleHandleA``. 
 - Get the start address of the native function in ntdll.dll using ``GetProcAddress`` and store it in a variable declared as a function pointer. 
 - Get the memory address of the syscall instruction in the syscall stub by adding the required offset and store it in a variable declared as a global variable.
