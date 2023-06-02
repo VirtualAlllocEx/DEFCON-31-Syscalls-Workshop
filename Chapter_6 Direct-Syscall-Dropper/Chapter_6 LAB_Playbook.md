@@ -226,7 +226,7 @@ END  ; End of the module
     
     
 ### Microsoft Macro Assembler (MASM)
-We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
+We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
 <details>
 <summary>Solution</summary> 
 <p align="center">
