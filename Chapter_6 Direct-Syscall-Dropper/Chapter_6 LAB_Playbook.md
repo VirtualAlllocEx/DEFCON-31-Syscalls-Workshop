@@ -326,7 +326,7 @@ Then we open x64dbg and attach to the running process, note that if you open the
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
 <p align="center">
-<img width="800" alt="image" src="(https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9b995e48-6bab-4af5-8589-d12b3ce7a3f9">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9b995e48-6bab-4af5-8589-d12b3ce7a3f9">
 </p>    
 </details>
      
