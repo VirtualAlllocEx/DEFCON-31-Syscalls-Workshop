@@ -519,7 +519,7 @@ Furthermore, in the case of the indirect syscall dropper, we can identify the li
 Also in the case of the indirect syscall dropper we want to check in which module the syscall stub or the assembler instructions of the native functions are implemented and executed. Remember, unlike the direct syscall dropper from the previous chapter, in the indirect syscall dropper poc we have only implemented part of the syscall stub directly into the dropper itself. What results do you expect?
 <details>
     <summary>Solution</summary>
-     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that
+     For example, in the context of the native function ```NtAllocateVirtualMemory``` , we use the Follow in Disassembler function and should be able to see that
      The syscall stub is not fetched from ntdll.dll, but in the case of the indirect syscall dropper, only part of the assembly instructions are implemented directly into the .text section of the assembly. Furthermore, we can see that the jmp to the memory of ntdll.dll is done via ``jmp qword ptr`` and that the syscall statement and the return statement are executed from the memory location of ntdll.dll.    
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a89676e3-0a55-42dd-abd6-36a89a85df94">
