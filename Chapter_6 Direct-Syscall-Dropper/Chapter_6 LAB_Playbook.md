@@ -234,7 +234,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
 </details>
 
-Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. Furthermore we set Excluded from Build to no and Content to yes. 
+We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
 <details>
 <summary>Solution</summary> 
     <p align="center">
