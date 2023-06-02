@@ -177,7 +177,7 @@ END  ; End of the module
     
 </details>
      
-It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and **complete** the **assembler code** or add the **syscall stub** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
