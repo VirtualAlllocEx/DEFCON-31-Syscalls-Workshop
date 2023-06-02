@@ -1,7 +1,10 @@
 ## Exercise 3: Native Dropper
 In this exercise we will make the first modification to the Win32 dropper, replacing the Windows APIs (kernel32.dll) with **native APIs** also called **native functions** (ntdll.dll). We will create a dropper based on native APIs and call it **native dropper**.
-![Prinicipal_ntapis](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63b5a89f-f674-47b3-83c6-30f29f45b9cb)
-
+<details>
+     <p align="center">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63b5a89f-f674-47b3-83c6-30f29f45b9cb">
+</p>
+</details>
 
 ## Exercice 3 tasks:
 1. Download the native dropper poc from the Code section of this chapter.
