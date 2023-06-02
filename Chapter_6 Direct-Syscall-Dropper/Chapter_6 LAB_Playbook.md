@@ -158,7 +158,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
     
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory'' which is already implemented in the syscalls.asm file. 
+Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file. 
 
 <details>
 <summary>Code</summary>
