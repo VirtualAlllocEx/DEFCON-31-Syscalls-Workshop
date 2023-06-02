@@ -29,7 +29,7 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
     
-```
+```C
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
