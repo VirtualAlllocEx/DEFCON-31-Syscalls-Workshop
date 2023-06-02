@@ -30,7 +30,7 @@ A few words about the functionality of the native dropper code. Unlike the Windo
 First we need to define the function pointers for all the native functions we need. For example, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` which is a function pointer of type ``NTSTATUS``. In general, a function pointer is a type of pointer that points to a function instead of a data value or an array. It holds the memory address of a function, and using this pointer, we can call the function. This part is already fully implemented in the native dropper poc.
 <details>
     
- ```
+ ```C
 // Define typedefs for function pointers to the native API functions we'll be using.
 // These match the function signatures of the respective functions.
 typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);
@@ -43,7 +43,7 @@ typedef NTSTATUS(NTAPI* PNTWAITFORSINGLEOBJECT)(HANDLE, BOOLEAN, PLARGE_INTEGER)
 The second step is to get the memory address of each native function from ntdll.dll at runtime. So we use ``GetModuleHandleA`` to open a handle to ntdll.dll in memory. Then we pass the handle and the name e.g. ``NtAllocateVirtualMemory`` to ``GetProcAddress`` to get a pointer to the native function e.g. ``NtAllocateVirtualMemory`` in ntdll.dll. Next we cast this function pointer to the type ``PNTALLOCATEVIRTUALMEMORY`` and assign or store the resulting function pointer to the corresponding variable, e.g. ``NtAllocateVirtualMemory``. In simple words, ``NtAllocateVirtualMemory`` is declared as a function pointer of type ``PNTALLOCATEVIRTUALMEMORY`` and it holds the memory address of the ``NtAllocateVirtualMemory`` function as it is loaded into the current process from ntdll.dll. So when we call NtAllocateVirtualMemory in the native dropper code, we are actually calling the function from ntdll.dll at the memory address stored in the NtAllocateVirtualMemory function pointer. This **code part is not finished** and **must be completed by the workshop attendee**. In the native dropper poc you will see, that the code for the native function ``NtAllocateVirtualMemory`` is already written and based on that schema you have to complete it for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
     
-```
+```C
 // Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
 // or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");    
@@ -55,7 +55,7 @@ The second step is to get the memory address of each native function from ntdll.
     <summary>Solution</summary>
 If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the native dropper poc. 
 
-```
+```C
 // Here we load the native API functions from ntdll.dll using GetProcAddress, which retrieves the address of an exported function
     // or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
@@ -69,7 +69,7 @@ If it was at this time not possible for you to complete the code for the three m
 Shellcode declaration same as before in the Win32 dropper.
 <details>
 
-```
+```C
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
@@ -80,7 +80,7 @@ Shellcode declaration same as before in the Win32 dropper.
 Here is the **complete code**, but you can also find it already implemented in the code poc of this chapter.
 <details>
     
-```
+```C
 #include <stdio.h>
 #include <windows.h>
 
