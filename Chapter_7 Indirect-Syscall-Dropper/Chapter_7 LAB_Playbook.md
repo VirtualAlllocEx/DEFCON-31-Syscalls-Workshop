@@ -78,7 +78,9 @@ int main() {
 
     
 ### Header File
-Unlike the native dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include ``syscalls.h`` in the main C code. Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory] (https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
+Unlike the native dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. 
+     
+Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtAllocateVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory). 
 
 <details>
 <summary>Code</summary>
@@ -164,7 +166,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
     
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub or the contents of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we want to manually implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool like SysWhispers3 to create the necessary assembly instructions, for the best learning experience, we will manually implement the assembly code in our syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code needed to implement the syscall stub in syscalls.asm looks like this. It is your task to add the ``syscalls.asm`` file as a resource to the direct syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``. It is one of your tasks to complete the missing assembler code.
+Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file. 
 
 <details>
 <summary>Code</summary>
@@ -182,6 +184,8 @@ END  ; End of the module
 ```
     
 </details>
+     
+It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and **complete** the **assembler code** or add the **syscall stub** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
@@ -230,7 +234,7 @@ END  ; End of the module
     
     
 ### Microsoft Macro Assembler (MASM)
-We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to enable the Microsoft Macro Assembler (.masm) option in Build Dependencies/Build Customisations.
+We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
 <details>
 <summary>Solution</summary> 
 <p align="center">
@@ -238,7 +242,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
 </details>
 
-Furthermore we need to set the Item Type of the syscalls.asm file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. Furthermore we set Excluded from Build to no and Content to yes. 
+We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
 <details>
 <summary>Solution</summary> 
     <p align="center">
@@ -308,7 +312,7 @@ The Visual Studio tool dumpbin can be used to check which Windows APIs are impor
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports low_level.exe
+dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 ```
 </details>    
 
@@ -317,7 +321,7 @@ dumpbin /imports low_level.exe
     
 **No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
-<img width="1023" alt="image" src="https://user-images.githubusercontent.com/50073731/235473764-c85ccc73-a1cb-403d-8162-172146375d96.png">
+<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63f2bb5d-5090-491c-8c68-f177381b2136">
 </p>
 </details>   
     
@@ -330,8 +334,8 @@ Then we open x64dbg and attach to the running process, note that if you open the
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/492c09bc-e9db-428b-90f4-311b1a8a5d4b">
-</p>            
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9b995e48-6bab-4af5-8589-d12b3ce7a3f9">
+</p>    
 </details>
      
     
@@ -340,32 +344,42 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
     <summary>Solution</summary>
      Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
+</p>    
+Also, looking at the imported symbols (symbols register), we see that instead of asking ntdll.dll for the code of the four required native functions ``NtAllocateVirutalMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``, these native functions are implemented directly in the .text region of the dropper itself. 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e32b1bdd-c171-4810-ab00-db897cb9c2a6">
+</p>  
+We can also use the "Follow in Disassembler" function to analyse the direct syscall dropper to identify the lines of code where the calls to the native functions are made. 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6de307d9-c9b4-4120-bb53-a6619c5033fb">
+</p>  
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b7b95a63-e0d5-4afc-93d1-b3e027360536">
+</p>          
 </details>
+
+We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the syscall and return statements are executed. This will be important later when we compare direct and indirect syscalls. 
 <details>
     <summary>Solution</summary>
-     We can also see that instead of asking ntdll.dll for the four native functions used, they are implemented directly in the assembly in the .text region. 
+     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
-</p>       
-</details>
-We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
-<details>
-    <summary>Solution</summary>
-     In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5eb2972-6760-4059-9e75-824d20e528fe">
+</p> 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/f78a51a0-fdc8-4c19-8d4b-924024c9dc5b">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/33471abd-4ccb-4246-98a8-a448d868cda9">
+</p> 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/462e794c-1a4f-4bd8-9375-8d503941caa3">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0ce40a86-3cf8-4587-a740-12781585ea8f">
+</p>
 </details>
 
 
 ## Summary:
-- Made transition from Native APIs to direct syscalls
+- Made transition from direct syscalls to indirect syscalls
 - Dropper imports no longer Windows APIs from kernel32.dll
 - Dropper imports no longer Native APIs from ntdll.dll
-- Syscalls or syscall stubs are "implemented" directly into .text section of .exe
+- Only a part of the syscall stub is directly implemented into .text section of the dropper itself
+- The syscall- and return statement are executed from memory of ntdll.dll
 - User mode hooks in ntdll.dll and EDR can be bypassed 
+- EDR detection based on checking the return adress can be bypassed.
