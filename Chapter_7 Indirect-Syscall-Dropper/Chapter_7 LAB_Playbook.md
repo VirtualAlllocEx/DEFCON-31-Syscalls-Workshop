@@ -47,7 +47,7 @@ First, we want to use the following code which uses the function ``GetModuleHand
 <details>
 <summary>Code</summary>
     
-```
+```C
 // Get a handle to the ntdll.dll library
     HANDLE hNtdll = GetModuleHandleA("ntdll.dll");     
 ```
