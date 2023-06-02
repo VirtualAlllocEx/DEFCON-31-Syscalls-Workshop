@@ -4,15 +4,13 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 ![Prinicipal_indirect_syscalls](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3343820f-1dbe-4519-b63e-9647df5d1e52)
 
 
-
-
-
-
 ## Exercise 4 Tasks: 
-1. Download the direct syscall dropper poc from the code section of this chapter.
-2. Most of the code is already implemented in the poc. However, you have to complete the direct syscall dropper by performing the following tasks:
+1. Download the indirect syscall dropper poc from the code section of this chapter.
+2. Most of the code is already implemented in the poc. However, you have to complete the indirect syscall dropper by performing the following tasks:
      - Create a new syscalls.h header file and use for syscalls.h the supplied code that follows in this playbook.
-     - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory.   
+     - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory. 
+     - Enable Microsoft Macro Assembler (MASM) in the direct syscall poc in Visual Studio.  
+     - Declare the three missing global variables to hold syscall instruction addresses
 3. Create a staged x64 meterpreter shellcode with msfvenom, copy it to the poc and compile the poc. 
 4. Create and run a staged x64 meterpreter listener using msfconsole.
 5. Run your compiled .exe and check that a stable command and control channel opens. 
