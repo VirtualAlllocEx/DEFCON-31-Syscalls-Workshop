@@ -22,7 +22,15 @@ Related to the Win32 dropper, in this exercise we will make the second modificat
 
 
 ## Visual Studio
-You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
+You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is done as before.
+<details>
+    
+```C
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
+    
+</details>
 <details>
     
 ```C
