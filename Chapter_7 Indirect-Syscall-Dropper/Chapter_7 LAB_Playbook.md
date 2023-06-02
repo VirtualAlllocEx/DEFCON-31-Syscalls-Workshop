@@ -147,7 +147,7 @@ UINT_PTR sysAddrNtWaitForSingleObject;
 
 
 
-The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
+The full **main code** of the **indirect syscall dropper** looks like this, and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
 <details>
 <summary>Code</summary>
     
