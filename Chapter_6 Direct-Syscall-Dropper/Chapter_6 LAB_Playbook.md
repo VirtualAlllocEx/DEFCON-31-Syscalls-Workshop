@@ -31,14 +31,6 @@ You can download the poc from the code section of this chapter. The code works a
 ```
     
 </details>
-<details>
-    
-```C
-// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83";
-```
-    
-</details>
 
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
