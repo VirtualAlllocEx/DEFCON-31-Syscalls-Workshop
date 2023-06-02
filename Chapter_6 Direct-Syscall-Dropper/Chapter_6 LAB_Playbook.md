@@ -351,16 +351,19 @@ We can also use the "Follow in Disassembler" function to analyse the direct sysc
 </p>          
 </details>
 
-We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the syscall and return statements are executed. This will be important later when we compare direct and indirect syscalls. 
 <details>
     <summary>Solution</summary>
-     In the context of the native function ``NtAllocateVirutalMemory``, we follow in the disassembler and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
+     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/f78a51a0-fdc8-4c19-8d4b-924024c9dc5b">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5eb2972-6760-4059-9e75-824d20e528fe">
+</p> 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/462e794c-1a4f-4bd8-9375-8d503941caa3">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/33471abd-4ccb-4246-98a8-a448d868cda9">
+</p> 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0ce40a86-3cf8-4587-a740-12781585ea8f">
+</p>
 </details>
 
 
