@@ -25,7 +25,7 @@ Related to the Win32 dropper, in this exercise we will make the second modificat
 You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
 <details>
     
-```
+```C
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
@@ -37,7 +37,7 @@ The main code of the direct syscall dropper looks like the following and is alre
 <details>
 <summary>Code</summary>
     
-```
+```C
 #include <iostream>
 #include <Windows.h>
 #include "syscalls.h"
@@ -81,7 +81,7 @@ Additional information if you want to check the function definition manually sho
 <details>
 <summary>Code</summary>
 
-```
+```C
 #ifndef _SYSCALLS_H  // If _SYSCALLS_H is not defined then define it and the contents below. This is to prevent double inclusion.
 #define _SYSCALLS_H  // Define _SYSCALLS_H
 
@@ -167,7 +167,7 @@ Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content
 <details>
 <summary>Code</summary>
 
-```
+```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
@@ -188,7 +188,7 @@ If you are unable to complete the assembly code at this time, you can use the as
 <details>
     <summary>Solution</summary>
 
-```
+```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
