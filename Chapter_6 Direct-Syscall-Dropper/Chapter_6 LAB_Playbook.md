@@ -1,6 +1,6 @@
 ## LAB Exercise 4: Direct Syscall Dropper
 Related to the Win32 dropper, in this exercise we will make the second modification, create the direct syscall dropper and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). We will call this the direct syscall dropper.
-![Prinicipal_direct_syscalls](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/07e496d1-e05b-4446-82e4-23442414bd7d)
+![Prinicipal_direct_syscalls](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7b2c52a9-7ca1-4c7d-a169-96f61f137b49)
 
 ## Exercise 4 Tasks: 
 1. Download the direct syscall dropper poc from the code section of this chapter.
