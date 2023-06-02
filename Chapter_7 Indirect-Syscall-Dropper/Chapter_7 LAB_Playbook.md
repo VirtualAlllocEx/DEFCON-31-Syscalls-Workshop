@@ -12,7 +12,7 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 ## Exercise 5 Tasks: 
 1. Download the indirect syscall dropper poc from the code section of this chapter.
 2. Most of the code is already implemented in the poc. However, you have to complete the indirect syscall dropper by performing the following tasks:
-     - Create a new syscalls.h header file and use for syscalls.h the supplied code that follows in this playbook.
+     - Create a new header file ``syscalls.h'' and use the supplied code for syscalls.h, which follows in this playbook. Also include syscalls.h in the main code as header syscalls.h
      - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory. 
      - Enable Microsoft Macro Assembler (MASM) in the direct syscall poc in Visual Studio.  
      - Declare the three missing global variables to hold syscall instruction addresses
