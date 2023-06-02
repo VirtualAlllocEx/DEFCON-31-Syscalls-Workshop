@@ -26,7 +26,7 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 
 
 ## Visual Studio
-You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is the same as before in both droppers.
+You can download the poc from the code section of this chapter. The code works as follows, shellcode declaration is done as before.
 <details>
     
 ```C
