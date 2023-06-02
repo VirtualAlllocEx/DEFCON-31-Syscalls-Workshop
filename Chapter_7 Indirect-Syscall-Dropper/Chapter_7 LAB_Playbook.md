@@ -456,7 +456,7 @@ Once the listener has been successfully started, you can run your compiled direc
         
 
     
-## Direct Syscall Dropper Analysis: Dumpbin 
+## Indirect Syscall Dropper Analysis: Dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -472,54 +472,60 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
     
 **No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
-<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63f2bb5d-5090-491c-8c68-f177381b2136">
+<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b9206b4f-9dde-4848-9637-d18f43095799">
 </p>
 </details>   
     
     
-## Direct Syscall Dropper Analysis: x64dbg 
+## Inirect Syscall Dropper Analysis: x64dbg 
 The first step is to run your direct syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
-Then we open x64dbg and attach to the running process, note that if you open the direct syscall dropper directly in x64dbg, you need to run the assembly first.
+Then we open x64dbg and attach to the running process, note that if you open the indirect syscall dropper directly in x64dbg, you need to run the assembly first.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
 </p>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9b995e48-6bab-4af5-8589-d12b3ce7a3f9">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3547125b-a8c2-4e17-b7ec-84434181cf36">
 </p>    
 </details>
      
     
-First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the direct syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
+First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the indirect syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
     <summary>Solution</summary>
-     Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
+     Checking the imported symbols in our indirect syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2c651658-ae52-47cc-92b2-ccc85325570f">
 </p>    
 Also, looking at the imported symbols (symbols register), we see that instead of asking ntdll.dll for the code of the four required native functions ``NtAllocateVirutalMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``, these native functions are implemented directly in the .text region of the dropper itself. 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e32b1bdd-c171-4810-ab00-db897cb9c2a6">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/66da92d7-c3d5-4efb-a162-ec7287c9d9c4">
 </p>  
-We can also use the "Follow in Disassembler" function to analyse the direct syscall dropper to identify the lines of code where the calls to the native functions are made. 
+Also in this case we can also use the "Follow in Disassembler" function to analyse the indirect syscall dropper to identify the lines of code where the calls to the native functions are made. 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6de307d9-c9b4-4120-bb53-a6619c5033fb">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/de56e4f7-8315-4c3f-9308-b2bd9f788d27">
+     </p>  
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/33df09d3-c8f1-4ac1-805f-dc881c031658">
+     </p>
+Furthermore, in the case of the indirect syscall dropper, we can identify the lines of code used to open a handle to ntdll.dll using ``GetModuleHandleA``, then get the start address of the native functions using ``GetProcAdress``, and finally calculate the address of the syscall instruction by adding **12bytes** as an offset to the start address of the respective native function. 
+     <p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9bee73bf-e16d-4b6c-b096-f95b24dfcdaa">  
 </p>  
-<p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b7b95a63-e0d5-4afc-93d1-b3e027360536">
-</p>          
+     
 </details>
 
-We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the syscall and return statements are executed. This will be important later when we compare direct and indirect syscalls. 
+Also in the case of the indirect syscall dropper we want to check in which module the syscall stub or the assembler instructions of the native functions are implemented and executed. Remember, unlike the direct syscall dropper from the previous chapter, in the indirect syscall dropper poc we have only implemented part of the syscall stub directly into the dropper itself. What results do you expect?
 <details>
     <summary>Solution</summary>
-     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
+     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that
+     The syscall stub is not fetched from ntdll.dll, but in the case of the indirect syscall dropper, only part of the assembly instructions are implemented directly into the .text section of the assembly. Furthermore, we can see that the jmp to the memory of ntdll.dll is done via ``jmp qword ptr`` and that the syscall statement and the return statement are executed from the memory location of ntdll.dll.    
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5eb2972-6760-4059-9e75-824d20e528fe">
-</p> 
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a89676e3-0a55-42dd-abd6-36a89a85df94">
+     </p> 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/33471abd-4ccb-4246-98a8-a448d868cda9">
-</p> 
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7f32fc6d-1cc6-4c1b-a2c7-a3c8cfb9243d">
+     </p> 
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0ce40a86-3cf8-4587-a740-12781585ea8f">
 </p>
