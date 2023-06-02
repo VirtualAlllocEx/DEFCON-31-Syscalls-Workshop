@@ -25,7 +25,7 @@ You can download the poc from the code section of this chapter. In this poc, the
 - Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
 - And ``WaitForSingleObject`` is replaced by **``NtWaitForSingleObject``**.
 
-The shellcode declaration is done as before.
+The code works as follows, shellcode declaration is done as before.
 <details>
     
 ```C
