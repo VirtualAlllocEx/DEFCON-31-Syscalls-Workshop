@@ -36,7 +36,7 @@ You can download the poc from the code section of this chapter. The code works a
     
 </details>
 
-### Syscall Instruction Addresses
+### Syscall and Return 
 As mentioned at the beginning of this chapter, we want to execute the ``syscall`` and ``return`` statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr`` in the indirect syscall dropper after ``mov r10, rcx`` and ``mov eax, SSN`` have been executed. To do this, we need to
 - Open a handle to ntdll.dll at runtime using ``GetModuleHandleA``. 
 - Get the start address of the native function in ntdll.dll using ``GetProcAddress`` and store it in a variable declared as a function pointer. 
@@ -79,6 +79,43 @@ If it was not possible for you to complete this code section, don`t worry it wil
 ```
      
 </details>   
+
+
+#### Memory Address Syscall Instruction
+In the next step, we want to get the effective memory address from the syscall instruction in the syscall stub of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add 12bytes. Why 12 bytes? Because this is the offset calculated from the start address of the native function. 
+<details>
+    <p align="center">
+<img width="800" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba7fa1f5-be69-46d7-b564-6546089c0ad0"> 
+    </p>
+</details>   
+
+In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+<details>
+<summary>Code</summary>
+    
+```
+// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");     
+```
+     
+</details>   
+
+If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+<details>
+<summary>solution</summary>
+    
+```
+// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
+    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
+    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
+    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");     
+```
+     
+</details>
+
+
+
 
 
 
