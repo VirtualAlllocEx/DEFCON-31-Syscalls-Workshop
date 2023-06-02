@@ -1,10 +1,10 @@
-## LAB Exercise 4: Direct Syscall Dropper
+## LAB Exercise 5: Indirect Syscall Dropper
 Related to the Win32 dropper, in this exercise we will make the third modification, creating the indirect syscall dropper. The main difference between the direct syscall dropper and the indirect syscall dropper is that **only part of the syscall stub** from a native function is **implemented directly** into the indirect syscall dropper itself. This means that we implement and execute ``mov r10, rcx``, ``mov eax, SSN`` and ``jmp qword ptr`` in the direct syscall dropper, but unlike the direct syscall dropper, we do not execute the syscall and return from the indirect syscall dropper's memory. Instead, we use ``jmp qword ptr'' to jump to the syscall address of the native function in ntdll.dll and **execute the syscall and return** from the **memory location of ntdll.dll**. Why this has an advantage over the direct syscall dropper is discussed in the next chapter, where we compare the direct syscall and indirect syscall techniques in the context of EDR evasion.
 That means, our goal is  and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). We will call this the direct syscall dropper.
 ![Prinicipal_indirect_syscalls](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3343820f-1dbe-4519-b63e-9647df5d1e52)
 
 
-## Exercise 4 Tasks: 
+## Exercise 5 Tasks: 
 1. Download the indirect syscall dropper poc from the code section of this chapter.
 2. Most of the code is already implemented in the poc. However, you have to complete the indirect syscall dropper by performing the following tasks:
      - Create a new syscalls.h header file and use for syscalls.h the supplied code that follows in this playbook.
