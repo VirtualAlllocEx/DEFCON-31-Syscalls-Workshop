@@ -42,6 +42,17 @@ As mentioned at the beginning of this chapter, we want to execute the ``syscall`
 - Get the start address of the native function in ntdll.dll using ``GetProcAddress`` and store it in a variable declared as a function pointer. 
 - Get the memory address of the syscall instruction in the syscall stub by adding the required offset and store it in a variable declared as a global variable.
 
+#### Handle to ntdll.dll
+First, we want to use the following code to open a handle to ntdll.dll at runtime. This code is already implemented in the indirect syscall poc.
+<details>
+<summary>Code</summary>
+    
+```
+// Get a handle to the ntdll.dll library
+    HANDLE hNtdll = GetModuleHandleA("ntdll.dll");     
+```
+     
+</details>     
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
 <details>
