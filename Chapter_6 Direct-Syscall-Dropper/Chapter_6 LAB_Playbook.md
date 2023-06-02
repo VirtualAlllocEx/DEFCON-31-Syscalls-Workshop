@@ -158,7 +158,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
     
 
 ### Assembly Instructions
-Furthermore, we do not want to ask ntdll.dll for the syscall stub or the contents or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience, we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code required to implement the syscall stub in syscalls.asm is shown in the following code section. 
+Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content or code of the syscall stub (assembly instructions ``mov r10, rcx``, ``mov eax, SSN`` etc.) of the native functions we use, instead we have to implement the necessary assembly code in the assembly itself. As mentioned above, instead of using a tool to create the necessary assembly instructions, for the best learning experience we will **manually implement** the **assembly code** in our direct syscall poc. To do this, you will find a file called ``syscalls.asm`` in the direct syscall dropper poc directory, which contains some of the required assembler code. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory'' which is already implemented in the syscalls.asm file. 
 
 <details>
 <summary>Code</summary>
@@ -177,7 +177,7 @@ END  ; End of the module
     
 </details>
      
-It is your task to add the ``syscalls.asm`` file as a resource to the direct syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and complete the assembler code or add the syscall stub for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
