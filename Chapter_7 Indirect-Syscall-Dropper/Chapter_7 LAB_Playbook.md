@@ -527,8 +527,12 @@ Also in the case of the indirect syscall dropper we want to check in which modul
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7f32fc6d-1cc6-4c1b-a2c7-a3c8cfb9243d">
      </p> 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0ce40a86-3cf8-4587-a740-12781585ea8f">
-</p>
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/77ad3c31-5eff-4402-95a2-ae76342e7715">
+     </p>
+     </p> 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/10fe80fd-1434-489d-94f8-251e68f4ebe3">
+     </p>
 </details>
 
 
