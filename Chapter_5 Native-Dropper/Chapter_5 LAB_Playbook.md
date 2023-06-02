@@ -25,6 +25,16 @@ You can download the poc from the code section of this chapter. In this poc, the
 - Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
 - And ``WaitForSingleObject`` is replaced by **``NtWaitForSingleObject``**.
 
+The shellcode declaration is the same as before.
+<details>
+    
+```C
+// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
+    unsigned char code[] = "\xfc\x48\x83";
+```
+    
+</details>
+
 A few words about the functionality of the native dropper code. Unlike the Windows APIs, most native APIs are not officially or partially documented by Microsoft and are therefore not intended for Windows OS developers. In the case of the Win32 dropper from the previous chapter, we don't need to worry about manually implementing function structures, or how to handle transitions from Win32 APIs to native APIs, etc. This is because the Windows headers like ``Windows.h`` have already implemented all the functionality and provide us with the functionality by using the Win32 APIs. If we use the native APIs directly, without the help of the Win32 APIs, it is a bit more complicated and additional code has to be used in the native dropper. The reason for this is that the Windows headers or libraries do not support the direct use of native functions, so we have to implement the required code manually. Which means to be able to use native funtions in the native dropper we have to get the memory address of each native function from ntdll.dll at runtime. 
 
 First we need to define the function pointers for all the native functions we need. For example, ``typedef NTSTATUS(WINAPI* PNTALLOCATEVIRTUALMEMORY)(HANDLE, PVOID*, ULONG_PTR, PSIZE_T, ULONG, ULONG);`` creates a new type ``PNTALLOCATEVIRTUALMEMORY`` which is a function pointer of type ``NTSTATUS``. In general, a function pointer is a type of pointer that points to a function instead of a data value or an array. It holds the memory address of a function, and using this pointer, we can call the function. This part is already fully implemented in the native dropper poc.
