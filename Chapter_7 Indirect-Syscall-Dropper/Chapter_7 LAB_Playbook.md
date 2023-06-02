@@ -59,7 +59,7 @@ Then we want to use the following code which uses the ``GetProcAddress`` functio
 <details>
 <summary>Code</summary>
     
-```
+```C
 // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
     UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");     
 ```
@@ -70,7 +70,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 <details>
 <summary>solution</summary>
     
-```
+```C
 // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
     UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
     UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
@@ -93,7 +93,7 @@ In the indirect syscall poc, this code is implemented only for the native functi
 <details>
 <summary>Code</summary>
     
-```
+```C
 // The syscall stub (actual system call instruction) is some bytes further into the function. 
     // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
     // So we add 0x12 to the function's address to get the address of the system call instruction.
@@ -106,7 +106,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 <details>
 <summary>solution</summary>
     
-```
+```C
 // The syscall stub (actual system call instruction) is some bytes further into the function. 
     // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
     // So we add 0x12 to the function's address to get the address of the system call instruction.
@@ -124,7 +124,7 @@ To store the memory address from the syscall instruction of the respective nativ
 <details>
 <summary>Code</summary>
     
-```
+```C
 // Declare global variables to hold the syscall instruction addresses
 UINT_PTR sysAddrNtAllocateVirtualMemory;     
 ```
@@ -135,7 +135,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 <details>
 <summary>solution</summary>
     
-```
+```C
 // Declare global variables to hold the syscall instruction addresses
 UINT_PTR sysAddrNtAllocateVirtualMemory;
 UINT_PTR sysAddrNtWriteVirtualMemory;
@@ -151,7 +151,7 @@ The full **main code** of the **indirect syscall dropper** looks like this, and 
 <details>
 <summary>Code</summary>
     
-```
+```C
 #include <windows.h>  
 #include <stdio.h>    
 #include "syscalls.h"
@@ -220,7 +220,7 @@ Additional information if you want to check the function definition manually sho
 <details>
 <summary>Code</summary>
 
-```
+```C
 #ifndef _SYSCALLS_H  // If _SYSCALLS_H is not defined then define it and the contents below. This is to prevent double inclusion.
 #define _SYSCALLS_H  // Define _SYSCALLS_H
 
@@ -306,7 +306,7 @@ Furthermore, we do not want to ask ntdll.dll for the syscall stub or the content
 <details>
 <summary>Code</summary>
 
-```
+```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
@@ -327,7 +327,7 @@ If you are unable to complete the assembly code at this time, you can use the as
 <details>
     <summary>Solution</summary>
 
-```
+```asm
 .CODE  ; Start the code section
 ; Procedure for the NtAllocateVirtualMemory syscall
 NtAllocateVirtualMemory PROC
