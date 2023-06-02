@@ -72,7 +72,7 @@ int main() {
 ### Header File
 Unlike the native dropper, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. 
      
-Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtWriteVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory).
+Additional information if you want to check the function definition manually should be available in the Microsoft documentation, e.g. for [NtAllocateVirtualMemory](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntallocatevirtualmemory). 
 
 <details>
 <summary>Code</summary>
