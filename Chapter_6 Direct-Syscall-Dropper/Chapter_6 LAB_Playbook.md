@@ -375,5 +375,5 @@ We also want to check in which module the syscall stub or the assembler instruct
 - Made transition from Native APIs to direct syscalls
 - Dropper imports no longer Windows APIs from kernel32.dll
 - Dropper imports no longer Native APIs from ntdll.dll
-- Syscalls or syscall stubs are "implemented" directly into .text section of .exe
+- Syscalls or syscall stubs are implemented into .text section of the dropper itself
 - User mode hooks in ntdll.dll and EDR can be bypassed 
