@@ -336,7 +336,7 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
     <summary>Solution</summary>
      Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2fd0e78c-db42-4338-b943-5a198e62c7a1">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
 </p>       
 </details>
 <details>
