@@ -7,6 +7,7 @@ Related to the Win32 dropper, in this exercise we will make the second modificat
 2. Most of the code is already implemented in the poc. However, you have to complete the direct syscall dropper by performing the following tasks:
      - Create a new syscalls.h header file and use for syscalls.h the supplied code that follows in this playbook.
      - Import the syscalls.asm file as a resource and complete the assembly code by adding the missing assembler code for the remaining three native APIs following the scheme of the already implemented code for NtAllocateVirtualMemory.   
+     - Enable Microsoft Macro Assembler (MASM) in the direct syscall poc in Visual Studio.
 3. Create a staged x64 meterpreter shellcode with msfvenom, copy it to the poc and compile the poc. 
 4. Create and run a staged x64 meterpreter listener using msfconsole.
 5. Run your compiled .exe and check that a stable command and control channel opens. 
