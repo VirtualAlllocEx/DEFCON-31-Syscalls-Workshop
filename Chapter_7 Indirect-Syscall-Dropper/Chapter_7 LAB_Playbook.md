@@ -508,6 +508,7 @@ Also in this case we can also use the "Follow in Disassembler" function to analy
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/33df09d3-c8f1-4ac1-805f-dc881c031658">
      </p>
+     
 Furthermore, in the case of the indirect syscall dropper, we can identify the lines of code used to open a handle to ntdll.dll using ``GetModuleHandleA``, then get the start address of the native functions using ``GetProcAdress``, and finally calculate the address of the syscall instruction by adding **12bytes** as an offset to the start address of the respective native function. 
      <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/9bee73bf-e16d-4b6c-b096-f95b24dfcdaa">  
