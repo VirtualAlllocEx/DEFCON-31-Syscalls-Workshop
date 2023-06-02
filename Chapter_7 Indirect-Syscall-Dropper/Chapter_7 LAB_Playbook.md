@@ -85,7 +85,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 In the next step, we want to get the effective memory address from the syscall instruction in the syscall stub of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add 12bytes. Why 12 bytes? Because this is the offset calculated from the start address of the native function. 
 <details>
     <p align="center">
-<img width="800" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba7fa1f5-be69-46d7-b564-6546089c0ad0"> 
+<img width="900" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba7fa1f5-be69-46d7-b564-6546089c0ad0"> 
     </p>
 </details>   
 
@@ -94,8 +94,10 @@ In the indirect syscall poc, this code is implemented only for the native functi
 <summary>Code</summary>
     
 ```
-// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
-    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");     
+// The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;     
 ```
      
 </details>   
@@ -105,18 +107,43 @@ If it was not possible for you to complete this code section, don`t worry it wil
 <summary>solution</summary>
     
 ```
-// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
-    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
-    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
-    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
-    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");     
+// The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
+    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
+    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
+    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;     
 ```
      
 </details>
 
 
+#### Global Variables
+To store the memory address from the syscall instruction of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each syscall address, which is declared as a pointer. Also in this case, the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+<details>
+<summary>Code</summary>
+    
+```
+// Declare global variables to hold the syscall instruction addresses
+UINT_PTR sysAddrNtAllocateVirtualMemory;     
+```
+     
+</details>   
 
-
+If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+<details>
+<summary>solution</summary>
+    
+```
+// Declare global variables to hold the syscall instruction addresses
+UINT_PTR sysAddrNtAllocateVirtualMemory;
+UINT_PTR sysAddrNtWriteVirtualMemory;
+UINT_PTR sysAddrNtCreateThreadEx;
+UINT_PTR sysAddrNtWaitForSingleObject;     
+```
+     
+</details>
 
 
 
