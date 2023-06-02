@@ -304,7 +304,7 @@ The Visual Studio tool dumpbin can be used to check which Windows APIs are impor
 **cmd>**
 ```
 cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports low_level.exe
+dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 ```
 </details>    
 
@@ -313,7 +313,7 @@ dumpbin /imports low_level.exe
     
 **No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
 <p align="center">
-<img width="1023" alt="image" src="https://user-images.githubusercontent.com/50073731/235473764-c85ccc73-a1cb-403d-8162-172146375d96.png">
+<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63f2bb5d-5090-491c-8c68-f177381b2136">
 </p>
 </details>   
     
