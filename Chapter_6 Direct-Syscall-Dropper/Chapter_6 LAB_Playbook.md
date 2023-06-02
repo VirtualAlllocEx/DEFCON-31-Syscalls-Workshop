@@ -337,15 +337,17 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
      Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
-</p>       
-</details>
-<details>
-    <summary>Solution</summary>
-     We can also see that instead of asking ntdll.dll for the four native functions used, they are implemented directly in the assembly in the .text region. 
+</p>    
+Also, looking at the imported symbols (symbols register), we see that instead of asking ntdll.dll for the code of the four required native functions ``NtAllocateVirutalMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``, these native functions are implemented directly in the .text region of the dropper itself. 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e2b2b167-7d52-41ec-8d93-c6f0da4ae958">
-</p>       
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e32b1bdd-c171-4810-ab00-db897cb9c2a6">
+</p>  
+We can also use the "Follow in Disassembler" function to analyse the direct syscall dropper to identify the lines of code where the calls to the native functions are made. 
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6de307d9-c9b4-4120-bb53-a6619c5033fb">
+</p>  
 </details>
+
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
 <details>
     <summary>Solution</summary>
