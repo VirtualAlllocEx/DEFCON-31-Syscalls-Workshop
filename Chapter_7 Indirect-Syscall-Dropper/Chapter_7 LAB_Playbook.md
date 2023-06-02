@@ -1,7 +1,7 @@
 ## LAB Exercise 5: Indirect Syscall Dropper
 Related to the Win32 dropper, in this exercise we will make the third modification, creating the indirect syscall dropper. We will call this the indirect syscall dropper. 
 
-The main difference between the direct syscall dropper and the indirect syscall dropper is that **only part of the syscall stub** from a native function is **implemented directly** into the indirect syscall dropper itself. This means that we implement and execute ``mov r10, rcx``, ``mov eax, SSN`` and ``jmp qword ptr`` in the direct syscall dropper, but unlike the direct syscall dropper, we do not execute the syscall and return from the indirect syscall dropper's memory. Instead, we use ``jmp qword ptr'' to jump to the syscall address of the native function in ntdll.dll and **execute the syscall and return** from the **memory location of ntdll.dll**. Why this has an advantage over the direct syscall dropper is discussed in the next chapter, where we compare the direct syscall and indirect syscall techniques in the context of EDR evasion.
+The main difference between the direct syscall dropper and the indirect syscall dropper is that **only part of the syscall stub** from a native function is **implemented directly** into the indirect syscall dropper itself. This means that we implement and execute ``mov r10, rcx``, ``mov eax, SSN`` and ``jmp qword ptr`` in the direct syscall dropper, but unlike the direct syscall dropper, we do not execute the syscall and return from the indirect syscall dropper's memory. Instead, we use ``jmp qword ptr`` to jump to the syscall address of the native function in ntdll.dll and **execute the syscall and return** from the **memory location of ntdll.dll**. Why this has an advantage over the direct syscall dropper is discussed in the next chapter, where we compare the direct syscall and indirect syscall techniques in the context of EDR evasion.
 That means, our goal is  and implement the required syscalls or syscall stubs from each of the four native functions directly into the assembly (dropper). 
 <details>
      <p align="center">
@@ -35,6 +35,12 @@ You can download the poc from the code section of this chapter. The code works a
 ```
     
 </details>
+
+### Syscall Instruction Addresses
+As mentioned at the beginning of this chapter, we want to execute the ``syscall'' and ``return' statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr'' in the indirect syscall dropper after ``mov r10, rcx'' and ``mov eax, SSN'' have been executed. To do this, we need to
+- Open a handle to ntdll.dll at runtime using ``GetModuleHandleA``. 
+- Get the start address of the native function in ntdll.dll using ``GetProcAddress`` and store it in a variable declared as a function pointer. 
+- Get the memory address of the syscall instruction in the syscall stub by adding the required offset and store it in a variable declared as a global variable.
 
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
