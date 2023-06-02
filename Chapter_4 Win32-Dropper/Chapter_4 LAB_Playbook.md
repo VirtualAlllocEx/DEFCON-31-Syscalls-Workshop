@@ -1,7 +1,9 @@
 ## Exercise 2: Win32 Dropper
 In **Exercise 2** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper Win32-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe`` -> ``Win32 APIs (kernel32.dll)`` -> ``Native APIs (ntdll.dll)`` -> ``syscall``.  
+<details>
 ![Prinicipal_Win32-apis](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a7687c96-e4cd-45ca-a60e-2d7e53a24d2b)
-
+</details>
+     
 ## Exercise 2 tasks:
 1. Download the Win32-Dropper poc from the Code section of this chapter.
 2. In this case the code is already implemented in the poc. Your task is to create x64 meterpreter shellcode, copy it into the poc and compile it.
