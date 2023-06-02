@@ -43,7 +43,7 @@ As mentioned at the beginning of this chapter, we want to execute the ``syscall`
 - Get the memory address of the syscall instruction in the syscall stub by adding the required offset and store it in a variable declared as a global variable.
 
 #### Handle to ntdll.dll
-First, we want to use the following code to open a handle to ntdll.dll at runtime. This code is already implemented in the indirect syscall poc.
+First, we want to use the following code which uses the function ``GetModuleHandleA`` to open a handle to ntdll.dll at runtime. This code is already implemented in the indirect syscall poc.
 <details>
 <summary>Code</summary>
     
@@ -52,7 +52,36 @@ First, we want to use the following code to open a handle to ntdll.dll at runtim
     HANDLE hNtdll = GetModuleHandleA("ntdll.dll");     
 ```
      
-</details>     
+</details>   
+
+#### Start Address Native Function
+Then we want to use the following code which uses the ``GetProcAddress`` function to get the start address of the respective native function in the memory of ntdll.dll and store it in a variable declared as a function pointer. In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+<details>
+<summary>Code</summary>
+    
+```
+// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");     
+```
+     
+</details>   
+
+If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+<details>
+<summary>solution</summary>
+    
+```
+// Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
+    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
+    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
+    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");     
+```
+     
+</details>   
+
+
+
 
 The main code of the direct syscall dropper looks like the following and is already implemented in the poc. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
 <details>
