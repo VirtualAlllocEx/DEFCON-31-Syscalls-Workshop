@@ -27,7 +27,7 @@ You can download the poc from the code section of this chapter. The technical fu
 The code works like this. First, we need to define the thread function for shellcode execution later in the code.
 <details>
     
-```
+```C
 // Define the thread function for executing shellcode
 // This function will be executed in a separate thread created later in the main function
 DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
