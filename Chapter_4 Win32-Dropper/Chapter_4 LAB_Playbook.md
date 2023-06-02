@@ -47,7 +47,7 @@ DWORD WINAPI ExecuteShellcode(LPVOID lpParam) {
 Within the main function, the variable **code** is defined, which is responsible for storing the meterpreter shellcode. The content of "code" is stored in the .text (code) section of the PE structure or, if the shellcode is larger than 255 bytes, the shellcode is stored in the .rdata section.
 <details>
     
-```
+```C
 // Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
     unsigned char code[] = "\xfc\x48\x83";
 ```
