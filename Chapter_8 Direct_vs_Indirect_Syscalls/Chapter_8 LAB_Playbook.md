@@ -9,8 +9,8 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 3. Run your direct syscall dropper poc and analyse the callstack
 4. Run your indirect syscall dropper poc, analyse and compare the callstack
 5. Run a standard application such as notepad.exe or cmd.exe and analyse the callstack
-6. Compare the callstacks and decide which callstack(s) to use.
-7. Based on your callstack analysis, why might indirect syscalls help to bypass EDRs that check the return address?
+6. Compare the callstacks between each other
+7. Based on your call stack analysis, why might indirect syscalls help bypass EDRs that check the return address, compared to direct syscall droppers?
 8. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 
