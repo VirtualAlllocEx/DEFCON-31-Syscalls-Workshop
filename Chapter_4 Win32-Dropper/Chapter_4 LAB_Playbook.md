@@ -2,7 +2,7 @@
 In **Exercise 2** we will create our first shellcode dropper based on **high level APIs** or **Win32 APIs**. This dropper will more or less be the reference for further development into a direct syscall and indirect syscall dropper. Later in this text we call the Dropper Win32-Dropper. If you look at the figure below, you will see that we do not use direct or indirect syscalls at all. Instead we use the normal legitimate way like ``malware.exe`` -> ``Win32 APIs (kernel32.dll)`` -> ``Native APIs (ntdll.dll)`` -> ``syscall``.  
 <details>
      <p align="center">
-<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a7687c96-e4cd-45ca-a60e-2d7e53a24d2b">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/14d3e025-71e5-4bba-bcdc-532c37f71a30">
 </p>
 </details>
      
