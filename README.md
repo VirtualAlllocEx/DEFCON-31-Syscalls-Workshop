@@ -37,7 +37,7 @@ In this workshop we will focus on the **direct system call** and **indirect syst
      - Necessary basics about the Windows NT architecture
 - **Chapter 2: Windows OS system calls** 
      - What are system calls in the Windows operating system in general and why are they necessary?
-- **Chapter 3: Direct syscalls** 
+- **Chapter 3: Concept of Direct syscalls** 
      - The concept of direct system calls and why we need them as red teamers?
 - **Chapter 4: Win32 Dropper** 
      - Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
