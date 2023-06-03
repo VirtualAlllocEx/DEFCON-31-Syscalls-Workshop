@@ -8,7 +8,8 @@ The content and all code examples in this repository are for educational and res
 
 - Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!. 
 
-I would also like to **thank all those members of the infosec community** who have researched, shaped, and continue to research the topic of syscalls, direct system calls and indirect syscalls. Without all of you, this workshop would never have been possible! Please forgive me if I have forgotten anyone.
+I would also like to **thank** all those members of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible! Please forgive me if I have forgotten anyone. **Creds to:**
+
 - [**@Cneelis**](https://twitter.com/Cneelis) from [**@OutflankNL**](https://twitter.com/OutflankNL) and his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)
 - [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) for his research in the are of Windows Internals, EDRs etc. and his articles [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)
 - [**@j00ru**](https://twitter.com/j00ru) for his research in [**syscall tables**](https://j00ru.vexillium.org/syscalls/nt/64/)
@@ -53,19 +54,19 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
 ### Prerequisites LAB
 
-- **Windows 10 x64 DEV/LAB machine**
+- **[Windows 10 x64 DEV/LAB machine](https://go.microsoft.com/fwlink/p/?linkid=2195587&clcid=0x407&culture=de-de&country=de)**
     - AV/EPP/EDR disabled
     - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
-    - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
-    - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
-    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
     - [x64dbg](https://x64dbg.com/)
+    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
+    - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
+    - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmo  
     
 - [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
     - Metasploit to create shellcode and an MSF-Listener
 
 
-I hope you enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
+I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
 **Happy Hacking!**
 
@@ -73,6 +74,8 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Found
 
 ## Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
+- https://0xdarkvortex.dev/hiding-in-plainsight/
+- https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/
 - https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/
 - https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/
 - https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html
