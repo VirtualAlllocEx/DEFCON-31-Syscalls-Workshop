@@ -301,7 +301,7 @@ Once the listener has been successfully started, you can run your compiled direc
         
 
     
-## Direct Syscall Dropper Analysis: Dumpbin 
+## Dropper Analysis: Dumpbin 
 The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
@@ -322,7 +322,7 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 </details>   
     
     
-## Direct Syscall Dropper Analysis: x64dbg 
+## Dropper Analysis: x64dbg 
 The first step is to run your direct syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the direct syscall dropper directly in x64dbg, you need to run the assembly first.
 <details>
