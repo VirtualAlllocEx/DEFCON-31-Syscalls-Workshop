@@ -89,6 +89,7 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Found
 - https://alice.climent-pommeret.red/posts/direct-syscalls-hells-halos-syswhispers2/#with-freshycalls
 - https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp
 - https://offensivecraft.wordpress.com/2022/12/08/the-stack-series-return-address-spoofing-on-x64/
+- https://offensivecraft.wordpress.com/2023/02/11/the-stack-series-the-x64-stack/
 - https://j00ru.vexillium.org/syscalls/nt/64/
 - https://github.com/jthuraisamy/SysWhispers
 - https://github.com/jthuraisamy/SysWhispers2
@@ -97,6 +98,3 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Found
 - https://www.geoffchappell.com/studies/windows/km/index.htm
 - "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
-- "Programming Windows, 5th Edition" by Charles Petzold
-- "Windows System Architecture" available on Microsoft Docs
-- "Windows Kernel Programming" by Pavel Yosifovich
