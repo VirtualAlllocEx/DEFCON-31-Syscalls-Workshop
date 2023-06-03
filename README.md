@@ -12,6 +12,12 @@ I would also like to **thank** all those members of the infosec community who ha
 
 **Creds to:**
 
+| Name          | Contribution  | 
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+
 - [**@Cneelis**](https://twitter.com/Cneelis) from [**@OutflankNL**](https://twitter.com/OutflankNL) and his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)
 - [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) for his research in the are of Windows Internals, EDRs etc. and his articles [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)
 - [**@j00ru**](https://twitter.com/j00ru) for his research in [**syscall tables**](https://j00ru.vexillium.org/syscalls/nt/64/)
