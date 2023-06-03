@@ -1,7 +1,7 @@
 ## LAB Exercise 6: Direct Syscalls vs Indirect Syscalls
 In this exercise we will compare the techniques of direct and indirect syscalls in the context of EDR evasion. We will look at why direct syscalls may be detected by EDRs (depending on the EDR), how indirect syscalls can help in this case, and the limitations of indirect syscalls. For the tasks in this chapter, you can use the direct syscall and indirect syscall pocs you created in the previous chapters.
 
-The main part of this exercise is about how EDRs can use or analyse the callstack of a function to check whether the return address appears to be legitimate or not. In this chapter we will analyse the callstack of every dropper (Win32, Native, Direct Syscalls and Indirect Syscalls). To analyse the callstack you can use Process Hacker.
+The main part of this exercise is about how EDRs can use or **analyse** the callstack of a dropper, or more precisely a function, to check whether the return address appears to be legitimate or not. In this chapter we will analyse the callstack of each dropper (Win32, Native, Direct Syscalls and Indirect Syscalls). You can use Process Hacker to analyse the callstack.
 
 ## Exercise 6 Tasks: 
 1. Run your Win32 dropper poc and analyse the callstack.
