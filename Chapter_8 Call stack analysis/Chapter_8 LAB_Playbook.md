@@ -4,7 +4,7 @@ In this exercise we will focus on call stack analysis and compare the call stack
 The main part of this exercise is about how EDRs can use or **analyse** the callstack of a dropper, or more precisely a function, to check whether the return address appears to be legitimate or not. In this chapter we will analyse the callstack of each dropper (Win32, Native, Direct Syscalls and Indirect Syscalls). You can use **Process Hacker** to analyse the callstack. For the tasks in this chapter, you can use the droppers you created in the previous chapters. If you were not able to create all the droppers from the previous chapters, you will find all the completed pocs in the code section of this chapter.
 
 ## Exercise 6 Tasks: 
-1. Run a standard application such as notepad.exe or cmd.exe and analyse the call stack.
+1. Run a standard application such as notepad.exe and analyse the call stack.
 2. Run all your droppers step by step, analyse the call stacks and compare them. Which one do you think has the most legitimate call stack?
 4. Compare the call stack of the droppers with the call stack of cmd.exe or notepad.exe.  
 5. Run your direct syscall dropper poc and analyse the call stack.
