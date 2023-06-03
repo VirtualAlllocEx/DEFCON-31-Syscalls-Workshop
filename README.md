@@ -88,6 +88,7 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Found
 - https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/
 - https://alice.climent-pommeret.red/posts/direct-syscalls-hells-halos-syswhispers2/#with-freshycalls
 - https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp
+- https://offensivecraft.wordpress.com/2022/12/08/the-stack-series-return-address-spoofing-on-x64/
 - https://j00ru.vexillium.org/syscalls/nt/64/
 - https://github.com/jthuraisamy/SysWhispers
 - https://github.com/jthuraisamy/SysWhispers2
