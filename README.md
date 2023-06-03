@@ -11,11 +11,12 @@ The content and all code examples in this repository are for educational and res
 I would also like to **thank** all those members of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible! Please forgive me if I have forgotten anyone. 
 
 **Creds to:**
+     
+| **Twitter Handle**                             | **Contribution**                                                                                                       | **Company** |
+| :---:                                          | :---:                                                                                                                  |:---: | 
+| [**@Cneelis**](https://twitter.com/Cneelis)    |                  |                                                                    |
 
-| **Twitter Handle**  | **Contribution** | **Company** |
-| :---:           | :---:        |  :---:  | 
-| [**@Cneelis**](https://twitter.com/Cneelis)    |              |         |
-| Content Cell    |    his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)          |         |
+          |         |
 
 
 -  from [**@OutflankNL**](https://twitter.com/OutflankNL) and 
