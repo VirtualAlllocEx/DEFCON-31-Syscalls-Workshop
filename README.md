@@ -12,11 +12,10 @@ I would also like to **thank** all those members of the infosec community who ha
 
 **Creds to:**
      
-     
 | **Twitter Handle**                             						 | **Contribution and Research**                                                                                                      															    					| **Company** |
 | :---:                                         						 | :---:                                                                                                                 																		    					|:---: | 
-| [**@Cneelis**](https://twitter.com/Cneelis)    						 | [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)   					| [**@OutflankNL**](https://twitter.com/OutflankNL) |
-| [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) 			     | [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)                                                  								|                                                   |
+| [**@Cneelis**](https://twitter.com/Cneelis)    						 | [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)   					| [**OutflankNL**](https://outflank.nl/) |
+| [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) 			     | [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/) | [Dark Vortex}(https://0xdarkvortex.dev/), [Brute Ratel](https://bruteratel.com/)|
 |                                                |                                                                                                                                                                                                  |                                                   |
 |                                                |                                                                                                                                                                                                  |                                                   |
 |                                                |                                                                                                                                                                                                  |                                                   |
@@ -24,7 +23,6 @@ I would also like to **thank** all those members of the infosec community who ha
 |                                                |                                                                                                                                                                                                  |                                                   |
 |                                                |                                                                                                                                                                                                  |                                                   |
 |							                     |                                                                                                                                                                                                  |                                                   |
-
 
 
 
