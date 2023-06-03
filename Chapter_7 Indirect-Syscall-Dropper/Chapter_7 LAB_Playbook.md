@@ -120,7 +120,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 
 
 #### Global Variables
-To store the memory address from the syscall instruction of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each syscall address, which is declared as a pointer. Also in this case, the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+To store the memory address from the syscall instruction of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each syscall address, which is declared as a pointer. Also in this case in the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
 <details>
 <summary>Code</summary>
     
