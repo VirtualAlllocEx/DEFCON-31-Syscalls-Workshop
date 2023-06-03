@@ -13,14 +13,23 @@ I would also like to **thank** all those members of the infosec community who ha
 **Creds to:**
      
      
-| **Twitter Handle**                             | **Contribution**                                                                                                      																																															 | **Company** |
-| :---:                                          | :---:                                                                                                                 																																																 |:---: | 
-| [**@Cneelis**](https://twitter.com/Cneelis)    | his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)                                                         |                  [**@OutflankNL**](https://twitter.com/OutflankNL)                                                  |
+| **Twitter Handle**                             						 | **Contribution and Research**                                                                                                      															    					| **Company** |
+| :---:                                         						 | :---:                                                                                                                 																		    					|:---: | 
+| [**@Cneelis**](https://twitter.com/Cneelis)    						 | [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)   					| [**@OutflankNL**](https://twitter.com/OutflankNL) |
+| [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) 			     | [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)                                                  								|                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|                                                |                                                                                                                                                                                                  |                                                   |
+|							                     |                                                                                                                                                                                                  |                                                   |
+
 
 
 
 -  from  and 
-- [**@NinjaParanoid**](https://twitter.com/NinjaParanoid) for his research in the are of Windows Internals, EDRs etc. and his articles [**Hiding In PlainSight - Indirect Syscall is Dead! Long Live Custom Call Stacks**](https://0xdarkvortex.dev/hiding-in-plainsight/), [**Hiding In PlainSight - Proxying DLL Loads To Hide From ETWTI Stack Tracing**](https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)
+-  for his research in the are of Windows Internals, EDRs etc. and his articles 
 - [**@j00ru**](https://twitter.com/j00ru) for his research in [**syscall tables**](https://j00ru.vexillium.org/syscalls/nt/64/)
 - [**@Jackson_T**](https://twitter.com/Jackson_T) for his research and creation of [**SysWhispers**](https://github.com/jthuraisamy/SysWhispers) and [**SysWhispers2**](https://github.com/jthuraisamy/SysWhispers2)
 - Thanks to [**@KlezVirus**](https://twitter.com/KlezVirus) for his research, providing this awesome tool [**SysWhispers3**](https://github.com/klezVirus/SysWhispers3) and his article [**SysWhispers is dead, long live SysWhispers!**](https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/) 
