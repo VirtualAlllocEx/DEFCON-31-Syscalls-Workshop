@@ -21,6 +21,7 @@ I would also like to **thank** all those members of the infosec community who ha
 - [**@zodiacon**](https://twitter.com/zodiacon) for all his [**books**](https://scorpiosoftware.net/books/), his great course about the [**Windows Internals**](https://scorpiosoftware.net/category/training/) and for taking the time to always answer my questions.
 - [**@AliceCliment**](https://twitter.com/AliceCliment) for her research and article [**A Syscall Journey in the Windows Kernel**](https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/) and her other research and [**articles**](https://alice.climent-pommeret.red/) in area of syscalls 
 - [**@modexpblog**](https://twitter.com/modexpblog) from [**@MDSecLabs**](https://twitter.com/MDSecLabs) and his research and article [**Bypassing User-Mode Hooks and Direct Invocation of System Calls for Red Teams**](https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/)
+- **[@netero_1010]**(https://twitter.com/netero_1010) for his research and his article [**Indirect Syscall in CSharp**](https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp)
 - [**@CaptMeelo**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) for his research and article [**When You sysWhisper Loud Enough for AV to Hear You**](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html)
 
 
@@ -84,7 +85,7 @@ Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Found
 - https://winternl.com/detecting-manual-syscalls-from-user-mode/
 - https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/
 - https://alice.climent-pommeret.red/posts/direct-syscalls-hells-halos-syswhispers2/#with-freshycalls
-- https://redops.at/en/blog/direct-syscalls-a-journey-from-high-to-low
+- https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp
 - https://j00ru.vexillium.org/syscalls/nt/64/
 - https://github.com/jthuraisamy/SysWhispers
 - https://github.com/jthuraisamy/SysWhispers2
