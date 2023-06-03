@@ -8,7 +8,7 @@ The content and all code examples in this repository are for educational and res
 
 - Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!. 
 
-I would also like to **thank** all those members of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible! Please forgive me if I have forgotten anyone. 
+I would also like to **thank** all those members of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible!
 
 **Creds to:**
  
