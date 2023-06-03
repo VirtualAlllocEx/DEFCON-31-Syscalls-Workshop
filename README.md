@@ -12,10 +12,10 @@ I would also like to **thank** all those members of the infosec community who ha
 
 **Creds to:**
 
-| Name          | Contribution  | 
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| **Twitter Handle**  | **Contribution** | **Company** |
+| :---:           | :---:        |  :---:  | 
+| Content Cell    |              |         |
+| Content Cell    |              |         |
 
 
 - [**@Cneelis**](https://twitter.com/Cneelis) from [**@OutflankNL**](https://twitter.com/OutflankNL) and his research and article [**Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR**](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/)
