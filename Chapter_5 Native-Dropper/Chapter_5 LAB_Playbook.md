@@ -25,13 +25,6 @@ You can download the poc from the code section of this chapter. In this poc, the
 - Shellcode execution, ``CreateThread`` is replaced by **``NtCreateThreadEx``**.
 - And ``WaitForSingleObject`` is replaced by **``NtWaitForSingleObject``**.
 
-The code works as follows, shellcode declaration is done as before.
-<details>
-    
-```C
-// Insert the Meterpreter shellcode as an array of unsigned chars (replace the placeholder with actual shellcode)
-    unsigned char code[] = "\xfc\x48\x83";
-```
     
 </details>
 
