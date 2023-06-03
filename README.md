@@ -74,6 +74,7 @@ I hope you will enjoy the workshop and that you can use it to gain a better unde
 
 **Happy Hacking!**
 
+
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder **[@RedOps](https://redops.at/en/) Information Security** 
 
 ## Previous work and references
