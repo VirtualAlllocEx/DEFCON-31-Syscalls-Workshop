@@ -47,7 +47,7 @@ In this workshop we will focus on the **direct system call** and **indirect syst
      - Building and analysing a shellcode dropper based on direct system calls (low level APIs)
 - **Chapter 7: Indirect Syscall Dropper** 
      - The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
-- **Chapter 8: Direct Syscalls vs Indirect Syscalls** 
+- **Chapter 8: Call stack analysis** 
      - Compare direct syscall and indirect syscall techniques. What are the limitations of indirect syscalls in the context of EDRs?
 - **Chapter 9: Summary** 
      - Workshop summary and closing 
