@@ -28,8 +28,11 @@ Then we select a thread, again we can double click or right click and select Ins
 <p align="center">
 <img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c554c323-ed19-45fd-afb9-523344a41b1d">
 </p>
-Next we can see the stack frames of the thread. At the top of the stack we can see the last element, and at the bottom the first element. When we say that the stack "grows down", it's important to understand that we're talking about the direction in memory addresses, not a physical direction. On most systems, including Windows, the stack grows from higher to lower memory addresses. This is often described as "down" because if you think of memory addresses laid out from lowest to highest (as in a memory map), then the stack grows from the bottom of this diagram to the top.To be clear, the stack in Windows grows from higher to lower memory addresses. This can be described as the stack growing "down" in memory. However, the "top" of the stack is the current end where operations are taking place, which is at a lower memory address than the "bottom" of the stack.
+Next we can see the stack frames of the thread. At the top of the stack we can see the last element, and at the bottom the first element. When we say that the stack "grows down", it's important to understand that we're talking about the direction in memory addresses, not a physical direction. On most systems, including Windows, the stack grows from higher to lower memory addresses. This is often described as "down" because if you think of memory addresses laid out from lowest to highest (as in a memory map), then the stack grows from the bottom of this diagram to the top.To be clear, the stack in Windows grows from higher to lower memory addresses. This can be described as the stack growing "down" in memory. However, the "top" of the stack is the current end where operations are taking place, which is at a lower memory address than the "bottom" of the stack.  
 </details>
+
+## Win32 Dropper Call Stack
+In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like?
 
 
 
