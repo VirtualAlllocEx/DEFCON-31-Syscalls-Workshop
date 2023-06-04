@@ -11,6 +11,17 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 6. Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?
 7. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
+Before we start the call stack analysis exercises, what are the Indicators of Compromise (IOCs) that might help us identify malware in memory, or that might be used by EDR vendors to identify malware? You can use these IOCs as a guide to identify IOCs in your droppers.
+- The syscall and return statement should always be executed from a memory region in ntdll.dll, so that when the shellcode execution is complete, ntdll.dll is placed on top of the stack as the last element with the lowest memory address.
+- If a native function, for example ``ZwWaitForSingleObject``, is executed outside of a memory region in ntdll.dll. Native functions are part of ntdll.dll and should always be executed from memory in ntdll.dll.
+- Not directly an IOC in context of the call stack itself, but look also for unbacked memory regions in context of the meterpreter payload. As additional information, an unbacked memory region, sometimes referred to as "anonymous memory," is a region of memory that is not associated with a file on disk. This means that it's not backed by a specific file like an executable (.exe) or a dynamic-link library (.dll) file.
+<details>
+<p align="center">
+<img width="400" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fc279e98-b700-46f2-9995-02738febd3bd">
+</p>
+</details>
+
+
 
 ## Default Application Call Stack
 As a first step, we want to compare the call stack of a standard application like cmd.exe with the call stack of the Win32 dropper. So we need to run an instance of cmd.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function. As mentioned earlier, we want to use Process Hacker to analyse the call stack. To see how Process Hacker can be used for call stack analysis, check out the detail section below. 
@@ -28,7 +39,7 @@ Then we select a thread, again we can double click or right click and select Ins
 <p align="center">
 <img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c554c323-ed19-45fd-afb9-523344a41b1d">
 </p>
-Next we can see the stack frames of the thread. At the top of the stack we can see the last element, and at the bottom the first element. When we say that the stack "grows down", it's important to understand that we're talking about the direction in memory addresses, not a physical direction. On most systems, including Windows, the stack grows from higher to lower memory addresses. This is often described as "down" because if you think of memory addresses laid out from lowest to highest (as in a memory map), then the stack grows from the bottom of this diagram to the top.To be clear, the stack in Windows grows from higher to lower memory addresses. This can be described as the stack growing "down" in memory. However, the "top" of the stack is the current end where operations are taking place, which is at a lower memory address than the "bottom" of the stack.  
+Next we can see the stack frames of the thread. At the top of the stack we can see the last element, and at the bottom the first element. When we say that the stack "grows down", it's important to understand that we're talking about the direction in memory addresses, not a physical direction. On most systems, including Windows, the stack grows from higher to lower memory addresses. This is often described as "down" because if you think of memory addresses laid out from lowest to highest (as in a memory map), then the stack grows from the bottom of this diagram to the top.To be clear, the stack in Windows grows from higher to lower memory addresses. This can be described as the stack growing "down" in memory. However, the "top" of the stack is the current end where operations are taking place, which is at a lower memory address than the "bottom" of the stack.
 </details>
 
 ## Win32 Dropper Call Stack
