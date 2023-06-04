@@ -16,9 +16,9 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 As a first step, we want to compare the call stack of a standard application like cmd.exe with the call stack of the Win32 dropper. So we need to run an instance of cmd.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function. As mentioned earlier, we want to use Process Hacker to analyse the call stack. To see how Process Hacker can be used for call stack analysis, check out the detail section below. 
 <details>
 <p align="center">
-<img width="353" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7aebe38f-7cfe-4bc3-9c61-df700636ea9f"></p>
-</details>
+<img width="453" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7aebe38f-7cfe-4bc3-9c61-df700636ea9f"></p>
 You can double-click cmd.exe or right-click and select Properties.
+</details>
 
 
 
