@@ -108,12 +108,12 @@ In this step we want to analyse the call stack from the direct syscall dropper a
 <details>
 <summary>results</summary>
 <p align="center">  
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/80a11784-546d-4ff6-adb2-b8da194c1047" width="33%"/>
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="33%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/80a11784-546d-4ff6-adb2-b8da194c1047" width="45%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
 </p>
 <p align="center">  
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/866ce5bb-2693-4945-baa7-fefeb2ca8e18" width="33%"/>
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="33%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/866ce5bb-2693-4945-baa7-fefeb2ca8e18" width="45%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
 </p>  
   
 Comparing the call stack from the direct syscall dropper with the call stack from the win32 dropper or the native dropper, we could observe that the call stack from the direct syscall dropper looks totally weird. The following clear IOCs can be observed.
