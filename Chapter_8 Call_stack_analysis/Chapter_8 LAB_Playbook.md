@@ -13,7 +13,7 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 
 
 ## Default Application vs Win32 Dropper
-As a first step, we want to compare the call stack of a standard application like notepad.exe with the call stack of the Win32 dropper. So we need to run an instance of notepad.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function.
+As a first step, we want to compare the call stack of a standard application like notepad.exe with the call stack of the Win32 dropper. So we need to run an instance of notepad.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function. As mentioned earlier, we want to use Process Hacker to analyse the call stack.
 
 
 
