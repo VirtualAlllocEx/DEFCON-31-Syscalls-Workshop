@@ -53,7 +53,7 @@ When analysing the win32 dropper with Process Hacker, we were **unable to identi
 These results from analysing the default application can be used as a **reference or guide** when analysing your shellcode droppers.  
 </details>
 
-## Win32 Dropper In-Memory Analysis 
+## Win32 Dropper Analysis 
 In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup). By analysing the win32 dropper and comparing it to cmd.exe, the following results can be observed.  
 <details>
 <summary>results</summary>
@@ -78,7 +78,7 @@ Looking at the memory regions of the win32 api dropper, things get more interest
 
   
   
-## Native Dropper In-Memory Analysis
+## Native Dropper Analysis
 In this step we want to analyse the call stack from the native dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? Also in case of each shellcode dropper we want to analyse the main thread (mainCRTStartup).  When analysing the native dropper, the following results can be observed.  
 <details>
 <summary>results</summary>
