@@ -12,8 +12,8 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 7. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 
-## Default Application: Call Stack
-As a first step, we want to run notepad.exe and have a look at what a normal or legitimate call stack should look like on Windows.
+## Default Application vs Win32 Dropper
+As a first step, we want to compare the call stack of a standard application like notepad.exe with the call stack of the Win32 dropper. So we need to run an instance of notepad.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function.
 
 
 
