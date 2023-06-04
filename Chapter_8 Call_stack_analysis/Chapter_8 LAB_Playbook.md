@@ -35,7 +35,7 @@ Next we can see the stack frames of the thread. At the top of the stack we can s
 In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup),
 <details>
 <summary>solution</summary>
-<p float="centre">
+<p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b82e5a27-5cf9-45d2-8b06-89727bfbf496" width="45%" />
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c89d18c5-ab8a-4f7a-83a0-50e5bb7d0492" width="45%" />
 </p>
