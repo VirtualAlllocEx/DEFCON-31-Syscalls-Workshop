@@ -39,14 +39,14 @@ In this workshop we will focus on the **direct system call** and **indirect syst
      - What are system calls in the Windows operating system in general and why are they necessary?
 - **Chapter 3: Concept of Direct syscalls** 
      - The concept of direct system calls and why we need them as red teamers?
-- **Chapter 4: Win32 Dropper** 
+- **Chapter 4: Win32 APIs** 
      - Create and analyse a shellcode dropper based on Windows APIs (High Level APIs).
-- **Chapter 5: Native Dropper** 
-     - Build and analyse a shellcode dropper based on Native APIs (mid-level APIs)
-- **Chapter 6: Direct Syscall Dropper** 
-     - Building and analysing a shellcode dropper based on direct system calls (low level APIs)
-- **Chapter 7: Indirect Syscall Dropper** 
-     - The concept of indirect system calls and why we need them as red teamers Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
+- **Chapter 5: Native APIs** 
+     - Create and analyse a shellcode dropper based on Native APIs (mid-level APIs)
+- **Chapter 6: Direct Syscalls** 
+     - Create and analyse a shellcode dropper based on direct system calls (low level APIs)
+- **Chapter 7: Indirect Syscalls** 
+     - The concept of indirect system calls and why we need them as red teamers? Create and analyse a shellcode dropper based on indirect syscalls (low level APIs).
 - **Chapter 8: Call stack analysis** 
      - Compare the call stack from each dropper and compare them to each other. What is the advantage of indirect sycalls over direct syscalls in the context of EDR evasion?
 - **Chapter 9: Summary** 
