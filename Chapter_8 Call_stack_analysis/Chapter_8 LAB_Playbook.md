@@ -118,12 +118,12 @@ In this step we want to analyse the call stack from the direct syscall dropper a
   
 Comparing the call stack from the direct syscall dropper with the call stack from the win32 dropper or the native dropper, we could observe that the call stack from the direct syscall dropper looks totally weird. The following clear IOCs can be observed.
   - The return from the native function ``ZwWaitForSingleObject`` is not executed in the memory of ntdll.dll, otherwise we would find ntdll.dll at the top of the stack, or more precisely we would find the stack frame ``ntdll.dll!ZwWaitForSingleObject`` at the top of the call stack.
-  - Furthermore in context of ``ZwWaitForSingleObject`` we are not able to identify the usage from corresponding Win32 API ``WaitForSingleObject`` before the native function is ````ZwWaitForSingleObject`` is executed. 
+  - Furthermore in context of ``ZwWaitForSingleObject`` we are not able to identify the usage from corresponding Win32 API ``WaitForSingleObject`` before the native function is ``ZwWaitForSingleObject`` is executed. 
   
 Based on these IOCs, and depending on the EDR you are facing, your payload will be detected in memory with a very high probability.  
 As we also use the same x64 staged meterpreter payload for the direct syscall dropper, we have the same IOCs in the context of analysing the memory regions. 
-     - Unbacked memory regions
-     - RWX commited private memory in .text section
+- Unbacked memory regions
+- RWX commited private memory in .text section
 </details>  
 
 
