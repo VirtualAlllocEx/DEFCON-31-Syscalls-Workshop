@@ -109,21 +109,19 @@ In this step we want to analyse the call stack from the direct syscall dropper a
 <summary>results</summary>
 <p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/80a11784-546d-4ff6-adb2-b8da194c1047" width="33%"/>
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/866ce5bb-2693-4945-baa7-fefeb2ca8e18" width="33%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="33%"/>
 </p>
-  
-From left to right we compare the call stack from the win32 dropper, the native dropper and the direct syscall dropper. 
-  
-Comparing the call stack from the native dropper with the stack from the Win32 dropper or the default application, the call stack doesn't look totally weird in this case either. In my opinion a possible IOC could be that ``ZwWaitForSingleObject`` is executed directly without or before using the corresponding Win32 API ``WaitForSingleObject``. In the context of ``ZwWaitForSingleObject`` I would say it could be a possible IOC. But in general, it's not uncommon for some native Windows function to be executed directly from ntdll.dll memory.
-  
-Also in this case I would say, from this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - also your native dropper will normally be detected by the EDR.  
-       
 <p align="center">  
-  <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/11674eba-ac6a-46d3-b312-7f51194cc04a">
-</p> 
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/866ce5bb-2693-4945-baa7-fefeb2ca8e18" width="33%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="33%"/>
+</p>  
   
-Also in case of the native dropper, in context of the memory regions we could identify the same IOCs as with the win32 dropper.The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
+Comparing the call stack from the direct syscall dropper with the call stack from the win32 dropper or the native dropper, we could observe that the call stack from the direct syscall dropper looks totally weird. The following clear IOCs can be observed.
+  - The return from the native function ``ZwWaitForSingleObject`` is not executed in the memory of ntdll.dll, otherwise we would find ntdll.dll at the top of the stack, or more precisely we would find the stack frame ``ntdll.dll!ZwWaitForSingleObject`` at the top of the call stack.
+  - Furthermore in context of ``ZwWaitForSingleObject`` we are not able to identify the usage from corresponding Win32 API ``WaitForSingleObject`` before the native function is ````ZwWaitForSingleObject`` is executed. 
+  
+Based on these IOCs, and depending on the EDR you are facing, your payload will be detected in memory with a very high probability.  
+As we also use the same x64 staged meterpreter payload for the direct syscall dropper, we have the same IOCs in the context of analysing the memory regions. 
      - Unbacked memory regions
      - RWX commited private memory in .text section
 </details>  
