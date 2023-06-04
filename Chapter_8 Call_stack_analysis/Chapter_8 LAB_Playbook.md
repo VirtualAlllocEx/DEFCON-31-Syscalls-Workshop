@@ -36,8 +36,8 @@ In this step we want to analyse the call stack from the win32 dropper and compar
 <details>
 <summary>solution</summary>
 <p align="center">  
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b82e5a27-5cf9-45d2-8b06-89727bfbf496" width="45%" />
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c89d18c5-ab8a-4f7a-83a0-50e5bb7d0492" width="45%" />
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b8e7bd90-976a-4551-bf05-6d8763053f4e" width="45%" />
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4a45355e-07fb-4c4e-a1f6-1132fdf72f77" width="45%" />
 </p>
 <details>
 
