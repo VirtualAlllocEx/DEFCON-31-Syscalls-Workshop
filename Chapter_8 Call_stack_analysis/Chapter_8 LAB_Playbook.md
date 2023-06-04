@@ -53,7 +53,7 @@ When analysing the win32 dropper with Process Hacker, we were **unable to identi
 These results from analysing the default application can be used as a **reference or guide** when analysing your shellcode droppers.  
 </details>
 
-## Win32 Dropper Call Stack
+## Win32 Dropper In-Memory Analysis 
 In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup).
 <details>
 <summary>results</summary>
@@ -76,11 +76,11 @@ From this point of view we could say that this is a stack with high legitimacy a
 Looking at the memory regions of the win32 api dropper, things get more interesting. Perhaps not a strong indicator, but still useful, we can identify the meterpreter payload in memory. The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
      - Unbacked memory regions
      - RWX commited private memory in .text section
-<details>
+</details>
 
   
   
-## Native Dropper Call Stack
+## Native Dropper In-Memory Analysis
 In this step we want to analyse the call stack from the native dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? Also in case of each shellcode dropper we want to analyse the main thread (mainCRTStartup).
 <details>
 <summary>results</summary>
@@ -102,6 +102,6 @@ Also in this case I would say, from this point of view we could say that this is
 Also in case of the native dropper, in context of the memory regions we could identify the same IOCs as with the win32 dropper.The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
      - Unbacked memory regions
      - RWX commited private memory in .text section
-<details>  
+</details>  
 
 
