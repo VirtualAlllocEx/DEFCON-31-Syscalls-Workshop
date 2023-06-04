@@ -55,15 +55,16 @@ These results from analysing the default application can be used as a **referenc
 In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup),
 <details>
 <summary>results</summary>
+  By analysing the win32 dropper and comparing it to cmd.exe, the following results can be noted.  
+
   <p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b8e7bd90-976a-4551-bf05-6d8763053f4e" width="45%" />
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4a45355e-07fb-4c4e-a1f6-1132fdf72f77" width="45%" />
 </p>
-By analysing the win32 dropper and comparing it to cmd.exe, the following results can be noted.  
 - Due to the technical principle of the Win32 dropper, the call stack or the order of the stack frames looks legitimate. The ntdll.dll is placed on top of the stack and is an indicator that the return is being executed from memory of the ntdll.dll. Also, the Win32 API is executed from memory of kernel32.dll or kernelbase.dll and the native function ZwWaitForSingleObject is executed from memory of ntdlld.dll. Both of these observations are indicators of non-malicious behaviour. From this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - your Win32 dropper will normally be detected by the EDR.
   
   <p align="center">  
-  <img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cd55fb15-ee6e-4788-b429-ff113cd9c141"/>
+  <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cd55fb15-ee6e-4788-b429-ff113cd9c141"/>
 </p> 
 - Looking at the memory regions of the win32 api dropper, things get more interesting. Perhaps not a strong indicator, but still useful, we can identify the meterpreter payload in memory. The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
      - Unbacked memory regions
