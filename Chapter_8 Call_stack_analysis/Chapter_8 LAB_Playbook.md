@@ -14,7 +14,9 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 Before we start the call stack analysis exercises, what are the Indicators of Compromise (IOCs) that might help us identify malware in memory, or that might be used by EDR vendors to identify malware? You can use these IOCs as a guide to identify IOCs in your droppers.
 - The syscall and return statement should always be executed from a memory region in ntdll.dll, so that when the shellcode execution is complete, ntdll.dll is placed on top of the stack as the last element with the lowest memory address.
 - If a native function, for example ``ZwWaitForSingleObject``, is executed outside of a memory region in ntdll.dll. Native functions are part of ntdll.dll and should always be executed from memory in ntdll.dll.
-- Not directly an IOC in the context of the call stack itself, but also look for unbacked memory regions in the context of the meterpreter payload. For additional information, an unbacked memory region, sometimes referred to as "anonymous memory", is a region of memory that is not associated with a file on disk. This means that it's not backed up by a specific file, such as an executable (.exe) or dynamic link library (.dll) file. For example, if you look at legitimate memory areas with Process Hacker, you will see that they are of the type 'image' and also point to the associated image. If you look at a meterpreter payload in memory, you will see that there are also some memory areas of type "private" that do not point to an image. For example, the 4kB meterpreter stager can be identified. These types of memory areas are called "unbacked executable sections" and are usually classified as malicious by EDRs.Similarly, from an EDR's point of view, it is rather unusual for a thread to have, for example, memory areas in the .text (code) section marked as read (R), write (W) and executable (X) at the same time. By default, the .text section is a read-only section in the PE structure. When using a Meterpreter payload, this is not entirely true, because by using the Windows API VirtualAlloc, certain areas are additionally marked as write (W) and executable (X), or the affected memory area is marked as RWX in its entirety (PAGE_EXECUTE_READWRITE). See the following section for more details.
+
+
+As additional information, not directly an IOC in the context of the call stack itself, but also look for unbacked memory regions in the context of the meterpreter payload. For additional information, an unbacked memory region, sometimes referred to as "anonymous memory", is a region of memory that is not associated with a file on disk. This means that it's not backed up by a specific file, such as an executable (.exe) or dynamic link library (.dll) file. For example, if you look at legitimate memory areas with Process Hacker, you will see that they are of the type 'image' and also point to the associated image. If you look at a meterpreter payload in memory, you will see that there are also some memory areas of type "private" that do not point to an image. For example, the 4kB meterpreter stager can be identified. These types of memory areas are called "unbacked executable sections" and are usually classified as malicious by EDRs.Similarly, from an EDR's point of view, it is rather unusual for a thread to have, for example, memory areas in the .text (code) section marked as read (R), write (W) and executable (X) at the same time. By default, the .text section is a read-only section in the PE structure. When using a Meterpreter payload, this is not entirely true, because by using the Windows API VirtualAlloc, certain areas are additionally marked as write (W) and executable (X), or the affected memory area is marked as RWX in its entirety (PAGE_EXECUTE_READWRITE). See the following section for more details.
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fc279e98-b700-46f2-9995-02738febd3bd">
@@ -52,7 +54,7 @@ These results from analysing the default application can be used as a **referenc
 </details>
 
 ## Win32 Dropper Call Stack
-In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup),
+In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of each shellcode dropper we want to analyse the main thread (mainCRTStartup).
 <details>
 <summary>results</summary>
   By analysing the win32 dropper and comparing it to cmd.exe, the following results can be noted.  
@@ -62,11 +64,13 @@ In this step we want to analyse the call stack from the win32 dropper and compar
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4a45355e-07fb-4c4e-a1f6-1132fdf72f77" width="45%"/>
 </p>
   
-Due to the technical principle of the Win32 dropper, the call stack or the order of the stack frames looks legitimate. The ntdll.dll is placed on top of the stack and is an indicator that the return is being executed from memory of the ntdll.dll. Also, the Win32 API is executed from memory of kernel32.dll or kernelbase.dll and the native function ZwWaitForSingleObject is executed from memory of ntdlld.dll. Both of these observations are indicators of non-malicious behaviour. From this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - your Win32 dropper will normally be detected by the EDR.
+Due to the technical principle of the Win32 dropper, the call stack or the order of the stack frames looks legitimate. The ntdll.dll is placed on top of the stack and is an indicator that the return is being executed from memory of the ntdll.dll. Also, the Win32 API is executed from memory of kernel32.dll or kernelbase.dll and the native function ZwWaitForSingleObject is executed from memory of ntdlld.dll. Both of these observations are indicators of non-malicious behaviour. 
+  
+From this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - your win32 dropper will normally be detected by the EDR.
   
   
 <p align="center">  
-  <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cd55fb15-ee6e-4788-b429-ff113cd9c141"/>
+  <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cd55fb15-ee6e-4788-b429-ff113cd9c141">
 </p> 
   
 Looking at the memory regions of the win32 api dropper, things get more interesting. Perhaps not a strong indicator, but still useful, we can identify the meterpreter payload in memory. The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
@@ -74,5 +78,30 @@ Looking at the memory regions of the win32 api dropper, things get more interest
      - RWX commited private memory in .text section
 <details>
 
+  
+  
+## Native Dropper Call Stack
+In this step we want to analyse the call stack from the native dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? Also in case of each shellcode dropper we want to analyse the main thread (mainCRTStartup).
+<details>
+<summary>results</summary>
+  By analysing the win32 dropper and comparing it to cmd.exe, the following results can be noted.  
+
+<p align="center">  
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/53805b67-b49c-47b7-8d10-d8d6c43fc51e" width="45%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3bd91e9f-4c08-4dd5-b277-abeeeec52e59" width="45%"/>
+</p>
+  
+Comparing the call stack from the native dropper with the stack from the Win32 dropper or the default application, the call stack doesn't look totally weird in this case either. In my opinion a possible IOC could be that ``ZwWaitForSingleObject`` is executed directly without or before using the corresponding Win32 API ``WaitForSingleObject``. In the context of ``ZwWaitForSingleObject`` I would say it could be a possible IOC. But in general, it's not uncommon for some native Windows function to be executed directly from ntdll.dll memory.
+  
+Also in this case I would say, from this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - also your native dropper will normally be detected by the EDR.  
+       
+<p align="center">  
+  <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/11674eba-ac6a-46d3-b312-7f51194cc04a">
+</p> 
+  
+Also in case of the native dropper, in context of the memory regions we could identify the same IOCs as with the win32 dropper.The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
+     - Unbacked memory regions
+     - RWX commited private memory in .text section
+<details>  
 
 
