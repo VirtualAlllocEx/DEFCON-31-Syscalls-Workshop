@@ -18,6 +18,11 @@ As a first step, we want to compare the call stack of a standard application lik
 <p align="center">
 <img width="453" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7aebe38f-7cfe-4bc3-9c61-df700636ea9f"></p>
 You can double-click cmd.exe or right-click and select Properties.
+</p>
+<p align="center"> 
+  <img width="440" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3c5154c8-988c-42e3-8442-d0d866e56b19">
+</p>
+Then we select a thread, again we can double click or right click and select Inspect.
 </details>
 
 
