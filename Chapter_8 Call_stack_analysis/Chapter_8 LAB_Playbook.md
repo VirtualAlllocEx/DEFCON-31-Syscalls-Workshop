@@ -104,7 +104,7 @@ Also in case of the native dropper, in context of the memory regions we could id
 
 
 ## Direct Syscall Dropper Analysis
-In this step we want to analyse the call stack from the direct syscall dropper and compare it. Remember that in the direct syscall dropper the the whole syscall stub from the used native function is directly implemented in to the dropper itself and because of this the control flow is ``dropper.exe`` -> ``syscall``. Based on that what to expect or how the order of the stack frames should look like? Also in this case we want to analyse the main thread (mainCRTStartup). When analysing the direct syscall dropper, the following results can be observed.  
+In this step we want to analyse the call stack from the direct syscall dropper and compare it. Remember that in the direct syscall dropper the whole syscall stub from the used native function is directly implemented in to the dropper itself and because of this the control flow is ``dropper.exe`` -> ``syscall``. Based on that what to expect or how the order of the stack frames should look like? Also in this case we want to analyse the main thread (mainCRTStartup). When analysing the direct syscall dropper, the following results can be observed.  
 <details>
 <summary>results</summary>
 <p align="center">  
@@ -123,6 +123,31 @@ Comparing the call stack from the direct syscall dropper with the call stack fro
   
 Based on these IOCs, and depending on the EDR you are facing, your payload will be detected in memory with a very high probability.  
 As we also use the same x64 staged meterpreter payload for the direct syscall dropper, we have the same IOCs in the context of analysing the memory regions. 
+- Unbacked memory regions
+- RWX commited private memory in .text section
+</details>  
+
+
+
+## Indirect Syscall Dropper Analysis
+In this step we want to analyse and compare the call stack from the indirect syscall dropper. Remember that in the indirect syscall dropper only part of the syscall stub from a native function is implemented directly into the dropper itself. The ``syscall`` instruction is replaced by ``jmp qwrd ptr``, so we jump into memory from ntdll.dll and execute the syscall and return instruction from that memory region. Based on this, what should we expect or how should the order of the stack frames look like? Again, we want to analyse the main thread (mainCRTStartup). When analysing the direct syscall dropper, the following results can be observed. 
+<details>
+<summary>results</summary>
+<p align="center">  
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ed5d7acb-3020-4e48-8ae3-5dbcfe86b984" width="45%"/>
+</p>
+<p align="center">  
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34dc1d3f-81ac-40b9-ae18-0972ea300e39" width="45%"/>
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ed5d7acb-3020-4e48-8ae3-5dbcfe86b984" width="45%"/>
+</p>  
+  
+If we compare the call stack from the indirect syscall dropper with the call stack from the direct syscall dropper, we can see that the call stack looks completely different. Furthermore, if we compare the indirect syscall call stack with the legitimate stack from cmd.exe, we can see that the stack from the indirect syscall dropper has a good level of legitimacy. Compared to the direct syscall dropper we got rid of the following IOCs. 
+  - The return from the native function ``ZwWaitForSingleObject`` is executed in the memory of ntdll.dll, so this puts ntdll.dll at the top of the stack and leads to legitimate behaviour compared to the legitimate stack of cmd.exe.
+
+This means that by replacing direct syscalls with indirect syscalls, we can successfully fake or spoof the return address of a native function that we use in our indirect syscall dropper, and based on that, and depending on the EDR, we can bypass the return address check of an EDR.
+ 
+Don`t forget in the context of the meterpreter payload used you will still be using a high proabality detected by the EDR, based on the memory region IOCs from before. 
 - Unbacked memory regions
 - RWX commited private memory in .text section
 </details>  
