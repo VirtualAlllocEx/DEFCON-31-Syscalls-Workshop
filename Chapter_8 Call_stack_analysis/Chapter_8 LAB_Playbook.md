@@ -12,7 +12,7 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 7. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 
-## Default Application vs Win32 Dropper
+## Default Application Call Stack
 As a first step, we want to compare the call stack of a standard application like cmd.exe with the call stack of the Win32 dropper. So we need to run an instance of cmd.exe and the win32 dropper and take a look at the call stack, more specifically we want to take a look at the stack frames from the main function. As mentioned earlier, we want to use Process Hacker to analyse the call stack. To see how Process Hacker can be used for call stack analysis, check out the detail section below. 
 <details>
 <p align="center">
