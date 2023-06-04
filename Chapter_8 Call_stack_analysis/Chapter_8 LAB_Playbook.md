@@ -41,7 +41,7 @@ Then we select a thread, again we can double click or right click and select Ins
 </p>
 Next we can see the stack frames of the thread. At the top of the stack we can see the last element, and at the bottom the first element. When we say that the stack "grows down", it's important to understand that we're talking about the direction in memory addresses, not a physical direction. On most systems, including Windows, the stack grows from higher to lower memory addresses. This is often described as "down" because if you think of memory addresses laid out from lowest to highest (as in a memory map), then the stack grows from the bottom of this diagram to the top.To be clear, the stack in Windows grows from higher to lower memory addresses. This can be described as the stack growing "down" in memory. However, the "top" of the stack is the current end where operations are taking place, which is at a lower memory address than the "bottom" of the stack.
 
-### IOCs
+### Default Application Results
 When analysing the win32 dropper with Process Hacker, we were **unable to identify any IOCs**. This sounds logical, but let's write down our findings anyway. 
 - No native functions executed outside of ntdll.dll memory
 - The ntdll.dll is on top of the call stack and is an indicator of a legitimate stack.
@@ -59,9 +59,16 @@ In this step we want to analyse the call stack from the win32 dropper and compar
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b8e7bd90-976a-4551-bf05-6d8763053f4e" width="45%" />
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4a45355e-07fb-4c4e-a1f6-1132fdf72f77" width="45%" />
 </p>
+  
+### Win32 Dropper  Results
+By analysing the win32 dropper and comparing it to cmd.exe, the following results can be noted.  
+- Due to the technical principle of the Win32 dropper, the call stack or the order of the stack frames looks legitimate. The ntdll.dll is placed on top of the stack and is an indicator that the return is being executed from memory of the ntdll.dll. Also, the Win32 API is executed from memory of kernel32.dll or kernelbase.dll and the native function ZwWaitForSingleObject is executed from memory of ntdlld.dll. Both of these observations are indicators of non-malicious behaviour. From this point of view we could say that this is a stack with high legitimacy and should be good to go to bypass an EDR in the context of the return address check in the call stack. But don't forget that as soon as an EDR uses use mode hooking or a similar mechanism to analyse executed code in the context of APIs - and this is more or less always the case today - your Win32 dropper will normally be detected by the EDR.
+  
+- Looking at the memory regions of the win32 api dropper, things get more interesting. Perhaps not a strong indicator, but still useful, we can identify the meterpreter payload in memory. The default meterpreter stage is about 4kb and the stage loaded afterwards is about 200kb. By analysing these in-memory regions, we will see that we could identify two clear IOCs that lead to two malicious in-memory behaviours.
+     - Unbacked memory regions
+     - RWX commited private memory in .text section
+
 <details>
-
-
 
 
 
