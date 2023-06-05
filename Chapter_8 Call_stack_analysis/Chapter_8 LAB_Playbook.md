@@ -157,7 +157,7 @@ Based on the results of our analysis, I think we would say that indirect syscall
 
 - The first limitation is that we are able to spoof the return address of a native function, but despite this if an EDR uses full stack analysis the EDR would probably be able to identify malicious behaviour. 
 
-- Furthermore, by looking at the stack frame order, we should be able to see that the native function ``ZwWaitForSingleObject'' was executed directly without using the corresponding Win32 API ``WaitForSingleObject''. Depending on the API this may not be an IOC, but in the context of e.g. ``ZwWaitForSingleObject'' it is.
+- Furthermore, by looking at the stack frame order, we should be able to see that the native function ``ZwWaitForSingleObject`` was executed directly without using the corresponding Win32 API ``WaitForSingleObject``. Depending on the API this may not be an IOC, but in the context of e.g. ``ZwWaitForSingleObject`` it is.
 
 So indirect syscalls might help to make the call stack a bit more logical or legitimate, but regardless we still have the problem of unbacked memory regions and RWX committing memory pages. The latter is more a problem of the meterpreter payload itself, in this case it might help to switch the memory pages from RWX to RW or RX using the ``VirtualProtectAPI``. The unbacked memory problem is a bit more complicated and cannot be solved directly by using indirect syscalls. To get rid of these unbacked regions you have to use a technique like module stomping, thanks to [@NinjaParanoid](https://twitter.com/NinjaParanoid/status/1665457580817395717) and [@KlezVirus](https://twitter.com/KlezVirus) and [@ShitSecure](https://twitter.com/ShitSecure) for teaching me about this.
  <details>
