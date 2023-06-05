@@ -10,7 +10,7 @@ Windows NT, released in 1993 with Windows NT 3.1 brought a paradigm shift with i
 One of the major changes to the Windows NT architecture was to split the operating system into a user mode and kernel mode. The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 
 <p align="center">
-<img width="409" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
+<img width="600" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
 </p>
 
 1. **Stability**: By separating user mode from kernel mode, any bugs, crashes, or malfunctions that occur in user mode programs will not directly affect the kernel or other system components. In other words, a crashing user-mode application won't bring down the entire system because the kernel remains isolated and protected.
