@@ -186,7 +186,8 @@ Once the listener has been successfully started, you can run your compiled nativ
 
 
 ## Dropper Analysis: Dumpbin 
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via ``kernel32.dll``. The following command can be used to check the imports. Which results do you expect?
+     
 <details>    
     
 **cmd>**
@@ -197,8 +198,10 @@ dumpbin /imports medium_level.exe
 </details>    
 
 <details>
-    <summary>Solution</summary>    
-Compared to the Win32 dropper, you can see that the native dropper **no longer imports** the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+    <summary>Solution</summary>
+     
+Compared to the Win32 dropper, you can see that the native dropper **no longer imports** the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
+     
 <p align="center">
 <img width="729" alt="image" src="https://user-images.githubusercontent.com/50073731/235374656-117e0468-cd4d-4832-afb7-599cf94d2f1b.png">
 </p>
@@ -209,8 +212,7 @@ Compared to the Win32 dropper, you can see that the native dropper **no longer i
 ## Dropper Analysis: x64dbg
 The first step is to run your native dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the native dropper directly in x64dbg you need to run the assembly first.
-     
-     
+          
 <details>
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -227,14 +229,13 @@ Remember that no direct syscalls are used in the native dropper. What results do
 <details>
     <summary>Solution</summary>
      
-Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.   
+Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported from ``kernel32.dll``. So the result is the same as with dumpbin and seems to be valid.   
      
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
      
-In the case of the native dropper, we want to directly access the native functions in ntdll.dll. This is because the functions in ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime.
-If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA`` is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress``, get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
+In the case of the native dropper, we want to directly access the native functions in ``ntdll.dll``. This is because the functions in ``ntdll.dll`` are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime. If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA`` is used to open the handle to ``ntdll.dll``, pass the handle to ``GetProcAddress``, get the memory address of the native function e.g. ``NtAllocateVirtualMemory`` and store it into the respective function pointer.
      
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
@@ -243,7 +244,8 @@ If we analyse the disassembled code of the native dropper (Follow in dissassembl
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/34f24524-476b-4659-b190-3d6b252262d7">
 </p>
 
-Furthermore, if we use the symbols register in x64dbg, we can identify the manually declared function pointers that are needed to use the native functions without the help of Win32 APIs from kernel32.dll.
+Furthermore, if we use the symbols register in x64dbg, we can identify the manually declared function pointers that are needed to use the native functions without the help of Win32 APIs from ``kernel32.dll``.
+     
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d0845cdf-90d7-4200-8823-27929b1ee3bb">
 </p>
@@ -254,7 +256,7 @@ We also want to check, for example, for ``NtAllocateVirtualMemory``, from which 
 <details>
     <summary>Solution</summary>
      
-Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ntdll.dll.    
+Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ``ntdll.dll``.    
      
 </details>     
 
