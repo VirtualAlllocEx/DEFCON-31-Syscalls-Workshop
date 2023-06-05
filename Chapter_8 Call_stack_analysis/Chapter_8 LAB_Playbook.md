@@ -38,7 +38,7 @@ As a first step, we want to compare the call stack of a standard application lik
   
 You can double-click cmd.exe or right-click and select Properties.
 <p align="center"> 
-  <img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3c5154c8-988c-42e3-8442-d0d866e56b19">
+  <img width="600" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3c5154c8-988c-42e3-8442-d0d866e56b19">
 </p>
   
 Then we select a thread, again we can double click or right click and select Inspect.
