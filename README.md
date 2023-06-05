@@ -8,7 +8,7 @@ The content and all code examples in this repository are for educational and res
 
 - Most of the code comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all!. 
 
-Furthermore, and very importantly, this workshop is **not a silver bullet** in the context of EDR evasion, but it **should help to understand** the basics of Win32 APIs, Native APIs, direct syscalls and indirect syscalls and a little bit about call stacks, no more and no less. 
+Furthermore, and very importantly, this workshop is **not a silver bullet** in the context of EDR evasion, but it **should help to understand** the basics of Win32 APIs, Native APIs, direct syscalls and indirect syscalls and a little bit about call stacks, no more and no less. My goal for this workshop is that when people leave the workshop they will be able to say, damn, now I understand the concept of syscalls, direct syscalls, indirect syscalls and the advantages, disadvantages and limitations of each.
 
 I would also like to **thank all those members** of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible!
 
