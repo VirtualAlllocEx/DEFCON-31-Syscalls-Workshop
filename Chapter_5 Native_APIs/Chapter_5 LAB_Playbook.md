@@ -227,7 +227,7 @@ Remember that no direct syscalls are used in the native dropper. What results do
 <details>
     <summary>Solution</summary>
      
-Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.   
+Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.   
      
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
@@ -235,6 +235,7 @@ Checking the imported symbols in our native dropper, we should see that the Win3
      
 In the case of the native dropper, we want to directly access the native functions in ntdll.dll. This is because the functions in ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime.
 If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA`` is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress``, get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
+     
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
 </p>     
@@ -248,10 +249,13 @@ Furthermore, if we use the symbols register in x64dbg, we can identify the manua
 </p>
 </details>         
      
-We also want to check, for example, for NtAllocateVirtualMemory, from which module or memory location the syscall statement, return statement or native function code is executed.
+We also want to check, for example, for ``NtAllocateVirtualMemory``, from which module or memory location the ``syscall`` statement, ``return`` statement or native function code is executed.
+     
 <details>
     <summary>Solution</summary>
-     Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the syscall statement, return statement, etc. must be executed from a memory location in ntdll.dll.         
+     
+     Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ntdll.dll.    
+     
 </p>            
 </details>     
 
