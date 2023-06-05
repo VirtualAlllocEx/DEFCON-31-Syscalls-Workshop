@@ -52,13 +52,3 @@ Native API functions are **located in ntdll.dll**. This dynamic-link library is 
 3. **NtReadVirtualMemory & NtWriteVirtualMemory**: These functions allow for reading and writing to the virtual memory of a process.
 
 While the Native APIs provide powerful functionality, they should be used with caution. As they are not intended for public use, they can change between different versions of Windows, potentially leading to compatibility issues. They are also more complex to use than the Win32 API and have fewer protections against errors, so incorrect usage can cause system instability or other problems. For these reasons, most developers will interact with the Windows operating system primarily through the Win32 API. However, understanding the Native API can still be valuable, particularly for tasks such as system programming, debugging, and reverse engineering.
-
-
-### References 
-- "Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
-- "Windows Internals, Part 2 (7th Edition)" by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
-- "Programming Windows, 5th Edition" by Charles Petzold
-- "Windows System Architecture" available on Microsoft Docs
-- "Windows Kernel Programming" by Pavel Yosifovich
-- https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
-- https://www.geoffchappell.com/studies/windows/km/index.htm
