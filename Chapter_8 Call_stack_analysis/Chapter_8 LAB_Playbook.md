@@ -133,7 +133,6 @@ As we also use the same x64 staged meterpreter payload for the direct syscall dr
 In this step we want to analyse and compare the call stack from the indirect syscall dropper. Remember that in the indirect syscall dropper only part of the syscall stub from a native function is implemented directly into the dropper itself. The ``syscall`` instruction is replaced by ``jmp qwrd ptr``, so we jump into memory from ntdll.dll and execute the syscall and return instruction from that memory region. Based on this, what should we expect or how should the order of the stack frames look like? Again, we want to analyse the main thread (mainCRTStartup). When analysing the direct syscall dropper, the following results can be observed. 
 <details>
 <summary>results</summary>
-<details>  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ed5d7acb-3020-4e48-8ae3-5dbcfe86b984" width="45%"/>
 </p>
@@ -153,7 +152,7 @@ Don`t forget in the context of the meterpreter payload used you will still be us
 </details>  
 
 
-### Indirect Syscalls Limitations
+## Indirect Syscalls Limitations
 Based on the results of our analysis, I think we would say that indirect syscalls are a sensible development compared to direct syscalls. However, indirect syscalls are not a panacea and have their limitations. 
 
 - The first limitation is that we are able to spoof the return address of a native function, but despite this if an EDR uses full stack analysis the EDR would probably be able to identify malicious behaviour. 
