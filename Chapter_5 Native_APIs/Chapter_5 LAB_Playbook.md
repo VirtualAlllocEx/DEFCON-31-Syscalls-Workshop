@@ -253,10 +253,8 @@ We also want to check, for example, for ``NtAllocateVirtualMemory``, from which 
      
 <details>
     <summary>Solution</summary>
+Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ntdll.dll.    
      
-     Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ntdll.dll.    
-     
-</p>            
 </details>     
 
 ## Summary: Native Dropper
