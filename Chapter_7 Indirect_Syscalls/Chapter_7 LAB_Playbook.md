@@ -507,7 +507,9 @@ Also, looking at the imported symbols (symbols register), we see that instead of
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/66da92d7-c3d5-4efb-a162-ec7287c9d9c4">
 </p>  
+     
 We use the "Follow in Disassembler" function to analyse the indirect syscall dropper to identify the lines of code where the calls to the native functions are made. 
+     
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/de56e4f7-8315-4c3f-9308-b2bd9f788d27">
      </p>  
