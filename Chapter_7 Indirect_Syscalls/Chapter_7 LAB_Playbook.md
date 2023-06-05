@@ -37,13 +37,17 @@ You can download the poc from the code section of this chapter. The code works a
 </details>
 
 ### Syscall and Return 
-As mentioned at the beginning of this chapter, we want to execute the ``syscall`` and ``return`` statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr`` in the indirect syscall dropper after ``mov r10, rcx`` and ``mov eax, SSN`` have been executed. To do this, we need to
+As mentioned at the beginning of this chapter, we want to execute the ``syscall`` and ``return`` statements from the syscall stub of the native functions we are using from the memory of ntdll.dll. Therefore, we need to jump from the memory of the indirect dropper.exe to the syscall address of the corresponding native function in the memory of ntdll.dll at the right time This is done by executing ``jmp qword ptr`` in the indirect syscall dropper after ``mov r10, rcx`` and ``mov eax, SSN`` have been executed. To do this, we need to:
+
 - Open a handle to ntdll.dll at runtime using ``GetModuleHandleA``. 
+
 - Get the start address of the native function in ntdll.dll using ``GetProcAddress`` and store it in a variable declared as a function pointer. 
+
 - Get the memory address of the syscall instruction in the syscall stub by adding the required offset and store it in a variable declared as a global variable.
 
 #### Handle to ntdll.dll
-First, we want to use the following code which uses the function ``GetModuleHandleA`` to open a handle to ntdll.dll at runtime. This code is already implemented in the indirect syscall poc.
+First, we want to use the following code which uses the function ``GetModuleHandleA`` to open a handle to ``ntdll.dll`` at runtime. This code is already implemented in the indirect syscall poc.
+
 <details>
 <summary>Code</summary>
     
@@ -55,7 +59,8 @@ First, we want to use the following code which uses the function ``GetModuleHand
 </details>   
 
 #### Start Address Native Function
-Then we want to use the following code which uses the ``GetProcAddress`` function to get the start address of the respective native function in the memory of ntdll.dll and store it in a variable declared as a function pointer. In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+Then we want to use the following code which uses the ``GetProcAddress`` function to get the start address of the respective native function in the memory of ntdll.dll and store it in a variable declared as a function pointer. In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+
 <details>
 <summary>Code</summary>
     
@@ -82,7 +87,8 @@ If it was not possible for you to complete this code section, don`t worry it wil
 
 
 #### Memory Address Syscall Instruction
-In the next step, we want to get the effective memory address from the syscall instruction in the syscall stub of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add 12bytes. Why 12 bytes? Because this is the offset calculated from the start address of the native function. 
+In the next step, we want to get the effective memory address from the ``syscall`` instruction in the ``syscall stub`` of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add ``12-bytes``. Why 12-bytes? Because this is the offset calculated from the start address of the native function.
+
 <details>
     <p align="center">
 <img width="900" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba7fa1f5-be69-46d7-b564-6546089c0ad0"> 
@@ -103,6 +109,7 @@ In the indirect syscall poc, this code is implemented only for the native functi
 </details>   
 
 If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+
 <details>
 <summary>solution</summary>
     
@@ -121,6 +128,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 
 #### Global Variables
 To store the memory address from the syscall instruction of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each syscall address, which is declared as a pointer. Also in this case in the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+
 <details>
 <summary>Code</summary>
     
@@ -132,6 +140,7 @@ UINT_PTR sysAddrNtAllocateVirtualMemory;
 </details>   
 
 If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+
 <details>
 <summary>solution</summary>
     
@@ -148,6 +157,7 @@ UINT_PTR sysAddrNtWaitForSingleObject;
 
 
 The full **main code** of the **indirect syscall dropper** looks like this, and is already implemented in the poc from this chapter and can be downloaded. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
+
 <details>
 <summary>Code</summary>
     
@@ -332,7 +342,7 @@ END  ; End of the module
  
 It is **your task** to **add** the ``syscalls.asm`` file as a resource (existing item) to the indirect syscall dropper project and **complete the assembler code and C code** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
-If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
+If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for **Windows 10 Enterprise 22H2** and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
 <details>
     <summary>Solution</summary>
@@ -386,6 +396,7 @@ END  ; End of the module
     
 ### Microsoft Macro Assembler (MASM)
 We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
+     
 <details>
 <summary>Solution</summary> 
 <p align="center">
@@ -394,6 +405,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 </details>
 
 We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
+     
 <details>
 <summary>Solution</summary> 
     <p align="center">
@@ -457,7 +469,7 @@ Once the listener has been successfully started, you can run your compiled direc
 
     
 ## Dropper Analysis: Dumpbin 
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via ``kernel32.dll``. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
 **cmd>**
@@ -470,7 +482,8 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 <details>
     <summary>Solution</summary>  
     
-**No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+**No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
+     
 <p align="center">
 <img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b9206b4f-9dde-4848-9637-d18f43095799">
 </p>
@@ -496,7 +509,7 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
 <details>
     <summary>Solution</summary>
      
-Checking the imported symbols in our indirect syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
+Checking the imported symbols in our indirect syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by ``kernel32.dll``, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
      
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2c651658-ae52-47cc-92b2-ccc85325570f">
