@@ -250,7 +250,7 @@ We use the "Follow imported address" function in the Symbols tab by right-clicki
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
 </p>
      
-In the next step we use the function Follow in Dissassembler to follow the memory address that jumps to the memory of the kernelbase.dll.  
+In the next step we use the function "Follow in Dissassembler" to follow the memory address that jumps to the memory of the ``kernelbase.dll``.  
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
@@ -260,7 +260,7 @@ In the next step we use the function Follow in Dissassembler to follow the memor
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
 </p>
      
-Then we use the Follow in dissassembler function again and follow the address that calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
+Then we use the Follow in dissassembler function again and follow the address that calls the native function ``Nt*`` or ``ZwAllocateVirtualMemory`` from a memory location in ``ntdll.dll``.      
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/667441cb-d9ae-43d3-969e-35be8dbab5da">
@@ -269,14 +269,17 @@ Then we use the Follow in dissassembler function again and follow the address th
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/456e8c76-32bc-4115-8154-61630a8e87c5">
 </p>
+     
 As expected, we go the normal way via ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``.     
 </details>     
 
-We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+We also want to check from which module or memory location the ``syscall stub`` of the native functions used is implemented, and also check from which module or memory location the ``syscall`` statement and ``return`` statement are executed.
      
 <details>
     <summary>Solution</summary>
-     The following illustration shows, that the syscall instruction and the return instruction are executed from a memory region in ntdll.dll as expected.          
+     
+     The following illustration shows, that the ``syscall`` instruction and the ``return`` instruction are executed from a memory region in ``ntdll.dll`` as expected. 
+     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
 </p>            
