@@ -12,7 +12,9 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 7. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 Before we start the call stack analysis exercises, what are the Indicators of Compromise (IOCs) that might help us identify malware in memory, or that might be used by EDR vendors to identify malware? You can use these IOCs as a guide to identify IOCs in your droppers.
+
 - The syscall and return statement should always be executed from a memory region in ntdll.dll, so that when the shellcode execution is complete, ntdll.dll is placed on top of the stack as the last element with the lowest memory address.
+
 - If a native function, for example ``ZwWaitForSingleObject``, is executed outside of a memory region in ntdll.dll. Native functions are part of ntdll.dll and should always be executed from memory in ntdll.dll.
 
 
