@@ -33,7 +33,7 @@ As a first step, we want to compare the call stack of a standard application lik
 
 <details>
 <p align="center">
-<img width="400" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d104651a-be2e-4e91-b276-e93c9a00919d">
+<img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d104651a-be2e-4e91-b276-e93c9a00919d">
 </p>
   
 You can double-click cmd.exe or right-click and select Properties.
