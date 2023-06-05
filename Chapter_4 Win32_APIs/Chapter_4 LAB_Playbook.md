@@ -221,6 +221,7 @@ In the case of the Win32-Dropper, you should see that the Windows APIs VirtualAl
 ## Dropper Analysis: x64dbg
 The first step is to run your Win32-Dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the Win32-Dropper directly in x64dbg you need to run the assembly first.
+     
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -236,38 +237,48 @@ Remember that no direct syscalls or similar are used in the Win32-Dropper. What 
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.  
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
-<img width="800" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
-</p>        
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
+<img width="900" alt="image" src="[https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a)">
+</p>  
+     
 We use the "Follow imported address" function in the Symbols tab by right-clicking on one of the four Win32 APIs used, e.g. Virtual Alloc, and we can see that we jump to the location of kernel32.dll.
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
 </p>
+     
 In the next step we use the function Follow in Dissassembler to follow the memory address that jumps to the memory of the kernelbase.dll.  
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/fa540f58-b748-45c7-9ee0-4f55821709f7">
 </p> 
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/992e3162-84cc-480b-ade9-e17d6541ba48">
 </p>
+     
 Then we use the Follow in dissassembler function again and follow the address that calls the native function Nt* or ZwAllocateVirtualMemory from a memory location in ntdll.dll      
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/667441cb-d9ae-43d3-969e-35be8dbab5da">
-</p>        
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/667441cb-d9ae-43d3-969e-35be8dbab5da">
+</p>     
+     
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/456e8c76-32bc-4115-8154-61630a8e87c5">
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/456e8c76-32bc-4115-8154-61630a8e87c5">
 </p>
 As expected, we go the normal way via ``malware.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``.     
 </details>     
 
 We also want to check from which module or memory location the syscall stub of the native functions used is implemented, and also check from which module or memory location the syscall statement and return statement are executed.
+     
 <details>
     <summary>Solution</summary>
      The following illustration shows, that the syscall instruction and the return instruction are executed from a memory region in ntdll.dll as expected.          
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
+<img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
 </p>            
 </details>     
 
