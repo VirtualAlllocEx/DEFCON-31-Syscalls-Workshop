@@ -278,7 +278,7 @@ We also want to check from which module or memory location the ``syscall stub`` 
 <details>
     <summary>Solution</summary>
      
-     The following illustration shows, that the ``syscall`` instruction and the ``return`` instruction are executed from a memory region in ``ntdll.dll`` as expected. 
+The following illustration shows, that the ``syscall`` instruction and the ``return`` instruction are executed from a memory region in ``ntdll.dll`` as expected. 
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/0701e142-1dd8-4a18-91f8-bf32d6b66315">          
