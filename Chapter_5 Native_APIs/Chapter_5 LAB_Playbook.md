@@ -226,7 +226,9 @@ Remember that no direct syscalls are used in the native dropper. What results do
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.     
+     
+Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.   
+     
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/95b9a92e-305c-4345-b40d-3241a7092161"> 
 </p>  
