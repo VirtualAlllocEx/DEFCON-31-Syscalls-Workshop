@@ -133,7 +133,7 @@ As we also use the same x64 staged meterpreter payload for the direct syscall dr
 In this step we want to analyse and compare the call stack from the indirect syscall dropper. Remember that in the indirect syscall dropper only part of the syscall stub from a native function is implemented directly into the dropper itself. The ``syscall`` instruction is replaced by ``jmp qwrd ptr``, so we jump into memory from ntdll.dll and execute the syscall and return instruction from that memory region. Based on this, what should we expect or how should the order of the stack frames look like? Again, we want to analyse the main thread (mainCRTStartup). When analysing the direct syscall dropper, the following results can be observed. 
 <details>
 <summary>results</summary>
-<p align="center">  
+<details>  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ed5d7acb-3020-4e48-8ae3-5dbcfe86b984" width="45%"/>
 </p>
@@ -152,4 +152,18 @@ Don`t forget in the context of the meterpreter payload used you will still be us
 - RWX commited private memory in .text section
 </details>  
 
+
+### Indirect Syscalls Limitations
+Based on the results of our analysis, I think we would say that indirect syscalls are a sensible development compared to direct syscalls. However, indirect syscalls are not a panacea and have their limitations. 
+
+- The first limitation is that we are able to spoof the return address of a native function, but despite this if an EDR uses full stack analysis the EDR would probably be able to identify malicious behaviour. 
+
+- Furthermore, by looking at the stack frame order, we should be able to see that the native function ``ZwWaitForSingleObject'' was executed directly without using the corresponding Win32 API ``WaitForSingleObject''. Depending on the API this may not be an IOC, but in the context of e.g. ``ZwWaitForSingleObject'' it is.
+
+So indirect syscalls might help to make the call stack a bit more logical or legitimate, but regardless we still have the problem of unbacked memory regions and RWX committing memory pages. The latter is more a problem of the meterpreter payload itself, in this case it might help to switch the memory pages from RWX to RW or RX using the ``VirtualProtectAPI``. The unbacked memory problem is a bit more complicated and cannot be solved directly by using indirect syscalls. To get rid of these unbacked regions you have to use a technique like module stomping, thanks to [@NinjaParanoid](https://twitter.com/NinjaParanoid/status/1665457580817395717) and [@KlezVirus](https://twitter.com/KlezVirus) and [@ShitSecure](https://twitter.com/ShitSecure) for teaching me about this.
+ <details>
+<p align="center">
+  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1c5ba0b7-7129-4c6c-974e-6a2100963420">
+</p>
+</details>  
 
