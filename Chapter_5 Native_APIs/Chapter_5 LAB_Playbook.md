@@ -232,7 +232,7 @@ Checking the imported symbols in our native dropper, we should see that the Win3
 </p>  
      
 In the case of the native dropper, we want to directly access the native functions in ntdll.dll. This is because the functions in ntdll.dll are not directly available through the standard Windows API headers and libraries. They have to be dynamically loaded at runtime.
-If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA'' is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress'', get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
+If we analyse the disassembled code of the native dropper (Follow in dissassembler), we can identify the code where for each of the four native functions ``GetModuleHandleA`` is used to open the handle to ntdll.dll, pass the handle to ``GetProcAddress``, get the memory address of the native function e.g. NtAllocateVirtualMemory and store it into the respective function pointer.
 <p align="center">
 <img width="900" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6278205b-6e46-4bf9-a273-1aebc44d6afe">
 </p>     
