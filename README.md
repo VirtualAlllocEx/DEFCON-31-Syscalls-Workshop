@@ -58,7 +58,7 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 9: Summary** 
      - Workshop summary and closing 
 
-![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/cb154bf0-47bb-4de2-8fe1-ea5eee81a2e0)
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/04c6681a-d3bf-46ba-a0a8-dcec454f1c1d)
 
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
