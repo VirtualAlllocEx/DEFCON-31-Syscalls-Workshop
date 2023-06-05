@@ -159,10 +159,13 @@ Based on the results of our analysis, I think we would say that indirect syscall
 
 - Furthermore, by looking at the stack frame order, we should be able to see that the native function ``ZwWaitForSingleObject`` was executed directly without using the corresponding Win32 API ``WaitForSingleObject``. Depending on the API this may not be an IOC, but in the context of e.g. ``ZwWaitForSingleObject`` it is.
 
-So indirect syscalls might help to make the call stack a bit more logical or legitimate, but regardless we still have the problem of unbacked memory regions and RWX committing memory pages. The latter is more a problem of the meterpreter payload itself, in this case it might help to switch the memory pages from RWX to RW or RX using the ``VirtualProtectAPI``. The unbacked memory problem is a bit more complicated and cannot be solved directly by using indirect syscalls. To get rid of these unbacked regions you have to use a technique like module stomping, thanks to [@NinjaParanoid](https://twitter.com/NinjaParanoid/status/1665457580817395717) and [@KlezVirus](https://twitter.com/KlezVirus) and [@ShitSecure](https://twitter.com/ShitSecure) for teaching me about this.
- <details>
+So indirect syscalls might help to make the call stack a bit more logical or legitimate, but regardless we still have the problem of unbacked memory regions and RWX committing memory pages. The latter is more a problem of the meterpreter payload itself, in this case it might help to switch the memory pages from RWX to RW or RX using the ``VirtualProtectAPI``. The unbacked memory problem is a bit more complicated and cannot be solved directly by using indirect syscalls. To get rid of these unbacked regions you need to use a technique like module stomping, thanks to [@NinjaParanoid](https://twitter.com/NinjaParanoid/status/1665457580817395717) and [@KlezVirus](https://twitter.com/KlezVirus) and [@ShitSecure](https://twitter.com/ShitSecure) for the great [discussion](https://twitter.com/VirtualAllocEx/status/1665363389906923524) about this and teaching me about this.
+<details>
 <p align="center">
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1c5ba0b7-7129-4c6c-974e-6a2100963420">
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/16d09c97-18e2-41e7-aef5-30d9db4b4ff5)
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/bd106f41-74c3-4db6-bd00-1d6498dcbd13)
+<img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1c5ba0b7-7129-4c6c-974e-6a2100963420">
+![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d7b979ee-d61f-4a0f-a943-c2f72532426b)
 </p>
 </details>  
 
