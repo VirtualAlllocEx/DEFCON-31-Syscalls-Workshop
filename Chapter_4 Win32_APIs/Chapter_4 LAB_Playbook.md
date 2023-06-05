@@ -237,14 +237,14 @@ Remember that no direct syscalls or similar are used in the Win32-Dropper. What 
      
 <details>
     <summary>Solution</summary>
-Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are imported from kernel32.dll. So the result is the same as with dumpbin and seems to be valid.  
+     
+Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are imported from ``kernel32.dll``. So the result is the same as with dumpbin and seems to be valid.  
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/93836da7-aaf0-412d-8871-6cea88b00d83">   
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/facd43e5-6cb6-44b7-b17b-0dfd8faab28a">
 </p>  
      
-We use the "Follow imported address" function in the Symbols tab by right-clicking on one of the four Win32 APIs used, e.g. Virtual Alloc, and we can see that we jump to the location of kernel32.dll.
+We use the "Follow imported address" function in the Symbols tab by right-clicking on one of the four Win32 APIs used, e.g. ``VirtualAlloc``, and we can see that we jump to the location of ``kernel32.dll``.
      
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/55b64891-6e31-4f1b-b566-30489fb41c7b">
