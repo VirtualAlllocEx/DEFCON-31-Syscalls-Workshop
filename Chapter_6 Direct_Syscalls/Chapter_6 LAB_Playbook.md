@@ -338,7 +338,9 @@ Then we open x64dbg and attach to the running process, note that if you open the
 First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the direct syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
     <summary>Solution</summary>
-     Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid.     
+     
+     Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by kernel32.dll, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
+     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
 </p>    
