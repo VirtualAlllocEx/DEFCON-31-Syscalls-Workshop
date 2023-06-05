@@ -39,9 +39,9 @@ u 00007ff8`c318d350
     <summary>Solution</summary>  
      <p align="center">
      <img width="800" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/db453543-9c25-44d1-bbb8-ec63bb5bf7f8">
-     <img width="700" alt="debug_NtWriteVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c4040925-a8de-4347-b93d-fff22d1c4d88">
-<img width="700" alt="debug_NtCreateThreadEx" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/8da839bc-656a-4d71-943e-308521e59c77">
-<img width="700" alt="debug_NtWaitForSingleObject" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e590c6af-9d3f-413d-acea-b074704ea09c">
+     <img width="800" alt="debug_NtWriteVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c4040925-a8de-4347-b93d-fff22d1c4d88">
+<img width="800" alt="debug_NtCreateThreadEx" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/8da839bc-656a-4d71-943e-308521e59c77">
+<img width="800" alt="debug_NtWaitForSingleObject" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e590c6af-9d3f-413d-acea-b074704ea09c">
      </p>
 </details>
 
