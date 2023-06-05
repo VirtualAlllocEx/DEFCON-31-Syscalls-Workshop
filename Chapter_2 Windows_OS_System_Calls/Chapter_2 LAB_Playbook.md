@@ -54,10 +54,15 @@ In the secon step we use procmon to analyse the privilege mode switching. Therfo
           - process is notepad.exe
           - operation is WriteFile
  
-     
-![procmon_filter](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/20a4d040-13f0-41c9-a0ab-4b6065717061)
-In the following diagram we can clearly see the transition from user mode to kernel mode in the context of saving the file to disk using notepad.exe. First the **Win32 API** ``WriteFile`` is called, then the **native function** ``NtWriteFile`` is called, which includes the syscall stub consisting of syscall ID, syscall etc, and finally the ``syscall`` command itself is executed. The kernel, in turn, needs to interact with the appropriate device driver to actually perform the disk write. This is where IofCallDriver comes in.     
-![procmon_privilege_mode_switch](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3ca550ed-8b7f-43c0-8c3b-4d3b3dec2bd2)
+<p align="center">
+     <img width="800" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/20a4d040-13f0-41c9-a0ab-4b6065717061"> 
+</p>
+      
+In the following diagram we can clearly see the transition from user mode to kernel mode in the context of saving the file to disk using notepad.exe. First the **Win32 API** ``WriteFile`` is called, then the **native function** ``NtWriteFile`` is called, which includes the syscall stub consisting of syscall ID, syscall etc, and finally the ``syscall`` command itself is executed. The kernel, in turn, needs to interact with the appropriate device driver to actually perform the disk write. This is where IofCallDriver comes in. 
+
+<p align="center">
+<img width="800" alt="debug_NtAllocateVirtualMemory" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3ca550ed-8b7f-43c0-8c3b-4d3b3dec2bd2"> 
+</p>
 </details>
 
     
