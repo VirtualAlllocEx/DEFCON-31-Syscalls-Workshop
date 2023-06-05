@@ -315,7 +315,8 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 <details>
     <summary>Solution</summary>  
     
-**No imports** from the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread, and WaitForSingleObject from kernel32.dll. This was expected and is correct.
+**No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` from kernel32.dll. This was expected and is correct.
+     
 <p align="center">
 <img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/63f2bb5d-5090-491c-8c68-f177381b2136">
 </p>
@@ -344,11 +345,15 @@ Checking the imported symbols in our direct syscall dropper, we should again see
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/df8bde2d-f471-4176-b74f-a9d9a6ed6828">
 </p>    
+     
 Also, looking at the imported symbols (symbols register), we see that instead of asking ntdll.dll for the code of the four required native functions ``NtAllocateVirutalMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``, these native functions are implemented directly in the .text region of the dropper itself. 
+     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/e32b1bdd-c171-4810-ab00-db897cb9c2a6">
 </p>  
+     
 We can also use the "Follow in Disassembler" function to analyse the direct syscall dropper to identify the lines of code where the calls to the native functions are made. 
+     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/6de307d9-c9b4-4120-bb53-a6619c5033fb">
 </p>  
@@ -357,10 +362,13 @@ We can also use the "Follow in Disassembler" function to analyse the direct sysc
 </p>          
 </details>
 
-We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the syscall and return statements are executed. This will be important later when we compare direct and indirect syscalls. 
+We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the ``syscall`` and ``return`` statements are executed. This will be important later when we compare direct and indirect syscalls. 
+     
 <details>
     <summary>Solution</summary>
-     For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the syscall statement and the return statement are executed from the memory location of the direct syscall dropper assembly.    
+     
+ For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the ``syscall`` statement and the ``return`` statement are executed from the memory location of the direct syscall dropper assembly.   
+     
 <p align="center">
 <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5eb2972-6760-4059-9e75-824d20e528fe">
 </p> 
