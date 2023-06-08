@@ -19,7 +19,7 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 | 4          | Create and run a staged x64 meterpreter listener using msfconsole.                 |
 | 5          | Run your compiled .exe and check that a stable command and control channel opens.                 |
 
-### Analyse Direct Syscall Dropper
+### Analyse Indirect Syscall Dropper
 | Task Nr.   | Task Description |
 | :---:      | ---              |
 | 6          | Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?                   |
