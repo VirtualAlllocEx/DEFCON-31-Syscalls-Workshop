@@ -4,7 +4,7 @@ In **Exercise 1** we will get a feel for native functions, syscalls, syscall stu
 ## Exercise 1 tasks:
 ### Debug Syscall IDs
 | Task Nr. | Task Description |
-| :---:    | :---:            |
+| :---:    | ---            |
 | 1        | Use WindDbg on your DEV/LAB machine and open or attach to a process like x64 **notepad.exe**.                  |
 | 2        | Debug the syscall IDs for the following four native API's that we will need later in the Direct Syscalls chapter, ``NtAllocateVirtualMemory``  |
 |          |  |
