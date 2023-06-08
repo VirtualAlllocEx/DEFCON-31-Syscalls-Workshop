@@ -55,7 +55,7 @@ The second step is to get the memory address of each native function from ntdll.
 </details>    
 
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
 If it was at this time not possible for you to complete the code for the three missing native functions, you can use the following code and copy it into the native dropper poc. 
 
 ```C
@@ -198,7 +198,7 @@ dumpbin /imports medium_level.exe
 </details>    
 
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Compared to the Win32 dropper, you can see that the native dropper **no longer imports** the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
      
@@ -227,7 +227,7 @@ First we want to check which APIs (Win32 or Native) or if the correct APIs are b
 Remember that no direct syscalls are used in the native dropper. What results do you expect?
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Checking the imported symbols in our native dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported from ``kernel32.dll``. So the result is the same as with dumpbin and seems to be valid.   
      
@@ -254,7 +254,7 @@ Furthermore, if we use the symbols register in x64dbg, we can identify the manua
 We also want to check, for example, for ``NtAllocateVirtualMemory``, from which module or memory location the ``syscall`` statement, ``return`` statement or native function code is executed.
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Because the defined function pointers only hold the memory address of the respective native function, once the memory address is called by executing the function pointer, or more precisely by executing the variable declared as a function pointer, the ``syscall`` statement, ``return`` statement, etc. must be executed from a memory location in ``ntdll.dll``.    
      
