@@ -46,6 +46,12 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 3: Concept of Direct Syscalls**
     - What are direct syscalls, how do they work and why have they been used by red teamers?
 
+- **Chapter 4: Win32-APIs
+     - We will create a shellcode dropper based on the Win32 APIs (High Level APIs) and we will also analyse it.
+
+- **Chapter 5: Native-APIs
+     - We will create a shellcode dropper based on the Native APIs (Medium Level APIs) and we will also analyse it. 
+
 | Chapter Nr. | Chapter Name                   | Description |                                                                                                      															    																					 	  			
 | :---:       | :---:                          | :---: |
 | 1           | Windows NT basics              | Necessary basics about the Windows NT architecture |
