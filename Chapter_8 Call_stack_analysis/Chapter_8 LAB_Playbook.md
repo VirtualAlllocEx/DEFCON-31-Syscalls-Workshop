@@ -61,7 +61,7 @@ These results from analysing the default application can be used as a **referenc
 In this step we want to analyse the call stack from the win32 dropper and compare it with the call stack from cmd.exe in the previous step. Remember that in the win32 dropper the control flow is ``dropper.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? In case of the win32 dropper we want to analyse the main thread (mainCRTStartup). By analysing the win32 dropper and comparing it to cmd.exe, the following results can be observed. 
 
 <details>
-<summary>results</summary>
+<summary>Results</summary>
 <p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b8e7bd90-976a-4551-bf05-6d8763053f4e" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4a45355e-07fb-4c4e-a1f6-1132fdf72f77" width="45%"/>
@@ -86,7 +86,7 @@ Looking at the memory regions of the win32 api dropper, things get more interest
 ## Native Dropper Analysis
 In this step we want to analyse the call stack from the native dropper and compare it with the call stack from the win32 dropper in the previous step. Remember that in the native dropper the control flow is ``dropper.exe`` -> ``ntdll.dll`` -> ``syscall``, based on that what to expect or how the order of the stack frames should look like? Also in this case we want to analyse the main thread (``mainCRTStartup``). When analysing the native dropper, the following results can be observed.  
 <details>
-<summary>results</summary>
+<summary>Results</summary>
 <p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/53805b67-b49c-47b7-8d10-d8d6c43fc51e" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3bd91e9f-4c08-4dd5-b277-abeeeec52e59" width="45%"/>
@@ -112,7 +112,7 @@ Also in case of the native dropper, in context of the memory regions we could id
 In this step we want to analyse the call stack from the direct syscall dropper and compare it. Remember that in the direct syscall dropper the whole syscall stub from the used native function is directly implemented in to the dropper itself and because of this the control flow is ``dropper.exe`` -> ``syscall``. Based on that what to expect or how the order of the stack frames should look like? Also in this case we want to analyse the main thread (``mainCRTStartup``). When analysing the direct syscall dropper, the following results can be observed.  
 
 <details>
-<summary>results</summary>
+<summary>Results</summary>
 <p align="center">  
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/80a11784-546d-4ff6-adb2-b8da194c1047" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
@@ -140,7 +140,7 @@ As we also use the same x64 staged meterpreter payload for the direct syscall dr
 In this step we want to analyse and compare the call stack from the indirect syscall dropper. Remember that in the indirect syscall dropper only part of the syscall stub from a native function is implemented directly into the dropper itself. The ``syscall`` instruction is replaced by ``jmp qwrd ptr``, so we jump into memory from ``ntdll.dll`` and execute the syscall and return instruction from that memory region. Based on this, what should we expect or how should the order of the stack frames look like? Again, we want to analyse the main thread (``mainCRTStartup``). When analysing the direct syscall dropper, the following results can be observed.
 
 <details>
-<summary>results</summary>
+<summary>Results</summary>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/c5f94181-119a-4164-aeb2-07b1b333a6e1" width="45%"/>
   <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ed5d7acb-3020-4e48-8ae3-5dbcfe86b984" width="45%"/>
 </p>
