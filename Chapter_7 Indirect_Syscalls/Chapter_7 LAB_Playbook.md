@@ -73,7 +73,7 @@ Then we want to use the following code which uses the ``GetProcAddress`` functio
 
 If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
 <details>
-<summary>solution</summary>
+<summary>Results</summary>
     
 ```C
 // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
@@ -111,7 +111,7 @@ In the indirect syscall poc, this code is implemented only for the native functi
 If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
 
 <details>
-<summary>solution</summary>
+<summary>Results</summary>
     
 ```C
 // The syscall stub (actual system call instruction) is some bytes further into the function. 
@@ -142,7 +142,7 @@ UINT_PTR sysAddrNtAllocateVirtualMemory;
 If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
 
 <details>
-<summary>solution</summary>
+<summary>Results</summary>
     
 ```C
 // Declare global variables to hold the syscall instruction addresses
@@ -297,7 +297,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
 </details>
     
 <details>
-<summary>Solution</summary>   
+<summary>Results</summary>   
     <p align="center">
 <img width="500" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f"> 
     </p>
@@ -345,7 +345,7 @@ It is **your task** to **add** the ``syscalls.asm`` file as a resource (existing
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for **Windows 10 Enterprise 22H2** and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
 
 ```asm
 EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; The actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
@@ -398,7 +398,7 @@ END  ; End of the module
 We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
      
 <details>
-<summary>Solution</summary> 
+<summary>Results</summary> 
 <p align="center">
 <img width="1278" alt="image" src="https://user-images.githubusercontent.com/50073731/235457590-371f3519-b7cf-483d-9c1c-6bfd6368be42.png">
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
@@ -407,7 +407,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
      
 <details>
-<summary>Solution</summary> 
+<summary>Results</summary> 
     <p align="center">
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
@@ -480,7 +480,7 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 </details>    
 
 <details>
-    <summary>Solution</summary>  
+    <summary>Results</summary>  
     
 **No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
      
@@ -507,7 +507,7 @@ Then we open x64dbg and attach to the running process, note that if you open the
 First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the indirect syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Checking the imported symbols in our indirect syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by ``kernel32.dll``, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
      
@@ -541,7 +541,7 @@ Furthermore, in the case of the indirect syscall dropper, we can identify the li
 Also in the case of the indirect syscall dropper we want to check in which module the syscall stub or the assembler instructions of the native functions are implemented and executed. Remember, unlike the direct syscall dropper from the previous chapter, in the indirect syscall dropper poc we have only implemented part of the syscall stub directly into the dropper itself. What results do you expect?
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the "Follow in Disassembler" function and should be able to see that the syscall stub is not fetched from ntdll.dll, but in the case of the indirect syscall dropper, only part of the assembly instructions are implemented directly into the .text section of the assembly. Furthermore, we can see that the jmp to the memory of ntdll.dll is done via ``jmp qword ptr`` and that the ``syscall`` statement and the ``return`` statement are executed from the memory location of ntdll.dll.  
      
