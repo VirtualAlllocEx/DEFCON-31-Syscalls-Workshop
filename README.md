@@ -37,11 +37,14 @@ In recent years, more and more vendors have implemented the technique of user-mo
 This workshop is designed for new community members or members who want to understand and learn about **system calls** in general and the Red Teaming techniques of **direct system calls** and **indirect system calls** on **Windows OS**. The workshop includes original slides from DEFCON 31, and different chapters containing theory, playbooks and code samples. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls.
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics.
-- **Chapter 1:** Windows NT Basics
+- **Chapter 1: Windows NT Basics**
      - We take a look at the basics of Windows NT architecture that are necessary for this workshop.
 
-- **Chapter 2:** Windows OS System Calls
+- **Chapter 2: Windows OS System Calls**
      - What are system calls in general and why are the neccessary in Windows OS?
+
+- **Chapter 3: Concept of Direct Syscalls**
+    - What are direct syscalls, how do they work and why have they been used by red teamers?
 
 | Chapter Nr. | Chapter Name                   | Description |                                                                                                      															    																					 	  			
 | :---:       | :---:                          | :---: |
