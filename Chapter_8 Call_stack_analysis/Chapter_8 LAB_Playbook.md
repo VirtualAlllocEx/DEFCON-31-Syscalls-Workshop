@@ -5,13 +5,12 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 
 ## Exercise 6 Tasks: 
 ### Analyse and Compare Droppers
-- Run a standard application such as cmd.exe and analyse the call stack.
-
-- Run your win32, native, direct syscall and indirect syscall droppers. Compare their call stacks with each other, and also with cmd.exe's stack. Which do you think has the most legitimate call stack? 
-
-- Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?
-
-- Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
+| Task Nr.    | Task Description |
+| :---:       | ---              |
+| 1           | Run a standard application such as cmd.exe and analyse the call stack.                 |
+| 2           | Run your win32, native, direct syscall and indirect syscall droppers. Compare their call stacks with each other, and also with cmd.exe's stack. Which do you think has the most legitimate call stack?                  |
+| 3           | Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?                 |
+| 4           | Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs?                  |
 
 ### Reference IOCs
 Before we start the call stack analysis exercises, what are the Indicators of Compromise (IOCs) that might help us identify malware in memory, or that might be used by EDR vendors to identify malware? You can use these IOCs as a guide to identify IOCs in your droppers.
