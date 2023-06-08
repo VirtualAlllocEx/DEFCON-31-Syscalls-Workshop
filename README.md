@@ -39,7 +39,7 @@ This workshop is designed for new community members or members who want to under
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics.
 
 | Chapter Nr. | Chapter Name                   | Description |                                                                                                      															    																					 	  			
-| :---:       | :---:                          | :---: |
+| :---:       | :---:                          | :--- |
 | 1           | Windows NT basics              | Necessary basics about the Windows NT architecture |
 | 2           | Windows OS system calls        | What are system calls in the Windows operating system in general? |
 | 3           | Concept of direct system calls     | The concept of direct system calls |
@@ -54,8 +54,8 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 
 ## Getting Started
 All the step-by-step instructions and code samples can be found in the respective exercise folder. 
-### Prerequisites LAB
 
+### Prerequisites LAB
 - **[Windows 10 x64 DEV/LAB machine](https://go.microsoft.com/fwlink/p/?linkid=2195587&clcid=0x407&culture=de-de&country=de)**
     - AV/EPP/EDR disabled
     - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
