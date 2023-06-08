@@ -4,12 +4,11 @@ In this exercise we will focus on call stack analysis and compare the call stack
 The main part of this exercise is about how EDRs can use or **analyse** the callstack of a dropper, or more precisely a function, to check whether the return address appears to be legitimate or not. In this chapter we will analyse the callstack of each dropper (Win32, Native, Direct Syscalls and Indirect Syscalls). You can use **Process Hacker** to analyse the callstack. For the tasks in this chapter, you can use the droppers you created in the previous chapters. If you were not able to create all the droppers from the previous chapters, you will find all the completed pocs in the code section of this chapter.
 
 ## Exercise 6 Tasks: 
-1. Run a standard application such as cmd.exe and analyse the call stack.
-2. Run all your droppers step by step, analyse the call stacks and compare them. Which one do you think has the most legitimate call stack?
-4. Compare the call stack of the droppers with the call stack of cmd.exe.  
-5. Run your direct syscall dropper poc and analyse the call stack.
-6. Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?
-7. Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
+### Analyse and Compare Droppers
+- Run a standard application such as cmd.exe and analyse the call stack.
+- Run your win32, native, direct syscall and indirect syscall droppers. Compare their call stacks with each other, and also with cmd.exe's stack. Which do you think has the most legitimate call stack? 
+- Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?
+- Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 Before we start the call stack analysis exercises, what are the Indicators of Compromise (IOCs) that might help us identify malware in memory, or that might be used by EDR vendors to identify malware? You can use these IOCs as a guide to identify IOCs in your droppers.
 
