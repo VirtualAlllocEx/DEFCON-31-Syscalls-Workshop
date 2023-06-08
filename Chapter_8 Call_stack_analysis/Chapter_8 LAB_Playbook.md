@@ -6,8 +6,11 @@ The main part of this exercise is about how EDRs can use or **analyse** the call
 ## Exercise 6 Tasks: 
 ### Analyse and Compare Droppers
 - Run a standard application such as cmd.exe and analyse the call stack.
+
 - Run your win32, native, direct syscall and indirect syscall droppers. Compare their call stacks with each other, and also with cmd.exe's stack. Which do you think has the most legitimate call stack? 
+
 - Based on your call stack analysis, why might indirect syscalls help bypass return address checking EDRs compared to direct syscall droppers?
+
 - Compare the callstack between the native dropper and the indirect syscall dropper. Could the native dropper also be used to bypass EDRs? 
 
 ### Reference IOCs
