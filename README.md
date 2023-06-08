@@ -46,23 +46,23 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 - **Chapter 3: Concept of Direct Syscalls**
     - What are direct syscalls, how do they work and why have they been used by red teamers?
 
-- **Chapter 4: Win32-APIs
+- **Chapter 4: Win32-APIs**
      - We will create a shellcode dropper based on the Win32 APIs (High Level APIs) and we will also analyse it.
 
-- **Chapter 5: Native-APIs
-     - We will create a shellcode dropper based on the Native APIs (Medium Level APIs) and we will also analyse it. 
+- **Chapter 5: Native-APIs**
+     - We will create a shellcode dropper based on the Native APIs (Medium Level APIs) and we will also analyse it.
 
-| Chapter Nr. | Chapter Name                   | Description |                                                                                                      															    																					 	  			
-| :---:       | :---:                          | :---: |
-| 1           | Windows NT basics              | Necessary basics about the Windows NT architecture |
-| 2           | Windows OS system calls        | What are system calls in the Windows operating system in general? |
-| 3           | Concept of direct system calls     | The concept of direct system calls |
-| 4           | Win32-APIs                     | Build and analyse a Win32-API shellcode dropper (high level APIs) |
-| 5           | Native-APIs                    | Build and analyse a Native-API shellcode dropper (medium level APIs) |
-| 6           | Direct system calls                | Build and analyse a direct syscall shellcode dropper (low level APIs) |
-| 7           | Indirect system calls              | Concept of indirect system calls? Build and analyse a indirect syscall shellcode dropper (low level APIs) |
-| 8           | Call stack analysis            | Compare the call stacks of all droppers |
-| 9           | Summary                        | Workshop summary and closing  |
+- **Chapter 6: Direct Syscalls**
+     - We will create a shellcode dropper based on the direct syscalls (low Level APIs) and we will also analyse it.
+
+- **Chapter 7: Indirect Syscalls**
+     - We will create a shellcode dropper based on the indirect syscalls (low Level APIs) and we will also analyse it.
+
+- **Chapter 8: Call Stack Analysis**
+     - We will analyse and compare the call stacks of all droppers.
+
+- **Chapter 9: Summary**
+     - Workshop summary and closing
 
 ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/04c6681a-d3bf-46ba-a0a8-dcec454f1c1d)
 
