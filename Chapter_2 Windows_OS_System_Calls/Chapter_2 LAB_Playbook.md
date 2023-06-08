@@ -4,32 +4,21 @@ In **Exercise 1** we will get a feel for native functions, syscalls, syscall stu
 ## Exercise 1 tasks:
 ### Debug Syscall IDs
 | Task Nr. | Task Description |
-| :---:    | ---            |
+| :---:    | ---              |
 | 1        | Use WindDbg on your DEV/LAB machine and open or attach to a process like x64 **notepad.exe**.                  |
-| 2        | Debug the syscall IDs for the following four native API's that we will need later in the Direct Syscalls chapter, ``NtAllocateVirtualMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx``, ``NtWaitForSingleObject``  |
-|          |  |
+| 2        | Debug the syscall IDs for the following four native API's that we will need later in the Direct Syscalls chapter: ``NtAllocateVirtualMemory``, ``NtWriteVirtualMemory``, ``NtCreateThreadEx``, ``NtWaitForSingleObject``  |
+| 3        | Write down the syscalls ID's, we will need them later |
 |          |                  |
 |          |                  |
 |          |                  |
 |          |                  |
-
-<ul><li>NtAllocateVirtualMemory</li><li>NtWriteVirtualMemory</li><li>NtCreateThreadEx</li><li>NtWaitForSingleObject</li></ul>
-- NtAllocateVirtualMemory
-- NtWriteVirtualMemory
-     - NtCreateThreadEx
-     - NtWaitForSingleObject 
-
-1. 
-2. 
-3. Write down the syscalls ID's, we will need them later 
 
 ### Analyse privilege mode switching
-4. Open Procmon and open a new instance of notepad.exe
-5. Type some text into notepad.exe and save the file to disk.
-6. Using Procmon, search for the operation WriteFile and analyse the call stack for:
-     - Win32-API CreateFile in user mode
-     - Privilege mode switching by going from user mode to kernel via syscall 
-     - Native API NtCreateFile in kernel mode   
+| Task Nr. | Task Description |
+| :---:    | ---              |
+| 4        | Open Procmon and open a new instance of notepad.exe                 |
+| 5        | Type some text into notepad.exe and save the file to disk.                 |
+| 6        | Using Procmon, search for the operation WriteFile and analyse the call stack for: <ul><li>Win32-API CreateFile in user mode</li><li>Privilege mode switching by going from user mode to kernel via syscall</li><li>Native API NtCreateFile in kernel mode</li></ul>                 |
 
 
 ## WinDbg
