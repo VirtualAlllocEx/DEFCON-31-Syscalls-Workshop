@@ -210,7 +210,7 @@ dumpbin /imports Win32-API.exe
 </details>
     
 <details>
-    <summary>Solution</summary>   
+    <summary>Results</summary>   
 In the case of the Win32-Dropper, you should see that the Windows APIs VirtualAlloc, WriteProcessMemory, CreateThread and WaitForSingleObject are correctly imported into the Win32-Dropper from the kernel32.dll.
 <p align="center">
 <img width="693" alt="image" src="https://user-images.githubusercontent.com/50073731/235369396-dbad1178-e9a2-4c55-8c6a-fdc9362d864c.png">
@@ -236,7 +236,7 @@ First we want to check which APIs (Win32 or Native) or if the correct APIs are b
 Remember that no direct syscalls or similar are used in the Win32-Dropper. What results do you expect?
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Checking the imported symbols in our Win32-Dropper, we should see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are imported from ``kernel32.dll``. So the result is the same as with dumpbin and seems to be valid.  
      
@@ -276,7 +276,7 @@ As expected, we go the normal way via ``malware.exe`` -> ``kernel32.dll`` -> ``k
 We also want to check from which module or memory location the ``syscall stub`` of the native functions used is implemented, and also check from which module or memory location the ``syscall`` statement and ``return`` statement are executed.
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 The following illustration shows, that the ``syscall`` instruction and the ``return`` instruction are executed from a memory region in ``ntdll.dll`` as expected. 
      
