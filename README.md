@@ -40,7 +40,7 @@ This workshop is designed for new community members or members who want to under
 
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics.
 
-| Chapter Nr. | Chapter Name | Chapter Description |                                                                                                      															    																					 	  			| Company |
+| Chapter Nr. | Chapter Name | Chapter Description |                                                                                                      															    																					 	  			
 | :---:       | :---:        | :---: |
 | Chapter 1   | Windows NT Basics    | Necessary basics about the Windows NT architecture |
 
