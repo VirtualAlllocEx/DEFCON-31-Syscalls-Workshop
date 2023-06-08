@@ -30,6 +30,7 @@ That means, our goal is  and implement the required syscalls or syscall stubs fr
 
 ### Analyse Direct Syscall Dropper
 - Use the Visual Studio **dumpbin** tool to analyse the syscall dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
+
 - Use **x64dbg** to debug or analyse the dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
      - Check from which module or memory location the syscalls for the four APIs used are being executed. Is the result what you expected?
