@@ -7,13 +7,12 @@ In **Exercise 2** we will create our first shellcode dropper based on **high lev
 </details>
      
 ## Exercise 2 tasks:
-### Build Win32 Dropper
+#### Build Win32 Dropper
 1. Download the Win32-Dropper poc from the Code section of this chapter.
 2. In this case the code is already implemented in the poc. Your task is to create x64 meterpreter shellcode, copy it into the poc and compile it.
 3. Create and run a staged x64 meterpreter listener using msfconsole.
 4. Run your compiled .exe and check that a stable command and control channel opens. 
-
-### Analyse Win32 Dropper
+#### Analyse Win32 Dropper
 5. Use the Visual Studio **dumpbin** tool to analyse the Win32-Dropper. Are any Win32 APIs being imported from kernel32.dll? Is the result what you expected?  
 6. Use **x64dbg** to debug or analyse the Win32-Dropper. 
      - Check which Win32 APIs and native APIs are being imported. If they are being imported, from which module or memory location are they being imported? Is the result what you expected?
