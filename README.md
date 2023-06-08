@@ -47,10 +47,10 @@ In this workshop we will focus on the **direct system call** and **indirect syst
     - What are direct syscalls, how do they work and why have they been used by red teamers?
 
 - **Chapter 4: Win32-APIs**
-     - We will create a shellcode dropper based on the Win32 APIs (High Level APIs) and we will also analyse it.
+     - We will create a shellcode dropper based on the Win32 APIs (high level APIs) and we will also analyse it.
 
 - **Chapter 5: Native-APIs**
-     - We will create a shellcode dropper based on the Native APIs (Medium Level APIs) and we will also analyse it.
+     - We will create a shellcode dropper based on the Native APIs (medium level APIs) and we will also analyse it.
 
 - **Chapter 6: Direct Syscalls**
      - We will create a shellcode dropper based on the direct syscalls (low Level APIs) and we will also analyse it.
