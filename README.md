@@ -42,11 +42,11 @@ In this workshop we will focus on the **direct system call** and **indirect syst
 | :---:       | :---:                          | :---: |
 | 1           | Windows NT basics              | Necessary basics about the Windows NT architecture |
 | 2           | Windows OS system calls        | What are system calls in the Windows operating system in general? |
-| 3           | Concept of direct syscalls     | The concept of direct system calls |
+| 3           | Concept of direct system calls     | The concept of direct system calls |
 | 4           | Win32-APIs                     | Build and analyse a Win32-API shellcode dropper (high level APIs) |
 | 5           | Native-APIs                    | Build and analyse a Native-API shellcode dropper (medium level APIs) |
-| 6           | Direct syscalls                | Build and analyse a direct syscall shellcode dropper (low level APIs) |
-| 7           | Indirect syscalls              | Concept of indirect system calls? Build and analyse a indirect syscall shellcode dropper (low level APIs) |
+| 6           | Direct system calls                | Build and analyse a direct syscall shellcode dropper (low level APIs) |
+| 7           | Indirect system calls              | Concept of indirect system calls? Build and analyse a indirect syscall shellcode dropper (low level APIs) |
 | 8           | Call stack analysis            | Compare the call stacks of all droppers |
 | 9           | Summary                        | Workshop summary and closing  |
 
