@@ -39,7 +39,6 @@ This workshop is designed for new community members or members who want to under
 In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics.
 - **Chapter 1: Windows NT Basics**
      - We take a look at the basics of Windows NT architecture that are necessary for this workshop.
-
 - **Chapter 2: Windows OS System Calls**
      - What are system calls in general and why are the neccessary in Windows OS?
 
