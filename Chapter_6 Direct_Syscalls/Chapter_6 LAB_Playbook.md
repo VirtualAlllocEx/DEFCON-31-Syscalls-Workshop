@@ -148,7 +148,7 @@ extern "C" {         // This is to ensure that the names of the functions are no
 </details>
     
 <details>
-<summary>Solution</summary>   
+<summary>Results</summary>   
     <p align="center">
 <img width="500" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/5fbb39c6-be30-4641-8652-6b98e478e17f"> 
     </p>
@@ -186,7 +186,7 @@ It is your task to **add** the ``syscalls.asm`` file **as a resource** (existing
 If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for **Windows 10 Enterprise 22H2** and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
     
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
 
 ```asm
 .CODE  ; Start the code section
@@ -232,7 +232,7 @@ END  ; End of the module
 ### Microsoft Macro Assembler (MASM)
 We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
 <details>
-<summary>Solution</summary> 
+<summary>Results</summary> 
 <p align="center">
 <img width="1278" alt="image" src="https://user-images.githubusercontent.com/50073731/235457590-371f3519-b7cf-483d-9c1c-6bfd6368be42.png">
 <img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
@@ -240,7 +240,7 @@ We have already implemented all the necessary assembler code in the syscalls.asm
 
 We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
 <details>
-<summary>Solution</summary> 
+<summary>Results</summary> 
     <p align="center">
 <img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
 <img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
@@ -315,7 +315,7 @@ dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
 </details>    
 
 <details>
-    <summary>Solution</summary>  
+    <summary>Results</summary>  
     
 **No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` from kernel32.dll. This was expected and is correct.
      
@@ -341,7 +341,7 @@ Then we open x64dbg and attach to the running process, note that if you open the
     
 First we want to check which APIs (Win32 or Native) are being imported and from which module or memory location. Remember that in the direct syscall dropper we no longer use Win32 APIs in the code and have implemented the structure for the native functions directly in the assembly. What results do you expect?
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
 Checking the imported symbols in our direct syscall dropper, we should again see that the Win32 APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread`` and ``WaitForSingleObject`` are no longer imported by ``kernel32.dll``, or are no longer imported in general. So the result is the same as with dumpbin and seems to be valid. 
      
@@ -368,7 +368,7 @@ We can also use the "Follow in Disassembler" function to analyse the direct sysc
 We also want to check in which module the syscall stub or the assembler instructions of the native functions are implemented, or more precisely, from which module or memory location the ``syscall`` and ``return`` statements are executed. This will be important later when we compare direct and indirect syscalls. 
      
 <details>
-    <summary>Solution</summary>
+    <summary>Results</summary>
      
  For example, in the context of the native function ``NtAllocateVirtualMemory``, we use the Follow in Disassembler function and should be able to see that the syscall stub is not retrieved from ntdll.dll, instead the stub is implemented directly into the .text section of the assembly. We can also see that the ``syscall`` statement and the ``return`` statement are executed from the memory location of the direct syscall dropper assembly.   
      
