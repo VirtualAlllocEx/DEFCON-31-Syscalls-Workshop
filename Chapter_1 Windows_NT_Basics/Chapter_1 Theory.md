@@ -36,11 +36,11 @@ The functions provided by the Windows APIs are located in several dynamic link l
 
 | DLL Name         | DLL Tasks                                                                                                                                          | 
 | :---:            |     :---:                                                                                                                                          | 
-| **User32.dll**   | This library contains functions for creating windows, handling messages and processing user input.                                                 |    
-| **Kernel32.dll** | This library provides access to a variety of essential system services such as memory management, I/O operations, and process and thread creation. |
-| **Gdi32.dll**    | This library contains functions for drawing graphics and displaying text.                                                                          |
-| **Comdlg32.dll** | This library provides common dialogues such as open and save dialogues.                                                                            |
-| **Advapi32.dll** | This library provides functions for working with the Windows registry and managing user accounts.                                                  |
+| User32.dll   | This library contains functions for creating windows, handling messages and processing user input.                                                 |    
+| Kernel32.dll | This library provides access to a variety of essential system services such as memory management, I/O operations, and process and thread creation. |
+| Gdi32.dll    | This library contains functions for drawing graphics and displaying text.                                                                          |
+| Comdlg32.dll | This library provides common dialogues such as open and save dialogues.                                                                            |
+| Advapi32.dll | This library provides functions for working with the Windows registry and managing user accounts.                                                  |
 
 Using these DLLs and the functions they provide, developers can create a wide variety of applications, from simple command line tools to full-featured graphical user interfaces, that take full advantage of the Windows operating system. In this workshop we will mainly focus on the Win32 APIs that can be accessed through the kernel32.dll..
 
