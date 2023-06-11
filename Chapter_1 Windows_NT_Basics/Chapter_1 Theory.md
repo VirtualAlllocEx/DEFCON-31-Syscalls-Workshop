@@ -42,18 +42,20 @@ The functions provided by the Windows APIs are located in several dynamic link l
 | **Comdlg32.dll** | This library provides common dialogues such as open and save dialogues.                                                                            |
 | **Advapi32.dll** | This library provides functions for working with the Windows registry and managing user accounts.                                                  |
 
-1. **User32.dll**: This library contains functions for creating windows, handling messages and processing user input.
-2. **Kernel32.dll**: This library provides access to a variety of essential system services such as memory management, I/O operations, and process and thread creation.
-3. **Gdi32.dll**: This library contains functions for drawing graphics and displaying text.
-4. **Comdlg32.dll**: This library provides common dialogues such as open and save dialogues.
-5. **Advapi32.dll**: This library provides functions for working with the Windows registry and managing user accounts.
-
 Using these DLLs and the functions they provide, developers can create a wide variety of applications, from simple command line tools to full-featured graphical user interfaces, that take full advantage of the Windows operating system. In this workshop we will mainly focus on the Win32 APIs that can be accessed through the kernel32.dll..
 
 ### Native APIs
 Native APIs in Windows are a collection of functions and procedures that offer a lower-level interface to the operating system than the Windows API (Win32 API). Although not officially documented for public use, they are used internally by the Windows operating system and can provide deeper, more direct access to system resources and services. The primary role of Native APIs is to provide interfaces for system-level operations and to facilitate certain features and functions of the Win32 subsystem. They are essentially the "building blocks" of the Windows kernel mode, and perform tasks related to low-level system management, including process and thread management, memory management, and object manipulation. The reason Native APIs are needed stems from the layered architecture of the Windows operating system. At the core of Windows is the kernel, which directly interacts with the hardware. The kernel provides services to the rest of the operating system via the Native API. The Win32 subsystem, which includes the Win32 API, is built on top of the Native API. When a Win32 API function is called, it often results in one or more Native API functions being called in the background.
 
 Native API functions are **located in ntdll.dll**. This dynamic-link library is loaded into every user mode process, providing those processes with the ability to make system calls to the kernel. Here are some examples of what the Native APIs can do:
+
+| NTAPI Name                    | NTAPI Tasks                                                                               | 
+| :---:                         |     :---:                                                                                 | 
+| **NtCreateFile**              | These function is used to create a file.                                                  |
+| **NtOpenFile**                | These function is used to open a file.                                                    |
+| **NtQueryInformationProcess** | This function can be used to retrieve various types of information about a process.       |
+| **NtReadVirtualMemory**       | These function allows for reading the virtual memory of a process.                        |
+| **NtWriteVirtualMemory**      | These function allows for writing to the virtual memory of a process.                     |
 
 1. **NtCreateFile & NtOpenFile**: These functions are used to create or open a file. They provide more options and flexibility than the CreateFile function in the Win32 API.
 2. **NtQueryInformationProcess**: This function can be used to retrieve various types of information about a process.
