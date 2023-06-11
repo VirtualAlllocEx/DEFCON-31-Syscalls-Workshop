@@ -34,6 +34,14 @@ Windows APIs (Application Programming Interfaces), often referred to as Win32 AP
 
 The functions provided by the Windows APIs are located in several dynamic link library (DLL) files that come with the operating system. Some of the most important DLLs are
 
+| DLL Name         | DLL Tasks                                                      | 
+| :---:            |     :---:                                                      | 
+| **User32.dll**   | This library contains functions for creating windows, handling messages and processing user input |    
+|                  |                                                                |
+|                  |                                                                |
+|                  |                                                                |
+|                  |                                                                |
+
 1. **User32.dll**: This library contains functions for creating windows, handling messages and processing user input.
 2. **Kernel32.dll**: This library provides access to a variety of essential system services such as memory management, I/O operations, and process and thread creation.
 3. **Gdi32.dll**: This library contains functions for drawing graphics and displaying text.
