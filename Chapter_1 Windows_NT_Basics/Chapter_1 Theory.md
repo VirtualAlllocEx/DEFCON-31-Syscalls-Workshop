@@ -51,14 +51,10 @@ Native API functions are **located in ntdll.dll**. This dynamic-link library is 
 
 | NTAPI Name                    | NTAPI Tasks                                                                               | 
 | :---:                         |     :---:                                                                                 | 
-| **NtCreateFile**              | These function is used to create a file.                                                  |
-| **NtOpenFile**                | These function is used to open a file.                                                    |
-| **NtQueryInformationProcess** | This function can be used to retrieve various types of information about a process.       |
-| **NtReadVirtualMemory**       | These function allows for reading the virtual memory of a process.                        |
-| **NtWriteVirtualMemory**      | These function allows for writing to the virtual memory of a process.                     |
-
-1. **NtCreateFile & NtOpenFile**: These functions are used to create or open a file. They provide more options and flexibility than the CreateFile function in the Win32 API.
-2. **NtQueryInformationProcess**: This function can be used to retrieve various types of information about a process.
-3. **NtReadVirtualMemory & NtWriteVirtualMemory**: These functions allow for reading and writing to the virtual memory of a process.
+| NtCreateFile              | These function is used to create a file.                                                  |
+| NtOpenFile                | These function is used to open a file.                                                    |
+| NtQueryInformationProcess | This function can be used to retrieve various types of information about a process.       |
+| NtReadVirtualMemory       | These function allows for reading the virtual memory of a process.                        |
+| NtWriteVirtualMemory      | These function allows for writing to the virtual memory of a process.                     |
 
 While the Native APIs provide powerful functionality, they should be used with caution. As they are not intended for public use, they can change between different versions of Windows, potentially leading to compatibility issues. They are also more complex to use than the Win32 API and have fewer protections against errors, so incorrect usage can cause system instability or other problems. For these reasons, most developers will interact with the Windows operating system primarily through the Win32 API. However, understanding the Native API can still be valuable, particularly for tasks such as system programming, debugging, and reverse engineering.
