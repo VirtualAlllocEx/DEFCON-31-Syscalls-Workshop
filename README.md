@@ -42,8 +42,7 @@ This workshop is designed for new community members or members who want to under
 
 ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/04c6681a-d3bf-46ba-a0a8-dcec454f1c1d)
 
-- **Chapter 1: Windows NT Basics**
-     - We take a look at the basics of Windows NT architecture that are necessary for this workshop.
+- **Chapter 1 - Windows NT Basics**: We take a look at the basics of Windows NT architecture that are necessary for this workshop.
 
 - **Chapter 2: Windows OS System Calls**
      - What are system calls in general and why are the neccessary in Windows OS?
