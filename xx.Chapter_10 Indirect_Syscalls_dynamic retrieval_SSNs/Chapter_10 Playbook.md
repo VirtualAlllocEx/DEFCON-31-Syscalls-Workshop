@@ -42,20 +42,19 @@ In the next step, we want to get the effective memory address from the ``SSN`` i
 
 <details>
     <p align="center">
-<img width="900" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1b6bd7f1-1323-48d1-bcb2-83d4395c49bb"> 
+<img width="1000" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1b6bd7f1-1323-48d1-bcb2-83d4395c49bb"> 
     </p>
 </details>   
 
 
-In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+In the direct- or indirect syscall poc in this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
 <details>
 <summary>Code</summary>
     
 ```C
-// The syscall stub (actual system call instruction) is some bytes further into the function. 
-    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
-    // So we add 0x12 to the function's address to get the address of the system call instruction.
-    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;     
+// Here we're retrieving the system call number for each function. The syscall number is used to identify the syscall when the program uses the syscall instruction.
+    // It's assumed that the syscall number is located 4 bytes into the function.
+    wNtAllocateVirtualMemory = ((unsigned char*)(pNtAllocateVirtualMemory + 4))[0];     
 ```
      
 </details>   
@@ -66,13 +65,12 @@ If it was not possible for you to complete this code section, don`t worry it wil
 <summary>Solution</summary>
     
 ```C
-// The syscall stub (actual system call instruction) is some bytes further into the function. 
-    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
-    // So we add 0x12 to the function's address to get the address of the system call instruction.
-    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
-    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
-    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
-    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;     
+// Here we're retrieving the system call number for each function. The syscall number is used to identify the syscall when the program uses the syscall instruction.
+    // It's assumed that the syscall number is located 4 bytes into the function.
+    wNtAllocateVirtualMemory = ((unsigned char*)(pNtAllocateVirtualMemory + 4))[0];
+    wNtWriteVirtualMemory = ((unsigned char*)(pNtWriteVirtualMemory + 4))[0];
+    wNtCreateThreadEx = ((unsigned char*)(pNtCreateThreadEx + 4))[0];
+    wNtWaitForSingleObject = ((unsigned char*)(pNtWaitForSingleObject + 4))[0];    
 ```
      
 </details>
