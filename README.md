@@ -69,10 +69,10 @@ This workshop is designed for new community members or members who want to under
 - **Chapter 9: Summary**
      - Workshop summary and closing
 
-- **Bonus Chapter 1: Indirect Syscalls - dynamically retrieve SSNs**
+- **Chapter 10: Indirect Syscalls dynamic retrieval SSNs (Bonus Chapter)**
      - We want to further develop our indirect syscall dropper so that the SSNs are no longer hardcoded, but are retrieved dynamically from ntdll.dll at runtime.  
 
-- **Bonus Chapter 2: Indirect Syscalls and hooks by EDRs**
+- **Chapter 11: Indirect Syscalls and hooks by EDRs (Bonus Chapter)**
      - What if all or some of our native functions are hooked to an EDR and we are unable to dynamically retrieve the SSN directly? Again, we will have to develop our indirect syscall droppers and use Halos Gate or Freshy Calls to solve that problem. 
 
 
