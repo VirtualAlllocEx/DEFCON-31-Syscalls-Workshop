@@ -10,7 +10,7 @@ In the first bonus chapter we want to further develop our indirect syscall dropp
 ### Develop your indirect syscall dropper to dynamically retrieve SSNs.
 | Task Nr.   | Task Description |
 | :---:      | ---              |
-|  1         | To implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
+|  1         | To implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the ``main`` code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
 
 ### Analyse the Dropper
 | Task Nr.   | Task Description |
