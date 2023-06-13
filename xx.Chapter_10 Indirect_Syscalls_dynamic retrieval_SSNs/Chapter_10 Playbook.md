@@ -9,13 +9,12 @@ In the first bonus chapter we want to further develop our indirect syscall dropp
 ### Develop your indirect syscall dropper to dynamically retrieve SSNs.
 | Task Nr.   | Task Description |
 | :---:      | ---              |
-|  1         | Download indirect syscall POC from the code section of this chapter.                 |
-|  2         | To implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
+|  1         | To implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
 
 ### Analyse the Dropper
 | Task Nr.   | Task Description |
 | :---:      | ---              |
-| 3          | Use **x64dbg** to debug or analyse the dropper. <ul><li>What differences can you see between a dropper with hardcoded SSNs and a dropper that dynamically retrieves SSNs at runtime?</li></ul>                |
+| 2          | Use **x64dbg** to debug or analyse the dropper. <ul><li>What differences can you see between a dropper with hardcoded SSNs and a dropper that dynamically retrieves SSNs at runtime?</li></ul>                |
 
 ## Visual Studio
 As mentioned, you will need an already working indirect syscall dropper poc by the end of chapter 7. Based on this, we want to improve our indirect syscall dropper to retrieve the SSNs dynamically at runtime, rather than hardcoding them.  
