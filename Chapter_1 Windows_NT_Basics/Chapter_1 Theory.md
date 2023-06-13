@@ -9,15 +9,14 @@ Windows NT, released in 1993 with Windows NT 3.1 brought a paradigm shift with i
 ## User Mode and Kernel Mode
 One of the major changes to the Windows NT architecture was to split the operating system into a user mode (ring 3) and kernel mode (ring 0). The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 
-<p align="center">  
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3" width="45%"/>
-  <img src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4" width="45%"/>
-</p>
-
-
 <p align="center">
 <img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
 </p>
+<p align="center">
+<img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4">
+</p>
+
+
 
 1. **Stability**: By separating user mode from kernel mode, any bugs, crashes, or malfunctions that occur in user mode programs will not directly affect the kernel or other system components. In other words, a crashing user-mode application won't bring down the entire system because the kernel remains isolated and protected.
 
