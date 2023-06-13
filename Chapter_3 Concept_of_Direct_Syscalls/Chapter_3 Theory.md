@@ -18,15 +18,15 @@ Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was
 
 Important note! Because ntdll.dll is more or less a common denominator in user space before the transition to kernel mode, many EDRs set their user mode hooks in ntdll.dll. But depending on the EDR, they also set their hooks in other important DLLs in user space. Based on my research by analysing different EDRs, here are some examples where they set their user mode hooks in different DLLs in user space. 
 
-| DLL Name           | Examples of hooked APIs                 |
-| :---:              | :---:                                   |
-| ntdll.dll          | NtAllocateVirtualMemory, NtWriteVirtualMemory |
-| user32.dll         | NtUserSetWindowLong, NtUserSetProp      |
-|                    |                                         |
-|                    |                                         |
-|                    |                                         |
-|                    |                                         |
-|                    |                                         |
+| DLL Name           | Examples of hooked APIs                         |
+| :---:              | :---:                                           |
+| ntdll.dll          | NtAllocateVirtualMemory, NtWriteVirtualMemory   |
+| user32.dll         | NtUserSetWindowLong, NtUserSetProp              |
+| kernel32.dll       | CreateRemoteThread, VirtualAlloc                |
+| kernelbase.dll     | CreateRemoteThreadEx, CreateFileA               |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
 
 
 - user32.dll
