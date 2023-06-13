@@ -36,7 +36,7 @@ In order to be able to dynamically retrieve the SSN for each of the native funct
 </details>
 
 ### Memory Address System Service Number (SSN)
-In the next step, we want to get the effective memory address from the ``SSN`` in the ``syscall stub`` of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add ``4-bytes``. Why 4-bytes? Because this is the offset calculated from the start address of the native function.
+In the next step, we want to get the effective memory address from the ``SSN`` in the ``syscall stub`` of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add ``4-bytes``. Why ``4-bytes``? Because this is the offset calculated from the start address of the native function.
 
 <details>
     <p align="center">
