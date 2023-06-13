@@ -32,7 +32,7 @@ Important note! Because ntdll.dll is more or less a common denominator in user s
 - wevtapi.dll
 - wininet.dll
 
-The total number of hooks varies from supplier to supplier or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also important to note that an EDR will never be able to hook all APIs in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
+The total number of hooks varies from vendor to vendor or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also important to note that an EDR will never be able to hook all APIs in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
 
 ## Consequences for the Red Team
 From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
