@@ -16,6 +16,24 @@ Both anti-virus (AV) and endpoint detection and response (EDR) products rely on 
 Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was possible for antivirus products to implement their hooks in the Windows kernel, e.g. using SSDT hooking. With Patch Guard, this was prevented by Microsoft for reasons of operating system stability. Most of the EDRs I have analysed rely primarily on inline API hooking. Technically, an inline hook is a ``5-byte`` assembly instruction (also called a jump or trampoline) that causes a redirection to the EDR's hooking.dll before the system call is executed in the context of the respective native API. The return from the memory of the EDR's hooking.dll back to the memory of the respective native function in ntdll.dll for the final execution of the sycall instruction only occurs if the code executed in the context of the function was determined by the EDR to be harmless, otherwise the execution of the corresponding system call is prevented by the Endpoint Protection (EPP) component of an EPP/EDR combination. The following diagram provides a simplified illustration of how user-mode API hooking works with EDR.
 ![Prinicipal_usermode_hooking](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/84f0ca7c-5c8c-48b9-a215-36d20fc7e2a6)
 
+Important note! Because ntdll.dll is more or less a common denominator in user space before the transition to kernel mode, many EDRs set their user mode hooks in ntdll.dll. But depending on the EDR, they also set their hooks in other important DLLs in user space. Based on my research by analysing different EDRs, here are some examples where they set their user mode hooks in different DLLs in user space. 
+- user32.dll
+- win32u.dll
+- kernel32.dll
+- kernelbase.dll
+- combase.dll 
+- crypt32.dll
+- ole32.dll 
+- samcli.dll
+- shell32.dll
+- advapi32.dll
+- samcli.dll
+- sechost.dll
+- wevtapi.dll
+- wininet.dll
+
+The total number of hooks varies from supplier to supplier or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also important to note that an EDR will never be able to hook all APIs in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
+
 ## Consequences for the Red Team
 From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
 - Use no hooked APIs
