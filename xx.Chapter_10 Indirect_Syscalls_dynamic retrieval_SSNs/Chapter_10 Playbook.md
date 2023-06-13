@@ -8,7 +8,13 @@ In the first bonus chapter we want to further develop our indirect syscall dropp
 | Task Nr.   | Task Description |
 | :---:      | ---              |
 |  1         | Download the direct or indirect syscall POC from the code section of this chapter.                 |
-|  2         | Most of the code is already implemented. However, to implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li><li> </li></ul>                  |
+|  2         | Most of the code is already implemented. However, to implement the dynamic SSN retrieval functionality, you will need to complete the following tasks: <ul><li>Complete the missing code in the main code section</li><li>Complete the missing code in the ``syscalls.asm`` file</li></ul>                  |
 |  3          | Create a staged x64 meterpreter shellcode with msfvenom, copy it to the poc and compile the poc.                 |
 |  4          | Create and run a staged x64 meterpreter listener using msfconsole.                  |
 | 5           | un your compiled .exe and check that a stable command and control channel opens.                 |
+
+
+### Analyse the Dropper
+| Task Nr.   | Task Description |
+| :---:      | ---              |
+| 6          | Use **x64dbg** to debug or analyse the dropper. <ul><li>What differences can you see between a dropper with hardcoded SSNs and a dropper that dynamically retrieves SSNs at runtime?</li></ul>                |
