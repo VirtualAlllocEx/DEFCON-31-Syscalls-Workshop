@@ -24,6 +24,7 @@ You can download the direct- or indirect syscall poc from the code section of th
 
 ### Start Address Native Function
 In order to be able to dynamically retrieve the SSN for each of the native functions used in our code, we first need to define a pointer to a function that holds the start address of that function. If you remember, this part of the code was already implemented in the chapter where we built the indirect syscall dropper, because we used the same principle to get the address for the syscall instruction of each function. This means that part of the code in the main file is already implemented.  
+<details>
 <summary>Solution</summary>
     
 ```C
