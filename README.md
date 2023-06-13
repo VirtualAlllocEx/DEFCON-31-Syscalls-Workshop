@@ -31,7 +31,7 @@ I would like to **thank all those members** of the infosec community who have re
 
 
 ## Introduction
-In recent years, more and more vendors have implemented the technique of user-mode hooking, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
+In recent years, more and more **EDR vendors** have implemented the technique of **user-mode hooking**, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
 
 ## Abstract 
 This workshop is designed for new community members or members who want to understand and learn about **system calls** in general and the Red Teaming techniques of **direct system calls** and **indirect system calls** on **Windows OS**. All the content for this workshop, slides, exercises, playbooks etc. can be found in this repository. In this workshop we will focus on the **direct system call** and **indirect system call** techniques and will cover the following topics. 
