@@ -19,7 +19,7 @@ Because a modern operating system like Windows 10 is divided into user mode and 
 - Network connections to send and receive packets
 - Reading and writing files
 
-As a practical example, in the context of writing a file to disk, if a usermode process such as notepad.exe wants to save content to disk in the form of a file, the process needs temporary 'access' to kernel mode. Why is this necessary? Because the components that need to be accessed or that need to perform the task in kernel mode, such as the file system and the appropriate device drivers, are located in the Windows kernel. The following figure shows the principle and interaction between ``notepad.exe -> kernel32.dll -> kernelbase.dll -> ntdll.dll -> syscalls`` to write a file to disk.
+As a practical example, in the context of writing a file to disk, if a usermode process such as notepad.exe wants to save content to disk in the form of a file, the process needs temporary 'access' to kernel mode. Why is this necessary? Because the components that need to be accessed or that need to perform the task in kernel mode, such as the file system and the appropriate device drivers, are located in the Windows kernel. The following figure shows the principle and interaction between ``notepad.exe`` -> ``kernel32.dll`` -> ``kernelbase.dll`` -> ``ntdll.dll`` -> ``syscalls`` to write a file to disk.
 
 ![Prinicipal_syscalls_transition_notepad](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/78da40aa-1ac5-4b59-b1ab-951ea9bbd481)
 
