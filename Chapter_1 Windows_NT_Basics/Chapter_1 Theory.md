@@ -10,10 +10,10 @@ Windows NT, released in 1993 with Windows NT 3.1 brought a paradigm shift with i
 One of the major changes to the Windows NT architecture was to split the operating system into a user mode (ring 3) and kernel mode (ring 0). The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 
 <p align="center">
-<img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
+<img width="550" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
 </p>
 <p align="center">
-<img width="500" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4">
+<img width="300" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4">
 </p>
 
 
