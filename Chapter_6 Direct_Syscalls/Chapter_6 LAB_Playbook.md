@@ -391,3 +391,4 @@ We also want to check in which module the syscall stub or the assembler instruct
 - Dropper imports no longer Native APIs from ntdll.dll
 - Syscalls or syscall stubs are implemented into .text section of the dropper itself
 - User mode hooks in ntdll.dll and EDR can be bypassed 
+- Direct syscalls can be detected when an EDR uses ETW to check the return address of a function.
