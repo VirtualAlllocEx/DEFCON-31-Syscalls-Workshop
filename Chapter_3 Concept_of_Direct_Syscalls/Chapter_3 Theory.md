@@ -22,23 +22,7 @@ Important note! Because ntdll.dll is more or less a common denominator in user s
 <img width="350" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3438cd37-15df-4617-8a8e-f8dda2e3054f">
 </p>
   
-| DLL Name           | Examples of hooked APIs          |
-| :---:              | :---:                            |
-| ntdll.dll          | NtAllocateVirtualMemory          |
-| user32.dll         | NtUserSetWindowLong              |
-| kernel32.dll       | CreateRemoteThread               |
-| kernelbase.dll     | CreateRemoteThreadEx             |
-| combase.dll        | CoGetInstanceFromIStorage        |
-| crypt32.dll        | CryptUnprotectData               |
-| ole32.dll          | CoGetObject                      |
-| samcli.dll         | NetUserAdd                       |  
-| shell32.dll        | Shell_NotifyIconW                |
-| advapi32.dll       | ClearEventLogA                   |
-| sechost.dll        | StartServiceW                    |
-| wevtapi.dll        | EvtOpenSession                   |
-|wininet.dll         | InternetConnectA                 |
-
-The t**otal number of hooks varies** from vendor to vendor or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also **important** to note that **an EDR will never be able to hook all APIs** in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
+The **total number of hooks varies** from vendor to vendor or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also **important** to note that **an EDR will never be able to hook all APIs** in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
 
 ## Consequences for the Red Team
 From Red Team's perspective, the usermode hooking technique results in EDR making it difficult or impossible for malware, such as shellcode, to execute. For this reason, Red Teamer as well as malicious attackers use various techniques to bypass EDR usermode hooks. Among others, the following techniques are used individually, but also in combination, e.g. API Unhooking and Direct System Calls.
