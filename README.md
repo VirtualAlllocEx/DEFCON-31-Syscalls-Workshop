@@ -42,11 +42,14 @@ This workshop is designed for new community members or members who want to under
 
 ![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/04c6681a-d3bf-46ba-a0a8-dcec454f1c1d)
 
-- **Chapter 1 - Windows NT Basics**: We take a look at the basics of Windows NT architecture that are necessary for this workshop.
+- **Chapter 1: Windows NT Basics** 
+     - We take a look at the basics of Windows NT architecture that are necessary for this workshop.
 
-- **Chapter 2 - Windows OS System Calls**: What are system calls in general and why are the neccessary in Windows OS?
+- **Chapter 2: Windows OS System Calls** 
+     - What are system calls in general and why are the neccessary in Windows OS?
 
-- **Chapter 3 - Concept of Direct Syscalls**: What are direct syscalls, how do they work and why have they been used by red teamers?
+- **Chapter 3: Concept of Direct Syscalls**
+     -  What are direct syscalls, how do they work and why have they been used by red teamers?
 
 - **Chapter 4: Win32-APIs**
      - We will create a shellcode dropper based on the Win32 APIs (high level APIs) and we will also analyse it.
@@ -66,7 +69,7 @@ This workshop is designed for new community members or members who want to under
 - **Chapter 9: Summary**
      - Workshop summary and closing
 
-- **Bonus Chapter 1: Indirect Syscalls - dynamically retrieved SSNs**
+- **Bonus Chapter 1: Indirect Syscalls - dynamically retrieve SSNs**
      - We want to further develop our indirect syscall dropper so that the SSNs are no longer hardcoded, but are retrieved dynamically from ntdll.dll at runtime.  
 
 - **Bonus Chapter 2: Indirect Syscalls and hooks by EDRs**
