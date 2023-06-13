@@ -3,7 +3,8 @@ Before we discuss what a direct or indirect system call is and how it is used by
 
 What are some key facts about the syscall stub from native functions?
 
-- Each native function contains a specific syscall ID or System Service Number (SSN). 
+- Each native function contains a specific syscall ID or System Service Number (SSN).
+- Only the SSN differs from native function to native function, the rest of the syscall stub structure is always the same.  
 - Syscall IDs can change from Windows to Windows and from version to version.
 - Important, the syscall instruction is a separate instruction and not the syscall ID itself.
 - The syscall ID or more precisely the opcode ``mov`` in the codeline ``mov eax SSN`` can be hooked by an EDR, but the syscall instruction ``syscall`` itself can't be hooked by an EDR (important later for indirect syscalls).
