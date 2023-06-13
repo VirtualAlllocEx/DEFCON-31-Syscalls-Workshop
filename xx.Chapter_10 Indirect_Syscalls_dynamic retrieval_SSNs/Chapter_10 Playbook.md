@@ -25,7 +25,7 @@ You can download the direct- or indirect syscall poc from the code section of th
 ### Start Address Native Function
 In order to be able to dynamically retrieve the SSN for each of the native functions used in our code, we first need to define a pointer to a function that holds the start address of that function. If you remember, this part of the code was already implemented in the chapter where we built the indirect syscall dropper, because we used the same principle to get the address for the syscall instruction of each function. This means that part of the code in the main file is already implemented.  
 <details>
-<summary>Solution</summary>
+<summary>Code</summary>
     
 ```C
 // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
@@ -33,6 +33,46 @@ In order to be able to dynamically retrieve the SSN for each of the native funct
     UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
     UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
     UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");     
+```
+     
+</details>
+
+### Memory Address System Service Number (SSN)
+In the next step, we want to get the effective memory address from the ``SSN`` in the ``syscall stub`` of the native function by adding the necessary offset to the start address of the native function that we retrieved in the previous step. To get the memory address from the syscall instruction, we need to add ``4-bytes``. Why 4-bytes? Because this is the offset calculated from the start address of the native function.
+
+<details>
+    <p align="center">
+<img width="900" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/1b6bd7f1-1323-48d1-bcb2-83d4395c49bb"> 
+    </p>
+</details>   
+
+
+In the indirect syscall poc, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+<details>
+<summary>Code</summary>
+    
+```C
+// The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;     
+```
+     
+</details>   
+
+If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+
+<details>
+<summary>Solution</summary>
+    
+```C
+// The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
+    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
+    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
+    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;     
 ```
      
 </details>
