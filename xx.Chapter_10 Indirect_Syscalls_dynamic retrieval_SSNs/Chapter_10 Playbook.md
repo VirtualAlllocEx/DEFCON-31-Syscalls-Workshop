@@ -466,3 +466,13 @@ Then we open x64dbg and attach to the running process, note that if you open the
 </details>
   
 Then we want to analyse the dropper and compare our findings with the dropper which uses hardcoded SSNs
+  
+  
+  ## Summary:
+- Made transition from hardcodes SSNs to dynamicall retrieved SSNs
+- Dropper imports no longer Windows APIs from kernel32.dll
+- Dropper imports no longer Native APIs from ntdll.dll
+- Only a part of the syscall stub is directly implemented into .text section of the dropper itself
+- The syscall- and return statement are executed from memory of ntdll.dll
+- User mode hooks in ntdll.dll and EDR can be bypassed 
+- EDR detection based on checking the return adress in the callstack can be bypassed.
