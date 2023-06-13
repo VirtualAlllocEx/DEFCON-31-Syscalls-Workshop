@@ -45,7 +45,7 @@ In the next step, we want to get the effective memory address from the ``SSN`` i
 </details>   
 
 
-In the indirect syscall poc in this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.  
+This code is shows the concept in context for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee for the other three native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 <details>
 <summary>Code</summary>
     
@@ -74,7 +74,7 @@ If it was not possible for you to complete this code section, don`t worry it wil
 </details>
 
 ### Global Variables
-To store the memory address from the SSN of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each SSN address, which is declared as a DWORD. Also in this case in the indirect syscall poc of this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+To store the memory address from the SSN of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each SSN address, which is declared as a DWORD. Again, based on the following code, which shows the concept in the context of the native function ``NtAllocateVirtualMemory``, the workshop attendee will need to complete the code for the other native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.
 
 <details>
 <summary>Code</summary>
@@ -104,7 +104,7 @@ DWORD wNtWaitForSingleObject;
 
 
 ### Assembly Instructions
-Again, we don't want to ask ntdll for the syscall stub, but in this case we want to replace the hardcoded SSN with the variable that holds the SSN for the respective native function. Therefore, we need to complete the code in the ``syscalls.asm`` file. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file in context of the indirect syscall dropper.  
+Again, we don't want to ask ntdll for the syscall stub, we want to replace the hardcoded SSN with the variable that holds the SSN for the respective native function. Again, based on the following code, which shows the concept in the context of the native function ``NtAllocateVirtualMemory``, the workshop attendee will need to complete the code for the other native functions ``NtWriteVirtualMemory``, ``NtCreateThreadEx`` and ``NtWaitForSingleObject``.  
   
 <details>
 <summary>Code</summary>
