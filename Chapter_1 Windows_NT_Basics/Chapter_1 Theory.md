@@ -13,7 +13,7 @@ One of the major changes to the Windows NT architecture was to split the operati
 <img width="550" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
 </p>
 <p align="center">
-<img width="300" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4">
+<img width="400" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ccf34725-1268-4acd-877b-e4867a83f4e4">
 </p>
 
 
