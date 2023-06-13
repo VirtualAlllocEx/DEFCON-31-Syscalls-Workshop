@@ -428,28 +428,6 @@ Once the listener has been successfully started, you can run your compiled direc
 </p>
 </details>
         
-
-    
-## Dropper Analysis: Dumpbin 
-The Visual Studio tool dumpbin can be used to check which Windows APIs are imported via ``kernel32.dll``. The following command can be used to check the imports. Which results do you expect?
-<details>    
-    
-**cmd>**
-```
-cd C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-dumpbin /imports Path/to/Direct_Syscall_Dropper.exe
-```
-</details>    
-
-<details>
-    <summary>Results</summary>  
-    
-**No imports** from the Windows APIs ``VirtualAlloc``, ``WriteProcessMemory``, ``CreateThread``, and ``WaitForSingleObject`` from ``kernel32.dll``. This was expected and is correct.
-     
-<p align="center">
-<img width="1023" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/b9206b4f-9dde-4848-9637-d18f43095799">
-</p>
-</details>   
     
     
 ## Dropper Analysis: x64dbg 
