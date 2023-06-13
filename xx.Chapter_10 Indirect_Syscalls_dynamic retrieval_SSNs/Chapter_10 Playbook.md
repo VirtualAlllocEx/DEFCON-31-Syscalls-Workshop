@@ -74,3 +74,31 @@ If it was not possible for you to complete this code section, don`t worry it wil
 ```
      
 </details>
+
+### Global Variables
+To store the memory address from the SSN of the respective native function, and also to be able to provide the memory address later for the assembly code in the ``syscalls.asm`` file, we declare a global variable for each SSN address, which is declared as a DWORD. Also in this case in the direct- or indirect syscall poc of this chapter, this code is implemented only for the native function ``NtAllocateVirtualMemory`` and must be completed by the workshop attendee based on the code scheme for ``NtAllocateVirtualMemory`` which can be seen in the code section below.
+
+<details>
+<summary>Code</summary>
+    
+```C
+// Global DWORD (double words) that will hold the SSN
+DWORD wNtAllocateVirtualMemory;       
+```
+     
+</details>   
+
+If it was not possible for you to complete this code section, don`t worry it will work next time and additionally you can find the complete code in the following solution section. 
+
+<details>
+<summary>Solution</summary>
+    
+```C
+// Declare global variables to hold the syscall instruction addresses
+DWORD wNtAllocateVirtualMemory;
+DWORD wNtWriteVirtualMemory;
+DWORD wNtCreateThreadEx;
+DWORD wNtWaitForSingleObject;     
+```
+     
+</details>
