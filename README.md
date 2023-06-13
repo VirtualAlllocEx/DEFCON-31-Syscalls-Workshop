@@ -69,7 +69,7 @@ I hope you enjoy it and it can help you get a basic understanding of syscalls an
 - **Chapter 9: Summary**
      - Workshop summary and closing
 
-- **Bonus Chapter 1: Indirect Syscalls-Dynamically retrieved SSNs**
+- **Bonus Chapter 1: Indirect Syscalls - dynamically retrieved SSNs**
      - We want to further develop our indirect syscall dropper so that the SSNs are no longer hardcoded, but are retrieved dynamically from ntdll.dll at runtime.  
 
 - **Bonus Chapter 2: Indirect Syscalls and hooks by EDRs**
