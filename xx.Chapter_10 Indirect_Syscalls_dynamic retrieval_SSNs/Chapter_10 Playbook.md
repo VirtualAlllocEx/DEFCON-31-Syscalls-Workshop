@@ -104,7 +104,7 @@ DWORD wNtWaitForSingleObject;
 
 
 ### Assembly Instructions
-Again, we don't want to ask ntdll for the syscall stub, but in this case we want to replace the hardcoded SSN with the variable that holds the SSN for the respective native function. Therefore, we need to complete the code in the ``syscalls.asm`` file. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory'' which is already implemented in the syscalls.asm file in context of the indirect syscall dropper.  
+Again, we don't want to ask ntdll for the syscall stub, but in this case we want to replace the hardcoded SSN with the variable that holds the SSN for the respective native function. Therefore, we need to complete the code in the ``syscalls.asm`` file. The code below shows the assembler code for the syscall stub of ``NtAllocateVirtualMemory`` which is already implemented in the syscalls.asm file in context of the indirect syscall dropper.  
   
 <details>
 <summary>Code</summary>
