@@ -7,7 +7,7 @@ Understanding the nature of this transition requires a brief look back at the st
 Windows NT, released in 1993 with Windows NT 3.1 brought a paradigm shift with its 32-bit architecture and a host of advanced features. Unlike its predecessors, NT was a completely new operating system designed from the ground up to run on multiple hardware platforms. It introduced cutting-edge features such as symmetric multiprocessing, improved memory management and comprehensive networking support.
 
 ## User Mode and Kernel Mode
-One of the major changes to the Windows NT architecture was to split the operating system into a user mode and kernel mode. The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
+One of the major changes to the Windows NT architecture was to split the operating system into a user mode (ring 3) and kernel mode (ring 0). The decision to split Windows into user mode and kernel mode was primarily driven by the need to increase system stability, reliability and security.
 
 <p align="center">
 <img width="600" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/2c9c1d23-1917-487f-9b6e-4194c430dbf3">
