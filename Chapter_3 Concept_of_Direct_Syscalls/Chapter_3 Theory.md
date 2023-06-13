@@ -17,11 +17,9 @@ Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was
 ![Prinicipal_usermode_hooking](https://github.com/VirtualAlllocEx/DEFCON-31-Workshop-Syscalls/assets/50073731/84f0ca7c-5c8c-48b9-a215-36d20fc7e2a6)
 
 Important note! Because ntdll.dll is more or less a common denominator in user space before the transition to kernel mode, many EDRs set their user mode hooks in ntdll.dll. But depending on the EDR, they also set their hooks in other important DLLs in user space. Based on my research by analysing different EDRs, here are some examples where they set their user mode hooks in different DLLs in user space. 
-![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/d45a5590-5ddc-4cea-9b2d-85d2da122a27)
-
 
 <p align="center">
-<img width="300" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3438cd37-15df-4617-8a8e-f8dda2e3054f">
+<img width="400" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3438cd37-15df-4617-8a8e-f8dda2e3054f">
 </p>
   
 | DLL Name           | Examples of hooked APIs          |
