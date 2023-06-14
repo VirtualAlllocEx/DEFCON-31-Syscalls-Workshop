@@ -18,9 +18,23 @@ Before the introduction of Kernel Patch Protection (KPP) aka Patch Guard, it was
 
 Important note! Because ntdll.dll is more or less a common denominator in user space before the transition to kernel mode, many EDRs set their user mode hooks in ntdll.dll. But depending on the EDR, they also set their hooks in other important DLLs in user space. Based on my research by analysing different EDRs, here are some examples where they set their user mode hooks in different DLLs in user space. 
 
-<p align="center">
-<img width="350" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/3438cd37-15df-4617-8a8e-f8dda2e3054f">
-</p>
+| DLL Name           | Examples of hooked APIs          |
+| :---:              | :---:                            |
+| ntdll.dll          | NtAllocateVirtualMemory          |
+| user32.dll         | SetWinEventHook                  |
+| win32u.dll         | NtUserShowWindow                 |
+| kernel32.dll       | CreateRemoteThread               |
+| kernelbase.dll     | CreateRemoteThreadEx             |
+| combase.dll        | CoGetInstanceFromIStorage        |
+| crypt32.dll        | CryptUnprotectData               |
+| ole32.dll          | CoGetObject                      |
+| samcli.dll         | NetUserAdd                       |  
+| shell32.dll        | Shell_NotifyIconW                |
+| advapi32.dll       | ClearEventLogA                   |
+| sechost.dll        | StartServiceW                    |
+| wevtapi.dll        | EvtOpenSession                   |
+| wininet.dll        | InternetConnectA                 |
+
   
 The **total number of hooks varies** from vendor to vendor or from EDR to EDR. There are EDRs that have around 20 hooks and their other EDRs that have around 90 hooks. It is also **important** to note that **an EDR will never be able to hook all APIs** in user mode, otherwise the performance impact would be dramatic. Never forget that a good EDR will try to protect as much as possible, but also stay in the background as much as possible and not slow down a system too much.  
 
