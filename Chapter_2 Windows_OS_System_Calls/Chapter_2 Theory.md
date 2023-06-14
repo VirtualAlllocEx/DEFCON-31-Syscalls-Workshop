@@ -34,10 +34,10 @@ It is important to note that ntdll.dll is not the only module in Windows user mo
 If we use x64dbg to look at the native functions imported from ``ntdll.dll`` or ``win32u.dll``, we will see that ``Nt*`` and ``Zw*`` functions are found in ``ntdll.dll`` and ``NtUser*`` and ``NtGdi*`` functions are found in ``win32u.dll``. Just to check, by comparing the syscall stub of the native functions from ``ntdll.dll`` and ``win32u.dll``, we can see that, as expected, the syscall stub is exactly the same, only the SSN differs from function to function. 
 
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba48a2d7-4073-400a-bcdc-76932e23c931">
+<img width="1000" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/ba48a2d7-4073-400a-bcdc-76932e23c931">
 </p>
 <p align="center">
-<img width="800" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2a39fc31-63ef-45d9-8891-2ca8b1dc5c24">
+<img width="1000" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/2a39fc31-63ef-45d9-8891-2ca8b1dc5c24">
 </p>
 
 
