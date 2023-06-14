@@ -29,77 +29,16 @@ I would like to **thank all those members** of the infosec community who have re
 | [@netero_1010](https://twitter.com/netero_1010)			         |  [Indirect Syscall in CSharp](https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp) 																						  																							        |         |
 | [@CaptMeelo](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) | [When You sysWhisper Loud Enough for AV to Hear You](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) 																																	        | 	      | 
 
-
-## Introduction
-In recent years, more and more **EDR vendors** have implemented the technique of **user-mode hooking**, which, simply put, allows an EDR to redirect code executed in the context of Windows APIs to its own hooking.dll for analysis. If the code executed does not appear to be malicious to the EDR, the affected system call will be executed correctly, otherwise the EDR will prevent execution. User-mode hooking makes malware execution more difficult, so attackers (red teams) use various techniques such as API unhooking, direct system calls or indirect system calls to bypass EDRs.
-
-## Abstract 
-This workshop is designed for new community members or members who want to understand and learn about **system calls** in general and the Red Teaming techniques of **direct system calls** and **indirect system calls** on **Windows OS**. All the content for this workshop, slides, exercises, playbooks etc. can be found in this repository. I hope you enjoy it and it can help you get a basic understanding of syscalls and the red teaming techniques of direct syscalls and indirect syscalls. 
-
-**Important note!** This workshop **only covers syscalls** in the **context of x64**, x86 syscalls work a bit differently and are not covered here. 
-
-
-
-![image](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/04c6681a-d3bf-46ba-a0a8-dcec454f1c1d)
-
-- **Chapter 1: Windows NT Basics** 
-     - We take a look at the basics of Windows NT architecture that are necessary for this workshop.
-
-- **Chapter 2: Windows OS System Calls** 
-     - What are system calls in general and why are the neccessary in Windows OS?
-
-- **Chapter 3: Concept of Direct Syscalls**
-     -  What are direct syscalls, how do they work and why have they been used by red teamers?
-
-- **Chapter 4: Win32-APIs**
-     - We will create a shellcode dropper based on the Win32 APIs (high level APIs) and we will also analyse it.
-
-- **Chapter 5: Native-APIs**
-     - We will create a shellcode dropper based on the Native APIs (medium level APIs) and we will also analyse it.
-
-- **Chapter 6: Direct Syscalls**
-     - We will create a shellcode dropper based on the direct syscalls (low Level APIs) and we will also analyse it.
-
-- **Chapter 7: Indirect Syscalls**
-     - We will create a shellcode dropper based on the indirect syscalls (low Level APIs) and we will also analyse it.
-
-- **Chapter 8: Call Stack Analysis**
-     - We will analyse and compare the call stacks of all droppers.
-
-- **Chapter 9: Summary**
-     - Workshop summary and closing
-
-- **Chapter 10: Indirect Syscalls dynamic retrieval SSNs (Bonus Chapter)**
-     - We want to further develop our indirect syscall dropper so that the SSNs are no longer hardcoded, but are retrieved dynamically from ntdll.dll at runtime.  
-
-- **Chapter 11: Indirect Syscalls and hooks by EDRs (Bonus Chapter)**
-     - What if all or some of our native functions are hooked to an EDR and we are unable to dynamically retrieve the SSN directly? Again, we will have to develop our indirect syscall droppers and use Halos Gate or Freshy Calls to solve that problem. 
-
-
 ## Getting Started
-All the step-by-step instructions and code samples can be found in the respective exercise folder. 
-
-### Prerequisites LAB
-- **[Windows 10 x64 DEV/LAB machine](https://go.microsoft.com/fwlink/p/?linkid=2195587&clcid=0x407&culture=de-de&country=de)**
-    - AV/EPP/EDR disabled
-    - [Visual Studio Free 2019](https://visualstudio.microsoft.com/de/vs/older-downloads/)
-    - [x64dbg](https://x64dbg.com/)
-    - [WinDbg Preview](https://www.microsoft.com/store/productId/9PGJGD53TN86)
-    - [Process Hacker](https://processhacker.sourceforge.io/downloads.php)
-    - [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)  
-    
-- [**Kali Linux**](https://www.kali.org/get-kali/#kali-platforms)
-    - Metasploit to create shellcode and an MSF-Listener
-
-
-I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
+All the theory and playbooks for the exercises can be found in the wiki and the POCs for the exercise can be found here on the main page. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
 **Happy Hacking!**
 
 
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder **[@RedOps](https://redops.at/en/) Information Security** 
 
-## Previous work and references
+
+### Previous work and references
 - https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/
 - https://0xdarkvortex.dev/hiding-in-plainsight/
 - https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/
