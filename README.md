@@ -30,7 +30,7 @@ I would like to **thank all those members** of the infosec community who have re
 | [@CaptMeelo](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) | [When You sysWhisper Loud Enough for AV to Hear You](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) 																																	        | 	      | 
 
 ## Getting Started
-All the theory and playbooks for the exercises can be found in the wiki and the POCs for the exercise can be found here on the main page. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
+All the theory and playbooks for the exercises can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki) and the POCs for the exercise can be found here on the main page. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
 
 **Happy Hacking!**
 
