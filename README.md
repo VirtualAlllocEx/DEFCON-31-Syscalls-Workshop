@@ -43,4 +43,11 @@ I would like to **thank all those members** of the infosec community who have re
 | [@thefLinkk](https://twitter.com/thefLinkk)          | https://github.com/thefLink/RecycledGate |
 | [@ElephantSe4l](https://twitter.com/ElephantSe4l) and MarioBartolome  | https://github.com/crummie5/FreshyCalls |
 
+- Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition) by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- Windows Internals, Part 2 (7th Edition) by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
+- https://offensivecraft.wordpress.com/2022/12/08/the-stack-series-return-address-spoofing-on-x64/
+- https://offensivecraft.wordpress.com/2023/02/11/the-stack-series-the-x64-stack/ 
+- https://winternl.com/detecting-manual-syscalls-from-user-mode/
+
+
 
