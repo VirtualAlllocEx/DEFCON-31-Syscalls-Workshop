@@ -33,5 +33,8 @@ I would like to **thank all those members** of the infosec community who have re
 | [@Jackson_T](https://twitter.com/Jackson_T)					 | For his research and tools SysWhispers and SysWhispers2 <br /> https://github.com/jthuraisamy/SysWhispers) <br /> https://github.com/jthuraisamy/SysWhispers2 | 
 | [@KlezVirus](https://twitter.com/KlezVirus)					 | For his blog, research, great discussions about EDRs, syscalls, etc. and SysWhispers3 <br /> https://github.com/klezVirus/SysWhispers3 <br /> https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/ <br /> https://github.com/klezVirus/SilentMoonwalk							|      
 | [@j00ru](https://twitter.com/j00ru)								   | For his research and project syscall tables <br /> https://j00ru.vexillium.org/syscalls/nt/64/ |   
+| [@modexpblog](https://twitter.com/modexpblog)				 | https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/  | 
+| [@netero_1010](https://twitter.com/netero_1010)			 | https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp)  |        
+| [@CaptMeelo](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) | https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html	 | 	     
 
 
