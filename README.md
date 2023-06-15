@@ -36,7 +36,7 @@ I would like to **thank all those members** of the infosec community who have re
 | [@modexpblog](https://twitter.com/modexpblog)				 | https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/  | 
 | [@netero_1010](https://twitter.com/netero_1010)			 | https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp)  |        
 | [@CaptMeelo](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) | https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html	 | 	 
-| [@am0nsec](https://twitter.com/am0nsec) and @RtlMateusz    |https://github.com/am0nsec/HellsGate/tree/master |
+| [@am0nsec](https://twitter.com/am0nsec) and @RtlMateusz / [@vxunderground](https://twitter.com/vxunderground)   |https://github.com/am0nsec/HellsGate/tree/master |
 | [@mrd0x](https://twitter.com/mrd0x)                 | https://github.com/Maldev-Academy/HellHall |
 
 
