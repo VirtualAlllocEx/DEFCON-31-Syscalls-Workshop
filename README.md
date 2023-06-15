@@ -32,5 +32,6 @@ I would like to **thank all those members** of the infosec community who have re
 | [@0xBoku](https://twitter.com/0xBoku)								 | For his overall research, and contributions to infosec, helping new community members, and the continued advancement of infosec <br /> https://0xboku.com/ <br /> https://github.com/boku7/AsmHalosGate <br /> https://github.com/boku7/HellsGatePPID <br /> https://github.com/boku7/halosgate-ps| 
 | [@Jackson_T](https://twitter.com/Jackson_T)					 | For his research and tools SysWhispers and SysWhispers2 <br /> https://github.com/jthuraisamy/SysWhispers) <br /> https://github.com/jthuraisamy/SysWhispers2 | 
 | [@KlezVirus](https://twitter.com/KlezVirus)					 | For his blog, research, great discussions about EDRs, syscalls, etc. and SysWhispers3 <br /> https://github.com/klezVirus/SysWhispers3 <br /> https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/ <br /> https://github.com/klezVirus/SilentMoonwalk							|      
+| [@j00ru](https://twitter.com/j00ru)								   | For his research and project syscall tables <br /> https://j00ru.vexillium.org/syscalls/nt/64/ |   
 
 
