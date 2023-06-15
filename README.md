@@ -11,7 +11,7 @@ All the theory and playbooks for the exercises can be found in the [**wiki**](ht
 **Happy Hacking!**
 
 
-Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder **[@RedOps](https://redops.at/en/) Information Security**
+Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
 
 ## Disclaimer 
 The content and all code examples in this repository are for educational and research purposes only and should only be used in an ethical context! The code examples are not new and I do not claim them to be. Most of the code or the basis  comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all. Also many thanks to [**@mrexodia**](https://twitter.com/mrexodia) for your awesome tool [**x64dbg**](https://twitter.com/x64dbg).
