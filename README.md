@@ -39,12 +39,8 @@ I would like to **thank all those members** of the infosec community who have re
 | [@am0nsec](https://twitter.com/am0nsec) and @RtlMateusz / [@vxunderground](https://twitter.com/vxunderground)   |https://github.com/am0nsec/HellsGate/tree/master |
 | [@mrd0x](https://twitter.com/mrd0x)                  | https://github.com/Maldev-Academy/HellHall |
 | [@SEKTOR7net](https://twitter.com/SEKTOR7net)        | https://blog.sektor7.net/#!res/2021/halosgate.md |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
-|                                                      |     |
+| [@trickster012](https://twitter.com/trickster012)    | https://github.com/trickster0/TartarusGate |
+| [@thefLinkk](https://twitter.com/thefLinkk)          | https://github.com/thefLink/RecycledGate |
+| [@ElephantSe4l](https://twitter.com/ElephantSe4l) and MarioBartolome  | https://github.com/crummie5/FreshyCalls |
+
 
