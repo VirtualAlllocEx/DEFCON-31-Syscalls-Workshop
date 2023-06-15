@@ -25,6 +25,7 @@ I would like to **thank all those members** of the infosec community who have re
 | Twitter Handle                             					 | Contribution and Research |
 | :---:                                         			 | :---: |
 | [@spotheplanet](https://twitter.com/spotheplanet)    | His whole awesome blog and research <br /> https://www.ired.team/	|         
-| [@NinjaParanoid](https://twitter.com/NinjaParanoid)  | For his great blogs, research, courses and always answering my questions. <br /> https://0xdarkvortex.dev/hiding-in-plainsight/ <br /> https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/   | 
+| [@NinjaParanoid](https://twitter.com/NinjaParanoid)  | For his blogs, research, courses and always answering my questions. <br /> https://0xdarkvortex.dev/hiding-in-plainsight/ <br /> https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/   | 
+| [@ShitSecure](https://twitter.com/ShitSecure) 			 | For his research, his blog https://s3cur3th1ssh1t.github.io/ and for the great discussion about EDRs, syscalls, etc. |         
 
 
