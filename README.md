@@ -32,11 +32,19 @@ I would like to **thank all those members** of the infosec community who have re
 | [@0xBoku](https://twitter.com/0xBoku)								 | For his overall research, and contributions to infosec, helping new community members, and the continued advancement of infosec <br /> https://0xboku.com/ <br /> https://github.com/boku7/AsmHalosGate <br /> https://github.com/boku7/HellsGatePPID <br /> https://github.com/boku7/halosgate-ps| 
 | [@Jackson_T](https://twitter.com/Jackson_T)					 | For his research and tools SysWhispers and SysWhispers2 <br /> https://github.com/jthuraisamy/SysWhispers) <br /> https://github.com/jthuraisamy/SysWhispers2 | 
 | [@KlezVirus](https://twitter.com/KlezVirus)					 | For his blog, research, great discussions about EDRs, syscalls, etc. and SysWhispers3 <br /> https://github.com/klezVirus/SysWhispers3 <br /> https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/ <br /> https://github.com/klezVirus/SilentMoonwalk							|      
-| [@j00ru](https://twitter.com/j00ru)								   | For his research and project syscall tables <br /> https://j00ru.vexillium.org/syscalls/nt/64/ |   
+| [@j00ru](https://twitter.com/j00ru)								   | https://j00ru.vexillium.org/syscalls/nt/64/ |   
 | [@modexpblog](https://twitter.com/modexpblog)				 | https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/  | 
 | [@netero_1010](https://twitter.com/netero_1010)			 | https://www.netero1010-securitylab.com/evasion/indirect-syscall-in-csharp)  |        
 | [@CaptMeelo](https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html) | https://captmeelo.com/redteam/maldev/2021/11/18/av-evasion-syswhisper.html	 | 	 
 | [@am0nsec](https://twitter.com/am0nsec) and @RtlMateusz / [@vxunderground](https://twitter.com/vxunderground)   |https://github.com/am0nsec/HellsGate/tree/master |
-| [@mrd0x](https://twitter.com/mrd0x)                 | https://github.com/Maldev-Academy/HellHall |
-
+| [@mrd0x](https://twitter.com/mrd0x)                  | https://github.com/Maldev-Academy/HellHall |
+| [@SEKTOR7net](https://twitter.com/SEKTOR7net)        | https://blog.sektor7.net/#!res/2021/halosgate.md |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
+|                                                      |     |
 
