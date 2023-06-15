@@ -20,8 +20,7 @@ Furthermore, and very importantly, this workshop is **not a silver bullet** in t
 
 I would like to **thank all those members** of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible!
 
-**Creds and references**
-
+## Creds and References
 | Twitter Handle                             					 | Contribution and Research |
 | :---:                                         			 | :---: |
 | [@spotheplanet](https://twitter.com/spotheplanet)    | His whole awesome blog and research <br /> https://www.ired.team/	|         
