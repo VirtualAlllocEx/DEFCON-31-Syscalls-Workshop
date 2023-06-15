@@ -29,5 +29,6 @@ I would like to **thank all those members** of the infosec community who have re
 | [@ShitSecure](https://twitter.com/ShitSecure) 			 | For his research, his blog https://s3cur3th1ssh1t.github.io/ and for the great discussion about EDRs, syscalls, etc. |         
 | [@AliceCliment](https://twitter.com/alicecliment?lang=de) | For her blog, research and the discussions about EDRs, syscalls etc. <br /> https://alice.climent-pommeret.red/ https://alice.climent-pommeret.red/posts/a-syscall-journey-in-the-windows-kernel/ <br /> https://alice.climent-pommeret.red/posts/direct-syscalls-hells-halos-syswhispers2/ | 
 | [@Cneelis](https://twitter.com/Cneelis)    					 | https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/  | 
+| [@0xBoku](https://twitter.com/0xBoku)								 | For his overall research, and contributions to infosec, helping new community members, and the continued advancement of infosec <br /> https://0xboku.com/ <br /> https://github.com/boku7/AsmHalosGate <br /> https://github.com/boku7/HellsGatePPID <br /> https://github.com/boku7/halosgate-ps| 
 
 
