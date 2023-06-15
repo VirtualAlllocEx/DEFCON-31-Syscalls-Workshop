@@ -23,8 +23,8 @@ I would like to **thank all those members** of the infosec community who have re
 **Creds and references**
 
 | Twitter Handle                             					 | Contribution and Research |
-| :---:                                         			 | :---:                                                                                                                 																		    																					 		    |
+| :---:                                         			 | :---: |
 | [@spotheplanet](https://twitter.com/spotheplanet)    | His whole awesome blog and research https://www.ired.team/	|         
-| [@NinjaParanoid](https://twitter.com/NinjaParanoid)  | For his great blogs, research, courses and always answering my questions. <ul><li>https://0xdarkvortex.dev/hiding-in-plainsight/</li><li>https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/)</li></ul>   | 
+| [@NinjaParanoid](https://twitter.com/NinjaParanoid)  | For his great blogs, research, courses and always answering my questions. https://0xdarkvortex.dev/hiding-in-plainsight/ https://0xdarkvortex.dev/proxying-dll-loads-for-hiding-etwti-stack-tracing/   | 
 
 
