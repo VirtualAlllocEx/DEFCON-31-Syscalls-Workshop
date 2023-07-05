@@ -119,6 +119,9 @@ WORD GetsyscallNum(LPVOID addr) {
 
 // Function to retrieve address of syscall instruction given an address.
 INT_PTR GetsyscallInstr(LPVOID addr) {
+    
+    WORD SSN = NULL;
+    
     // Check if the current bytes match the pattern from an unhooked clean syscall stub from a native function e.g. NtAllocateVirtualMemory; if so, return the syscall number.
     if (*((PBYTE)addr) == 0x4c
         && *((PBYTE)addr + 1) == 0x8b
