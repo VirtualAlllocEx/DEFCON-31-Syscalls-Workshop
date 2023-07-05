@@ -14,5 +14,7 @@ NtAllocateVirtualMemory ENDP                     	; End of the procedure.
 
 
 ; something is missing here;-)
+; something is missing here;-)
+; something is missing here;-)
 
 END  ; End of the module
