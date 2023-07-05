@@ -1,3 +1,5 @@
+// Creds to the creators from Hell's Gate and Hell's Hall 
+
 #include <Windows.h>
 #include <stdio.h>
 #include <winternl.h>
