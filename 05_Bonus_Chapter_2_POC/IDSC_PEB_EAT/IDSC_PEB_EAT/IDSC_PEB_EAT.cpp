@@ -1,4 +1,7 @@
-// Creds to the creators from Hell's Gate and Hell's Hall 
+// Creds to the creators from Hell's Gate, Hell's Hall, Halos Gate and D1rkLdr
+// https://github.com/TheD1rkMtr/D1rkLdr/tree/main/D1rkLdr
+// https://github.com/am0nsec/HellsGate/tree/master
+// https://github.com/Maldev-Academy/HellHall
 
 #include <Windows.h>
 #include <stdio.h>
