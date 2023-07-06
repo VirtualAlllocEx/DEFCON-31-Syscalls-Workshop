@@ -1,5 +1,6 @@
-![241691084-7acf6efa-da5e-47fc-83fe-50f92d18a676](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/7b91b15a-67b0-4b3b-be8a-733ca04dd3d0)
-
+<p align="center">
+<img width="700" alt="image" src="https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/assets/50073731/8bdac03d-74ad-4f58-88b9-7380ff25fa97">
+</p>
 
 # (In)direct Syscalls: A journey from high to low  
 ## DEFCON 31 | Red Team Village | RedOps
