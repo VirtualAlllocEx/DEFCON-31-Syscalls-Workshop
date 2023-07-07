@@ -7,7 +7,6 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <winternl.h>
-#include "syscalls.h"
 // something is missing here 
 
 // statically linking the ntdll library
