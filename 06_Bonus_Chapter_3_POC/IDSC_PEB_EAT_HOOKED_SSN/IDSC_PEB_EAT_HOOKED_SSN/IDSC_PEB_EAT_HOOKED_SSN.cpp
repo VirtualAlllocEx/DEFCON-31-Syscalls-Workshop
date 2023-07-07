@@ -15,7 +15,7 @@
 // this macro returns a pseudo-handle for the current process
 #define NtCurrentProcess() ( (HANDLE)(LONG_PTR) -1 )
 
-#define UP // something missing here -> length of x64 syscalls stub from native function in ntdll.dll in bytes e.g. 16 
+#define UP - // something missing here -> length of x64 syscalls stub from native function in ntdll.dll in bytes e.g. 16 up needs minus in front
 #define DOWN //something missing here -> length of x64 syscalls stub from native function in ntdll.dll in bytes e.g. 16
 
 // Function to calculate a simple hash for a given string
