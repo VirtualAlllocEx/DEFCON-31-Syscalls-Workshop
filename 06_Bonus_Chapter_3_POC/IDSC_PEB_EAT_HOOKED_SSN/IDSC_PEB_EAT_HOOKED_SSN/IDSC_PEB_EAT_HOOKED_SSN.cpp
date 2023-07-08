@@ -9,14 +9,18 @@
 #include <winternl.h>
 // something is missing here 
 
+
 // statically linking the ntdll library
 #pragma comment(lib, "ntdll.lib")
+
 
 // this macro returns a pseudo-handle for the current process
 #define NtCurrentProcess() ( (HANDLE)(LONG_PTR) -1 )
 
+
 #define UP - // something missing here -> length of x64 syscalls stub from native function in ntdll.dll in bytes e.g. 16 up needs minus in front
 #define DOWN //something missing here -> length of x64 syscalls stub from native function in ntdll.dll in bytes e.g. 16
+
 
 // Function to calculate a simple hash for a given string
 DWORD calcHash(char* data) {
@@ -26,6 +30,7 @@ DWORD calcHash(char* data) {
     }
     return hash;
 }
+
 
 // Function to calculate the hash of a module
 static DWORD calcHashModule(LDR_MODULE* mdll) {
