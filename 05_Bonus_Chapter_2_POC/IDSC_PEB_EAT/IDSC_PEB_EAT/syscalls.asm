@@ -21,8 +21,8 @@
 					ret
 	NtAllocateVirtualMemory endp
 
-	; something is missing here;-)
-	; something is missing here;-)
-	; something is missing here;-)
+	/*something is missing here*/
+	/*something is missing here*/
+	/*something is missing here*/
 
 end
