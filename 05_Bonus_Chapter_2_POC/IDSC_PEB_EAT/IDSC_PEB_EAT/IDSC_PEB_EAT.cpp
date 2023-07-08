@@ -12,8 +12,10 @@
 // statically linking the ntdll library
 #pragma comment(lib, "ntdll.lib")
 
+
 // this macro returns a pseudo-handle for the current process
 #define NtCurrentProcess() ( (HANDLE)(LONG_PTR) -1 )
+
 
 // Function to calculate a simple hash for a given string
 DWORD calcHash(char* data) {
@@ -23,6 +25,7 @@ DWORD calcHash(char* data) {
     }
     return hash;
 }
+
 
 // Function to calculate the hash of a module
 static DWORD calcHashModule(LDR_MODULE* mdll) {
