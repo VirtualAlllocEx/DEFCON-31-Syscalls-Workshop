@@ -56,5 +56,5 @@ Thank you to all sponsors!
 
 <a href="https://github.com/VirtualAlllocEx">
     <img src="https://github.com/VirtualAlllocEx.png?size=50" style="border-radius:50%;">
-    <p>@sponsor1</p>
+    <p>@sVirtualAllocEx</p>
 </a>
