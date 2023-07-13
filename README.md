@@ -50,4 +50,11 @@ I would like to **thank all those members** of the infosec community who have re
 - https://winternl.com/detecting-manual-syscalls-from-user-mode/
 
 
+## Sponsors
+
+Thank you to all sponsors!
+
+<a href="https://github.com/VirtualAlllocEx"><img src="https://github.com/VirtualAlllocEx.png?size=50"></a>
+
+
 
