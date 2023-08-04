@@ -50,3 +50,12 @@ I would like to **thank all those members** of the infosec community who have re
 - https://offensivecraft.wordpress.com/2022/12/08/the-stack-series-return-address-spoofing-on-x64/
 - https://offensivecraft.wordpress.com/2023/02/11/the-stack-series-the-x64-stack/ 
 - https://winternl.com/detecting-manual-syscalls-from-user-mode/
+
+## Sponsorship
+If you are interested in learning more about indirect syscalls or how to learn to improve your shellcode loader and want access to the playbooks from the three bonus chapters, you can get access via a **one-time** [GitHub sponsorship](https://github.com/sponsors/VirtualAlllocEx).
+
+| Chapter Nr.       |Chapter Name                | Chapter Description | 
+| :---:             | :---:                      |   :---:             |
+| **Bonus Chapter 1** |Dynamic SSN retrieval via APIs| We want to improve our indirect syscall shellcode loader and implement dynamic SSN retrieval via the ``GetModuleHandleA`` and ``GetProcAddress`` APIs.|
+| **Bonus Chapter 2** |Dynamically Retrieving SSN via PEB/EAT| We want to further improve our indirect syscall shellcode loader and implement dynamic SSN retrieval via the PEB walk and EAT parsing|
+| **Bonus Chapter 3** |Dynamic SSN retrieval via APIs| We want to further improve our indirect syscall loader and implement the Halos Gate approach to dynamically retrieve SSNs via PEB/EAT parsing, even if the uses APIs in our loader are hooked to the EDR. |
