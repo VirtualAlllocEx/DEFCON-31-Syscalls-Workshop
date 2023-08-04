@@ -52,7 +52,7 @@ I would like to **thank all those members** of the infosec community who have re
 - https://winternl.com/detecting-manual-syscalls-from-user-mode/
 
 ## Sponsorship
-If you are interested in learning more about indirect syscalls or how to learn to improve your shellcode loader and want access to the playbooks from the three bonus chapters, you can get access via a **one-time** [GitHub sponsorship](https://github.com/sponsors/VirtualAlllocEx).
+If you are interested in learning more about indirect syscalls or how to learn to improve your shellcode loader and want access to the playbooks from the three bonus chapters, you can get access via a **one-time** [GitHub sponsorship](https://github.com/sponsors/VirtualAlllocEx) (High Tier or Company).
 
 | Chapter Nr.       |Chapter Name                | Chapter Description | 
 | :---:             | :---:                      |   :---:             |
