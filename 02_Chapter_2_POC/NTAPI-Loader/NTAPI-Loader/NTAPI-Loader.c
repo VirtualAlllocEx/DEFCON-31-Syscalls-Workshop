@@ -17,12 +17,6 @@ int main() {
     // or variable from the specified dynamic-link library (DLL). The return value is then cast to the appropriate function pointer typedef.
     PNTALLOCATEVIRTUALMEMORY NtAllocateVirtualMemory = (PNTALLOCATEVIRTUALMEMORY)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtAllocateVirtualMemory");
 
-    //something in missing here 
-    //something in missing here 
-	//something in missing here
-
-
-
 
     // Allocate a region of virtual memory with PAGE_EXECUTE_READWRITE permissions to store the shellcode.
     // 'exec' will hold the base address of the allocated memory region.
