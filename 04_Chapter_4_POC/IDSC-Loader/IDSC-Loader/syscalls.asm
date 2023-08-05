@@ -1,7 +1,5 @@
 EXTERN sysAddrNtAllocateVirtualMemory:QWORD         ; The actual address of the NtAllocateVirtualMemory syscall in ntdll.dll.
 
-; something is missing here;-)
-
 
 .CODE  ; Start the code section
 
@@ -13,7 +11,6 @@ NtAllocateVirtualMemory PROC
 NtAllocateVirtualMemory ENDP                     	; End of the procedure.
 
 
-; something is missing here 
 
 
 END  ; End of the module
