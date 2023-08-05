@@ -5,6 +5,8 @@
 #include <windows.h>  
 #include <stdio.h>    
 
+
+
 // Declare global variables to hold the syscall instruction addresses
 UINT_PTR sysAddrNtAllocateVirtualMemory;
 
