@@ -4,12 +4,9 @@
 
 #include <windows.h>  
 #include <stdio.h>    
-// something is missing here  
 
 // Declare global variables to hold the syscall instruction addresses
 UINT_PTR sysAddrNtAllocateVirtualMemory;
-
-// something is missing here 
 
 
 int main() {
@@ -21,15 +18,12 @@ int main() {
 
     // Declare and initialize a pointer to the NtAllocateVirtualMemory function and get the address of the NtAllocateVirtualMemory function in the ntdll.dll module
     UINT_PTR pNtAllocateVirtualMemory = (UINT_PTR)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
-    // something is missing here 
 
 
      // The syscall stub (actual system call instruction) is some bytes further into the function. 
      // In this case, it's assumed to be 0x12 (18 in decimal) bytes from the start of the function.
      // So we add 0x12 to the function's address to get the address of the system call instruction.
     sysAddrNtAllocateVirtualMemory = pNtAllocateVirtualMemory + 0x12;
-    // something is missing here 
-
 
 
     // Use the NtAllocateVirtualMemory function to allocate memory for the shellcode
