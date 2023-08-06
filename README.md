@@ -6,9 +6,9 @@
 ## DEFCON 31 | Red Team Village | RedOps
 
 ## Getting Started
-All the theory and playbooks for the exercises can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki) and the **POCs** for the **exercises** can be found here on the **main page**. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. Have fun with it!
+All the theory and playbooks for the exercises can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki) and the **POCs** for the **exercises** can be found here on the **main page**. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. 
 
-**Happy Hacking!**
+**Happy Learning!**
 
 
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
