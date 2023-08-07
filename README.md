@@ -58,4 +58,4 @@ If you are interested in learning more about indirect syscalls or how to learn t
 | :---:             | :---:                      |   :---:             |
 | **Bonus Chapter 1** |Dynamic SSN retrieval via APIs| We want to improve our indirect syscall shellcode loader and implement dynamic SSN retrieval via the ``GetModuleHandleA`` and ``GetProcAddress`` APIs.|
 | **Bonus Chapter 2** |Dynamically Retrieving SSN via PEB/EAT| We want to further improve our indirect syscall shellcode loader and implement dynamic SSN retrieval via the PEB walk and EAT parsing|
-| **Bonus Chapter 3** |Dynamic SSN retrieval via APIs| We want to further improve our indirect syscall loader and implement the Halos Gate approach to dynamically retrieve SSNs via PEB/EAT parsing, even if the uses APIs in our loader are hooked to the EDR. |
+| **Bonus Chapter 3** |Indirect Syscalls and hooked APIs | We want to further improve our indirect syscall loader and implement the Halos Gate approach to dynamically retrieve SSNs via PEB/EAT parsing, even if the uses APIs in our loader are hooked to the EDR. |
