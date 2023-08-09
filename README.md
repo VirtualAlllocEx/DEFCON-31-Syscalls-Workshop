@@ -14,7 +14,9 @@ All the theory and playbooks for the exercises can be found in the [**wiki**](ht
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
 
 ## Disclaimer 
-First of all, **many thanks** to my girlfriend, who has supported me in everything I do for over 10 years now! Without her support none of my projects in the last 10 years would have been possible. Also many thanks to my good friend Andreas Clementi of [**AV-Comparatives**](https://www.av-comparatives.org/), who has supported me since we first met, your support has been invaluable. Also, many thanks to my friend Jonas Kemmner (who is an excellent Red Teamer) for supporting me and pre-reading all my blog posts. I am very grateful that my path has crossed with all these amazing people.
+First of all, **many thanks** to my girlfriend Brigitte, who has supported me in everything I do for over 10 years now! Among 8 billion people, she is and remains my absolute favourite person and my biggest supporter. Without her support none of my projects in the last 10 years would have been possible. 
+
+Also many thanks to my good friend Andreas Clementi of [**AV-Comparatives**](https://www.av-comparatives.org/), who has supported me since we first met, your support has been invaluable. Also, many thanks to my friend Jonas Kemmner (who is an excellent Red Teamer) for supporting me and pre-reading all my blog posts. I am very grateful that my path has crossed with all these amazing people.
 
 The content and all code examples in this repository are for educational and research purposes only and should only be used in an ethical context! The code examples are not new and I do not claim them to be. Most of the code or the basis  comes, as so often, from [**ired.team**](https://www.ired.team/), thank you [**@spotheplanet**](https://twitter.com/spotheplanet) for your brilliant work and sharing it with us all. Also many thanks to [**@mrexodia**](https://twitter.com/mrexodia) for your awesome tool [**x64dbg**](https://twitter.com/x64dbg).
 
