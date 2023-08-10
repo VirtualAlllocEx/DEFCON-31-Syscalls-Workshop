@@ -16,7 +16,7 @@ All the **theory** and **playbooks for the exercises** can be found in the [**wi
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
 
 ## Disclaimer 
-First of all, **many thanks** to my girlfriend, who has supported me in everything I do for over 10 years now! Among 8 billion people, she is and remains my absolute favourite person and my biggest supporter. Without her support none of my projects in the last 10 years would have been possible. 
+First of all, **many thanks** to my girlfriend, who has supported me in everything I do for over 10 years now! Among 8 billion people, she is and remains my absolute favourite person and my biggest supporter. Without her support and backing none of my projects in the last 10 years would have been possible. 
 
 Also many thanks to my good friend Andreas Clementi of [**AV-Comparatives**](https://www.av-comparatives.org/), who has supported me since we first met, your support has been invaluable. Also, many thanks to my friend Jonas Kemmner (who is an excellent Red Teamer) for supporting me and reading all my blog posts in advance. I am very grateful to have crossed paths with all these amazing people.
 
