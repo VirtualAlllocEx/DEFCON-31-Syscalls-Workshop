@@ -22,7 +22,9 @@ The content and all code examples in this repository are for educational and res
 
 Furthermore, and very importantly, this workshop is **not a silver bullet** in the context of EDR evasion, but it **should help to understand** the basics of ``Win32 APIs``, ``Native APIs``, ``direct syscalls`` and ``indirect syscalls`` and a bit about ``call stacks`` in context of shellcode execution and EDR evasion, no more and no less. The aim of this workshop is not to show the most stealthy options or the most complex POCs for direct and indirect syscalls, instead I will focus on teaching the basics.This means using as few tools as possible and doing as much work manually as possible.
 
-I would like to **thank all those members** of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible! Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog post "Combining Direct System Calls and sRDI to bypass AV/EDR" in 2019, which sparked my interest in system calls, direct syscalls, etc., and also marked the starting point of my journey to learn about Windows Internals.
+I would like to **thank all those members** of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc. Without all of you, this workshop would not have been possible! 
+
+Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog post "Combining Direct System Calls and sRDI to bypass AV/EDR" in 2019, which sparked my interest in system calls, direct syscalls, etc., and also marked the starting point of my journey to learn about Windows Internals.
 
 ## Creds and References
 | Twitter Handle                             					 | Contribution and Research |
