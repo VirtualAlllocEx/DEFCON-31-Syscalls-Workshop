@@ -3,7 +3,7 @@
 </p>
 
 # (In)direct Syscalls: A journey from high to low  
-## DEFCON 31 | Red Team Village | RedOps
+## RedOps | Red Team Village | DEF CON 31
 
 ## Getting Started
 Ready to rock! The last few months have definitely been a journey from high to low for me. I have challenged myself once again by creating this workshop or project for the **Red Team Village** at **DEF CON 31** and presenting my biggest project yet to the infosec community. I am happy and a bit proud to share my hard work with the community. 
