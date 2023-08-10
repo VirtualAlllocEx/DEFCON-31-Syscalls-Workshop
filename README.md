@@ -6,7 +6,7 @@
 ## RedOps | Red Team Village | DEF CON 31
 
 ## Getting Started
-Ready to rock! The last few months have definitely been a journey from high to low for me. I have challenged myself once again by creating this workshop or project for the **Red Team Village** at **DEF CON 31** and presenting my biggest project yet to the infosec community. I am happy and a bit proud to share my hard work with the community. 
+Ready to rock! The last few months have definitely been a journey from high to low for me. I have challenged myself once again by creating this workshop or project for the **Red Team Village** at **DEF CON 31** and presenting my biggest project yet to the infosec community. I am happy and a bit proud to share my hard work. 
 
 I hope it is useful and a good reference/source of mostly free material for community members to learn or teach others about syscalls, direct syscalls, indirect syscalls.
 
@@ -48,7 +48,6 @@ Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog
 | Paul Laîné [@am0nsec](https://twitter.com/am0nsec) and smelly__vx @RtlMateusz |https://github.com/am0nsec/HellsGate/tree/master |
 | [@mrd0x](https://twitter.com/mrd0x)                  | https://github.com/Maldev-Academy/HellHall |
 | [@SEKTOR7net](https://twitter.com/SEKTOR7net)        | https://blog.sektor7.net/#!res/2021/halosgate.md |
-| [@Jean_Maes_1994](https://twitter.com/Jean_Maes_1994), [@NUL0x4C](https://twitter.com/NUL0x4C), [@iamalsaher](https://twitter.com/iamalsaher)| For supporting me in my first discussions about indirect syscalls and for helping me by answering my questions. | 
 | [@D1rkMtr](https://twitter.com/D1rkMtr)              | https://github.com/TheD1rkMtr/D1rkLdr |  
 | [@trickster012](https://twitter.com/trickster012)    | https://github.com/trickster0/TartarusGate |
 | [@thefLinkk](https://twitter.com/thefLinkk)          | https://github.com/thefLink/RecycledGate |
