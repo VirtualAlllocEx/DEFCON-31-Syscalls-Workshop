@@ -8,7 +8,7 @@
 ## Getting Started
 It has definitely been a journey from high to low in the last few months. I have challenged myself again by creating this workshop or project, which is my biggest project yet. I am happy and a bit proud to share my hard work with the infosec community. I hope it is useful and a good reference/resource to learn or teach community members about syscalls, direct syscalls, indirect syscalls.
 
-All the theory and playbooks for the exercises can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki) and the **POCs** for the **exercises** can be found here on the **main page**. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. 
+All the **theory** and **playbooks for the exercises** can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki) and the **POCs** for the **exercises** can be found here on the **main page**. I hope you will enjoy the workshop and that you can use it to gain a better understanding of sycalls, direct sycalls and indirect sycalls. 
 
 **Happy Learning!**
 
