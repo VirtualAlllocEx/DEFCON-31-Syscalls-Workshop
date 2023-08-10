@@ -52,6 +52,7 @@ Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog
 | [@thefLinkk](https://twitter.com/thefLinkk)          | https://github.com/thefLink/RecycledGate |
 | [@ElephantSe4l](https://twitter.com/ElephantSe4l) and MarioBartolome  | https://github.com/crummie5/FreshyCalls |
 
+## Further resources
 - Windows Internals, Part 1: System architecture, processes, threads, memory management, and more (7th Edition) by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - Windows Internals, Part 2 (7th Edition) by Pavel Yosifovich, David A. Solomon, and Alex Ionescu
 - https://offensivecraft.wordpress.com/2022/12/08/the-stack-series-return-address-spoofing-on-x64/
