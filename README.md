@@ -26,7 +26,7 @@ Furthermore, and very importantly, this workshop is **not a silver bullet** in t
 
 I would like to **thank all those members** of the infosec community who have researched, shaped and continue to research the topic of syscalls, direct system calls and indirect syscalls etc.
 
-Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog post "Combining Direct System Calls and sRDI to bypass AV/EDR" in 2019, which sparked my interest in system calls, direct syscalls, etc., and also marked the starting point of my journey to learn about Windows Internals.
+Special thanks to **Cornelis de Plaa** (@Cneelis) from **Outflank** for his blog post "Combining Direct System Calls and sRDI to bypass AV/EDR" in 2019, which sparked my interest in system calls, direct syscalls, etc., and also marked the starting point of my journey to learn about the Windows Internals.
 
 ## Creds and References
 | Twitter Handle                             					 | Contribution and Research |
