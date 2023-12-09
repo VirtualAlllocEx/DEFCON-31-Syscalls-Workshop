@@ -6,13 +6,9 @@
 ## RedOps | Red Team Village | DEF CON 31
 
 ## Getting Started
-Ready to rock! The last few months have definitely been a journey from high to low for me. I have challenged myself once again by creating this workshop or project for the **Red Team Village** at **DEF CON 31** and presenting or sharing my biggest project yet to the infosec community. I hope it is useful and a good reference/source of mostly free material for community members to learn or teach others about syscalls, direct syscalls, indirect syscalls.
-
 All the **theory** and **playbooks for the exercises** can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki), which together with the prepared POCs is the heart of this project. The **POCs** for the **exercises** can be found here on the **main page**. 
 
 **Happy Learning!**
-
-
 Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
 
 ## Disclaimer 
