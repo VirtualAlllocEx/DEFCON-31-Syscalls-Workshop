@@ -9,7 +9,8 @@
 All the **theory** and **playbooks for the exercises** can be found in the [**wiki**](https://github.com/VirtualAlllocEx/DEFCON-31-Syscalls-Workshop/wiki), which together with the prepared POCs is the heart of this project. The **POCs** for the **exercises** can be found here on the **main page**. 
 
 **Happy Learning!**
-Daniel Feichter [**@VirtualAllocEx**](https://twitter.com/VirtualAllocEx), Founder [**@RedOps**](https://redops.at/en/) Information Security
+
+Daniel Feichter 
 
 ## Disclaimer 
 First of all, **many thanks** to my girlfriend, who has supported me in everything I do for over 10 years now! Without her support and backing none of my projects in the last 10 years would have been possible. 
